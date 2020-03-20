@@ -10,16 +10,16 @@ export default class Map extends Component {
   componentDidMount() {
     // lazy load the required ArcGIS API for JavaScript modules and CSS
     loadModules(['esri/Map', 'esri/views/MapView'], { css: true })
-    .then(([ArcGISMap, MapView]) => {
-      const map = new ArcGISMap({
+    .then(([Map, MapView]) => {
+      const map = new Map({
         basemap: 'topo-vector'
       });
 
       this.view = new MapView({
         container: this.mapRef.current,
         map: map,
-        center: [-118, 34],
-        zoom: 8
+        center: [-98, 39],
+        zoom: 4
       });
     });
   }
@@ -33,6 +33,7 @@ export default class Map extends Component {
 
   render() {
     return (
+      //<h1>Map.js is rendering</h1>
       <div className="webmap" ref={this.mapRef} />
     );
   }
