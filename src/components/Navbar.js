@@ -1,6 +1,5 @@
 import React from "react";
 
-// import { withStyles } from 'material-ui/styles'
 
 import {
   Grid,
@@ -11,26 +10,13 @@ import {
   IconButton,
   ListItemText,
   Avatar,
-  Divider,
+  Divider, 
   List,
   Typography,
   Box
 } from "@material-ui/core";
 
 import { ArrowBack, AssignmentInd, Home, Apps } from "@material-ui/icons";
-
-
-// const styles = {
-//   // This group of buttons will be aligned to the right
-//   news: {
-//     marginLeft: 'auto',
-//     marginRight: -12,
-//   },
-//   health: {
-//     marginRight: 16,
-//     marginLeft: -12,
-//   },
-// };
 
 const Navbar = () => {
     return (
@@ -57,7 +43,7 @@ const Navbar = () => {
               <Typography>News</Typography> 
              </Button>
              
-             <Button style={{color: "white"}}>
+             <Button href= "/health" style={{color: "white"}}>
               <Typography>Health</Typography> 
             
              </Button>
