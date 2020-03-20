@@ -53,7 +53,7 @@ export default class Map extends Component {
       this.view = new MapView({
         container: this.mapRef.current,
         map: map,
-        center: [-168, 46],
+        center: [-98, 36],
         zoom: 3,
       });
       console.log("'webMapView.js' this.view: ", this.view);
