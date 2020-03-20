@@ -1,5 +1,7 @@
-import React from 'react'
-import { Link }  from 'react-router-dom'
+import React from "react";
+
+// import { withStyles } from 'material-ui/styles'
+
 import {
   Grid,
   AppBar,
@@ -13,37 +15,54 @@ import {
   List,
   Typography,
   Box
+} from "@material-ui/core";
 
-} from '@material-ui/core'
+import { ArrowBack, AssignmentInd, Home, Apps } from "@material-ui/icons";
 
-import {
-    ArrowBack,
-    AssignmentInd,
-    Home,
-    Apps,
 
-} from '@material-ui/icons'
+// const styles = {
+//   // This group of buttons will be aligned to the right
+//   news: {
+//     marginLeft: 'auto',
+//     marginRight: -12,
+//   },
+//   health: {
+//     marginRight: 16,
+//     marginLeft: -12,
+//   },
+// };
 
 const Navbar = () => {
     return (
         <Box component= "nav">
          <AppBar position= "static">
              <Toolbar>
+
+            <Grid container alignItems= "flex-start" direction= "row">
+             <h2>Calamity Monitor</h2>
+          </Grid>
+             
+          
           <Grid
-            justify="space-between" 
-            container 
-          >
+            container
+            alignItems= "flex-start"
+            justify="flex-end" 
+            direction= "row">
             
-              <h1>Calamity Monitor</h1> 
+              
+
+              
             
-             <Button style={{color: "white"}}>
-               <h1>News</h1>
+             <Button href="/news" style={{color: "white"}}>
+              <Typography>News</Typography> 
              </Button>
              
              <Button style={{color: "white"}}>
-               <h1>Health</h1>
+              <Typography>Health</Typography> 
             
              </Button>
+
+            
             
             </Grid>
           </Toolbar>
@@ -52,4 +71,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar 
+export default Navbar;
