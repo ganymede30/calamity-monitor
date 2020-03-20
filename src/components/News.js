@@ -1,4 +1,4 @@
-import React, { useEffect, Component } from "react";
+import React, { Component } from "react";
 import { NewsRenderer } from "./NewsRenderer";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ export default class News extends Component {
 
   async componentDidMount() {
     const url =
-      "http://newsapi.org/v2/top-headlines?apiKey=d9e78da03e4e419a881c2a2f9f1f746c&category=health&q=coronavirus";
+      "http://newsapi.org/v2/everything?q=coronavirus&from=2020-03-20&pageSize=100&apiKey=d9e78da03e4e419a881c2a2f9f1f746c";
 
     const { data } = await axios.get(url);
     this.setState({
@@ -21,11 +21,8 @@ export default class News extends Component {
   }
 
   render() {
-    const { news } = this.state;
-    return (
-      <div>
-        <NewsRenderer articles={news} />
-      </div>
-    );
+    return this.state.news.map(article => (
+      <NewsRenderer article={article} key={article.source.id} />
+    ));
   }
 }
