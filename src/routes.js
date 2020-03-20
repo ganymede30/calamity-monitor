@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
-import { News } from "./components/News";
+import News from "./components/News";
 
 const Routes = () => {
   return (
