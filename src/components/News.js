@@ -17,7 +17,7 @@ export default class News extends Component {
     const { data } = await axios.get(url);
     this.setState({
       news: data.articles
-    });
+    }); 
   }
 
   render() {
