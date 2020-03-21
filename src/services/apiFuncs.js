@@ -9,7 +9,7 @@ export const getEverything = async (domains, language, sorting, page) => {
   let endPoint = `${baseUrl}everything?apiKey=${APIKey}&q=coronavirus&pageSize=100`;
   if (domains) endPoint += `&domains=${domains}`;
   if (language) endPoint += `&language=${language}`;
-  if (sorting) endPoint += `&sorting=${sorting}`;
+  if (sorting) endPoint += `&sortBy=${sorting}`;
   // pageSize 20, page 1-5 = 100 articles
   if (page) endPoint += `&page=${page}`;
 

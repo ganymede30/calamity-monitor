@@ -11,7 +11,6 @@ const GlobalStyles = createGlobalStyle`
     font-family: Lato, Helvetica, Roboto, sans-serif;
     width: 100vw;
     overflow-x: hidden;
-
   }
 
   ul {
@@ -21,14 +20,13 @@ const GlobalStyles = createGlobalStyle`
 
   a {
     text-decoration: none;
-
     $:visited {
       color: inherit;
     }
   }
 
   .webmap {
-    height: Calc(100vh - 68px);
+    height: Calc(100vh - 67.81px);
   }
 
   `;

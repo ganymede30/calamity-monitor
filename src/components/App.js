@@ -1,14 +1,20 @@
 import React from "react";
-// import Map from "./Map";
 import Navbar from "./Navbar";
 import Routes from "../routes";
+import { BrowserRouter } from "react-router-dom";
+import GlobalStyles from "../styles/global";
+import { ThemeProvider } from "styled-components";
+import { colorsDark, colorsLight } from "../styles/palette";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Routes />
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={colorsDark}>
+        <GlobalStyles />
+        <Navbar />
+        <Routes />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
