@@ -1,14 +1,16 @@
 import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import "./index.css";
 import App from "./components/App";
+import GlobalStyles from "./styles/global";
 import * as serviceWorker from "./serviceWorker";
 
 render(
   <BrowserRouter>
+    <GlobalStyles />
     <App />
   </BrowserRouter>,
+
   document.getElementById("root")
 );
 
