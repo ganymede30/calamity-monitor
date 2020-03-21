@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${props => props.theme.textSecondary};
+  color: ${props => props.theme.titleText};
   font-size: 20px;
   font-weigth: 300;
   margin-top: 24px;

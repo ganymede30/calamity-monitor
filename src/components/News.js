@@ -12,7 +12,7 @@ const News = () => {
   // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
 
   return (
-    <div>
+    <div className="who?">
       <Wrapper>
         <Title>News Feed</Title>
         <List articles={news} />

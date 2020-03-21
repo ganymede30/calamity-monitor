@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: Lato, Helvetica, Roboto, sans-serif;
     width: 100vw;
     overflow-x: hidden;
+    background: ${({ theme }) => theme.backgroundColor};
   }
 
   ul {

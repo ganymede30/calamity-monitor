@@ -1,15 +1,17 @@
 export const colorsDark = {
-  backgroundColor: "#272727",
-  backgroundSecondary: "#393C3E",
-  text: "#bfbebe",
+  backgroundColor: "#202020",
+  backgroundSecondary: "#333333",
+  titleText: "#e0e0e0",
+  text: "#e0e0e0",
   textSecondary: "#848886",
   border: "#272727"
 };
 
 export const colorsLight = {
   background: "#EAEAEA",
-  backgroundSecondary: "#F8F8F8",
-  text: "#848886",
-  textSecondary: "#aaaaaa",
-  border: "#EAEAEA"
+  backgroundSecondary: "#eeeeee",
+  titleText: "#333333",
+  text: "#424242",
+  textSecondary: "#757575",
+  border: "#bdbdbd"
 };
