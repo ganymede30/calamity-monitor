@@ -1,31 +1,24 @@
-import React, { useEffect, Component } from "react";
-import { NewsRenderer } from "./NewsRenderer";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { getEverything } from "../services/apiFuncs";
+import List from "./List";
+import { Wrapper, Title } from "../styles/newsStyles";
 
-export default class News extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      news: []
-    };
-  }
+const News = () => {
+  const [news, setNews] = useState([]);
 
-  async componentDidMount() {
-    const url =
-      "http://newsapi.org/v2/top-headlines?apiKey=d9e78da03e4e419a881c2a2f9f1f746c&category=health&q=coronavirus";
+  useEffect(() => {
+    getEverything("", "en", "publishedAt", "").then(articles => setNews(articles));
+  }, []);
+  // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
 
-    const { data } = await axios.get(url);
-    this.setState({
-      news: data.articles
-    }); 
-  }
+  return (
+    <div className="who?">
+      <Wrapper>
+        <Title>News Feed</Title>
+        <List articles={news} />
+      </Wrapper>
+    </div>
+  );
+};
 
-  render() {
-    const { news } = this.state;
-    return (
-      <div>
-        <NewsRenderer articles={news} />
-      </div>
-    );
-  }
-}
+export default News;

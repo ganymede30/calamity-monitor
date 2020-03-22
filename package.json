@@ -13,13 +13,19 @@
     "esri-loader": "^2.13.0",
     "firebase": "^7.11.0",
     "firebase-tools": "^7.15.1",
+    "local-storage-fallback": "^4.1.1",
     "material-ui": "^0.20.2",
     "newsapi": "^2.4.0",
     "nodemon": "^2.0.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-infinite-scroll-component": "^5.0.4",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "reselect": "^4.0.0",
+    "styled-components": "^5.0.1",
+    "styled-theming": "^2.2.0",
+    "use-dark-mode": "^2.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
