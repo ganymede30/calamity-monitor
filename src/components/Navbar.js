@@ -2,23 +2,35 @@ import React from "react";
 import { Grid, AppBar, Toolbar, Button, Typography, Box, IconButton } from "@material-ui/core";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { color } from "@material-ui/system";
 
-const useStyles = makeStyles(theme => ({
-  color: {
-    color: "#fff"
-  },
+const darkMode = makeStyles(() => {
+  return {
+    buttonText: {
+      fontSize: "1.2em",
+      color: "#e0e0e0"
+    },
+    navBar: {
+      backgroundColor: "#333333"
+    }
+  };
+});
+
+const lightMode = makeStyles(() => ({
   buttonText: {
     fontSize: "1.2em",
-    color: "#fff"
+    color: "#fafafa"
+  },
+  navBar: {
+    backgroundColor: "primary"
   }
 }));
 
 const Navbar = ({ theme, setTheme }) => {
-  const classes = useStyles();
+  let classes;
+  theme ? (classes = darkMode()) : (classes = lightMode());
   return (
     <Box component="nav">
-      <AppBar position="static">
+      <AppBar position="static" className={classes.navBar}>
         <Toolbar>
           <Grid container alignItems="flex-start" direction="row">
             <Button href="/">
