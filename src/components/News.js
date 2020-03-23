@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getEverything } from "../services/apiFuncs";
-import { Wrapper, Title, TitleWrapper } from "../styles/newsStyles";
-import { ListWrapper } from "../styles/listStyles";
+import { Wrapper, Title } from "../styles/newsStyles";
 import List from "./List";
 import { useInfiniteScroll } from "../utils/hooks/useInfiniteScroll";
 
