@@ -5,9 +5,8 @@ export const Wrapper = styled.div`
   width: 85%;
   margin-left: auto;
   margin-right: auto;
-  height: 100%;
   overflow: hidden;
-  padding-bottom: 200px;
+  padding-bottom: 50px;
 
   ${tablet} {
     width: 96%;
@@ -16,8 +15,8 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1`
   color: ${props => props.theme.titleText};
-  font-size: 20px;
-  font-weigth: 300;
+  font-size: 1.5em;
+  font-weight: 500;
   margin-top: 24px;
   margin-bottom: 26px;
 `;
