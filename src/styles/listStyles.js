@@ -41,10 +41,6 @@ export const Link = styled.a`
   flex-direction: row;
   align-items: center;
   text-decoration: none;
-
-  &:visited {
-    color: ${({ theme }) => theme.textSecondary};
-  }
 `;
 
 export const Date = styled.span`
