@@ -8,7 +8,7 @@ import { colorsDark, colorsLight } from "../styles/palette";
 
 // const toggleThemes = () => {
 //   const [theme, setTheme] = useState(colorsDark);
-// };
+// }; 
 
 const App = () => {
   const stored = localStorage.getItem("isDarkMode");
