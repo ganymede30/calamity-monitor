@@ -8,7 +8,7 @@ export const baseUrl = "http://newsapi.org/v2/";
 // export const topHeadlines = `${baseUrl}top-headlines?apiKey=${APIKey}&q=coronavirus&pageSize=100`;
 
 export const getEverything = async (domains, language, sorting, page) => {
-  let endPoint = `${baseUrl}everything?apiKey=${APIKey}&q=coronavirus&pageSize=100`;
+  let endPoint = `${baseUrl}everything?q=coronavirus&pageSize=100`;
   if (domains) endPoint += `&domains=${domains}`;
   if (language) endPoint += `&language=${language}`;
   if (sorting) endPoint += `&sortBy=${sorting}`;
@@ -16,8 +16,8 @@ export const getEverything = async (domains, language, sorting, page) => {
   if (page) endPoint += `&page=${page}`;
 
   const result = await axios
-    .get(endPoint)
-    .then(({ data }) => data.articles.map(article => selectFields(article)));
+    .get(`/endPoint/${endPoint}`)
+    .then(({ data }) => /*data.articles.map(article => selectFields(article)) */ console.log(data));
   return result;
 };
  

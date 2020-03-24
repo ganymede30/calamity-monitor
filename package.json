@@ -13,7 +13,9 @@
     "axios": "^0.19.2",
     "child-process-promise": "^2.2.1",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "esri-loader": "^2.13.0",
+    "express": "^4.17.1",
     "firebase": "^7.11.0",
     "firebase-functions": "^3.5.0",
     "firebase-tools": "^7.15.1",
@@ -37,9 +39,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start-server": "nodemon server"
+    "eject": "react-scripts eject"
+    
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
