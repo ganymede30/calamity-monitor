@@ -37,7 +37,13 @@ export default class Map extends Component {
         return new Graphic({
           attributes: {
             ObjectId: point.id,
-            cases: point.confirmed
+            country_code: point.country_code,
+            country: point.country,
+            province: point.province,
+            last_updated: point.last_updated,
+            confirmed_cases: point.confirmed,
+            recovered: point.recovered,
+            deaths: point.deaths
           },
           geometry: {
             longitude: point.long,
@@ -55,19 +61,59 @@ export default class Map extends Component {
             type: "simple-marker",
             color: "red",
             outline: {                       // autocasts as new SimpleLineSymbol()
-              color: "pink",
-              width: 2
-            }
-          }
+              color: "white",
+            },
+          },
+          visualVariables: [
+            {
+              type: 'size',
+              field: 'confirmed_cases',
+              stops: [
+                {
+                  value: 2.5,
+                  size: '4px',
+                },
+                {
+                  value: 8,
+                  size: '40px',
+                },
+              ],
+            },
+          ],
         },
         popupTemplate: {                     // autocasts as new PopupTemplate()
-          title: "COIVD-19",
+          title: "COVID-19",
           content: [{
             type: "fields",
             fieldInfos: [
               {
-                fieldName: "cases",
-                label: "Cases",
+                fieldName: "country",
+                label: "Country",
+                visible: true
+              },
+              {
+                fieldName: "province",
+                label: "Province",
+                visible: true
+              },
+              {
+                fieldName: "last_updated",
+                label: "Last Updated",
+                visible: true
+              },
+              {
+                fieldName: "confirmed_cases",
+                label: "Confirmed Cases",
+                visible: true
+              },
+              {
+                fieldName: "recovered",
+                label: "Recovered",
+                visible: true
+              },
+              {
+                fieldName: "deaths",
+                label: "Deaths",
                 visible: true
               }
             ]
@@ -81,8 +127,33 @@ export default class Map extends Component {
             type: "oid"
           },
           {
-            name: "cases",
-            alias: "cases",
+            name: "country",
+            alias: "Country",
+            type: "string"
+          },
+          {
+            name: "province",
+            alias: "Province",
+            type: "string"
+          },
+          {
+            name: "last_updated",
+            alias: "Last Updated",
+            type: "string"
+          },
+          {
+            name: "confirmed_cases",
+            alias: "Confirmed Cases",
+            type: "string"
+          },
+          {
+            name: "recovered",
+            alias: "Recovered",
+            type: "string"
+          },
+          {
+            name: "deaths",
+            alias: "Deaths",
             type: "string"
           }
         ]
