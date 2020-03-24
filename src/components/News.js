@@ -10,7 +10,7 @@ const News = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    getEverything("", "en", "publishedAt", "").then(articles => setNews(articles));
+    getEverything("bbc.co.uk", "en", "publishedAt").then(articles => setNews(articles));
   }, []);
   // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
 
