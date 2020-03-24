@@ -13,14 +13,20 @@ export default class Map extends Component {
 
   componentDidMount() {
     getMapData().then(countries => this.setState({ countries }));
-    //this.setState({countries}))
-    //console.log("getMapData()", getMapData())
-    console.log("this.state", this.state);
 
     // lazy load the required ArcGIS API for JavaScript modules and CSS
-    loadModules(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/Graphic"], {
-      css: true
-    }).then(([Map, MapView, FeatureLayer, Graphic]) => {
+    loadModules(
+      [
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/Graphic",
+        "esri/widgets/Legend"
+      ],
+      {
+        css: true
+      }
+    ).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
       //map is the container, all my layers are added to map
       const map = new Map({
         basemap: "dark-gray"
@@ -31,7 +37,13 @@ export default class Map extends Component {
         return new Graphic({
           attributes: {
             ObjectId: point.id,
-            cases: point.confirmed
+            country_code: point.country_code,
+            country: point.country,
+            province: point.province,
+            last_updated: point.last_updated,
+            confirmed_cases: point.confirmed,
+            recovered: point.recovered,
+            deaths: point.deaths
           },
           geometry: {
             longitude: point.long,
@@ -48,24 +60,85 @@ export default class Map extends Component {
           symbol: {
             // autocasts as new SimpleMarkerSymbol()
             type: "simple-marker",
-            color: "#102A44",
+            color: "red",
             outline: {
               // autocasts as new SimpleLineSymbol()
-              color: "#598DD8",
-              width: 2
+              color: "white"
             }
-          }
+          },
+          visualVariables: [
+            {
+              type: "size",
+              field: "confirmed_cases",
+              legendOptions: {
+                title:
+                  "Data provided by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)"
+              },
+              stops: [
+                {
+                  value: 0,
+                  size: "0px"
+                },
+                {
+                  value: 1,
+                  size: "1px"
+                },
+                {
+                  value: 10,
+                  size: "5px"
+                },
+                {
+                  value: 100,
+                  size: "10px"
+                },
+                {
+                  value: 1000,
+                  size: "25px"
+                },
+                {
+                  value: 10000,
+                  size: "50px"
+                }
+              ]
+            }
+          ]
         },
+        title: "COVID-19 Cases Globally",
         popupTemplate: {
           // autocasts as new PopupTemplate()
-          title: "COIVD-19",
+          title: "COVID-19",
           content: [
             {
               type: "fields",
               fieldInfos: [
                 {
-                  fieldName: "cases",
-                  label: "Cases",
+                  fieldName: "country",
+                  label: "Country",
+                  visible: true
+                },
+                {
+                  fieldName: "province",
+                  label: "Province",
+                  visible: true
+                },
+                {
+                  fieldName: "last_updated",
+                  label: "Last Updated",
+                  visible: true
+                },
+                {
+                  fieldName: "confirmed_cases",
+                  label: "Confirmed Cases",
+                  visible: true
+                },
+                {
+                  fieldName: "recovered",
+                  label: "Recovered",
+                  visible: true
+                },
+                {
+                  fieldName: "deaths",
+                  label: "Deaths",
                   visible: true
                 }
               ]
@@ -80,8 +153,33 @@ export default class Map extends Component {
             type: "oid"
           },
           {
-            name: "cases",
-            alias: "cases",
+            name: "country",
+            alias: "Country",
+            type: "string"
+          },
+          {
+            name: "province",
+            alias: "Province",
+            type: "string"
+          },
+          {
+            name: "last_updated",
+            alias: "Last Updated",
+            type: "string"
+          },
+          {
+            name: "confirmed_cases",
+            alias: "Confirmed Cases",
+            type: "string"
+          },
+          {
+            name: "recovered",
+            alias: "Recovered",
+            type: "string"
+          },
+          {
+            name: "deaths",
+            alias: "Deaths",
             type: "string"
           }
         ]
@@ -95,6 +193,12 @@ export default class Map extends Component {
         center: [-98, 36],
         zoom: 3
       });
+      this.view.ui.add(
+        new Legend({
+          view: this.view
+        }),
+        "top-right"
+      );
     });
   }
 
