@@ -3,6 +3,7 @@ import { getEverything } from "../services/apiFuncs";
 import { Wrapper, Title } from "../styles/newsStyles";
 import List from "./List";
 import { useInfiniteScroll } from "../utils/hooks/useInfiniteScroll";
+import ResponsiveDrawer from "./NewsSidebar";
 
 const News = () => {
   const { count } = useInfiniteScroll();
@@ -15,6 +16,7 @@ const News = () => {
 
   return (
     <>
+      <ResponsiveDrawer />
       <Wrapper>
         <Title>News Feed</Title>
         <List articles={news.slice(0, count)} />
