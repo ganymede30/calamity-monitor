@@ -22,5 +22,15 @@ const News = () => {
     </>
   );
 };
+// filtering on the backend;
+// debounce axios
+// GET after clicking apply filters
+// store filters in state.
+// create a regular form with handleForm();
+// proxy server for the api requests.
+// front-end > proxy > api
+// axios hits router.get(route) > router.get hits api
+// create a blank model/class, this model has a class methods that hits the api
 
+// cloud firebase functions so our axios hits that and that hits the api
 export default News;
