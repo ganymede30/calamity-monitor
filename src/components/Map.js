@@ -1,66 +1,105 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
+import { getMapData } from '../services/mapAPIFuncs'
+
 
 export default class Map extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
+    this.state = {
+      countries: []
+    }
   }
 
   componentDidMount() {
+    getMapData().then(countries => this.setState({countries}))
+      //this.setState({countries}))
+    //console.log("getMapData()", getMapData())
+    console.log("this.state", this.state)
+
     // lazy load the required ArcGIS API for JavaScript modules and CSS
-    loadModules(['esri/Map', 'esri/layers/CSVLayer', 'esri/views/MapView'], {
+    loadModules([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/Graphic"], {
       css: true,
-    }).then(([Map, CSVLayer, MapView]) => {
+    }).then(([Map, MapView, FeatureLayer, Graphic]) => {
+
       //map is the container, all my layers are added to map
       const map = new Map({
         basemap: 'dark-gray',
       });
-      const renderer = {
-        type: 'simple',
-        field: 'mag',
-        symbol: {
-          type: 'simple-marker',
-          color: 'red',
-          outline: {
-            color: 'white',
+
+      console.log("Right before graphics:", this.state.countries)
+      const graphics = this.state.countries.map(point => {
+        return new Graphic({
+          attributes: {
+            ObjectId: point.id,
+            cases: point.confirmed
           },
+          geometry: {
+            longitude: point.long,
+            latitude: point.lat,
+            type: "point"
+          }
+        })
+      })
+
+      const featureLayer = new FeatureLayer({
+        source: graphics,
+        renderer: {
+          type: "simple",                    // autocasts as new SimpleRenderer()
+          symbol: {                          // autocasts as new SimpleMarkerSymbol()
+            type: "simple-marker",
+            color: "#102A44",
+            outline: {                       // autocasts as new SimpleLineSymbol()
+              color: "#598DD8",
+              width: 2
+            }
+          }
         },
-        visualVariables: [
+        popupTemplate: {                     // autocasts as new PopupTemplate()
+          title: "COIVD-19",
+          content: [{
+            type: "fields",
+            fieldInfos: [
+              {
+                fieldName: "cases",
+                label: "Cases",
+                visible: true
+              }
+            ]
+          }]
+        },
+        objectIdField: "ObjectID",           // This must be defined when creating a layer from `Graphic` objects
+        fields: [
           {
-            type: 'size',
-            field: 'mag',
-            stops: [
-              {
-                value: 2.5,
-                size: '4px',
-              },
-              {
-                value: 8,
-                size: '40px',
-              },
-            ],
+            name: "ObjectID",
+            alias: "ObjectID",
+            type: "oid"
           },
-        ],
-      };
-      const csvLayer = new CSVLayer({
-        url:
-          'https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_19-covid-Confirmed.csv&filename=time_series_2019-ncov-Confirmed.csv',
-        copyright: 'USGS Earthquakes',
-        renderer: renderer,
+          {
+            name: "cases",
+            alias: "cases",
+            type: "string"
+          }
+        ]
       });
-      map.add(csvLayer);
+
+      map.add(featureLayer)
+
+
       this.view = new MapView({
         container: this.mapRef.current,
         map: map,
         center: [-98, 36],
         zoom: 3,
       });
-      console.log("'webMapView.js' this.view: ", this.view);
-      console.log("'webMapView.js' map: ", map);
-      console.log("'webMapView.js' this.mapRef: ", this.mapRef);
     });
   }
+
 
   componentWillUnmount() {
     if (this.view) {
@@ -69,7 +108,9 @@ export default class Map extends Component {
     }
   }
 
+
   render() {
+    //console.log("Rendering", this.state.countries)
     return (
       //<h1>Map.js is rendering</h1>
       <div className="webmap" ref={this.mapRef} />
