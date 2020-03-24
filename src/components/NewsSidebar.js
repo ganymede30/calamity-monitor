@@ -53,9 +53,8 @@ const useStyles = makeStyles(theme => {
   };
 });
 
-function ResponsiveDrawer() {
+const ResponsiveDrawer = () => {
   const classes = useStyles();
-  // const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -65,16 +64,7 @@ function ResponsiveDrawer() {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
+      {/* here goes form, when user clicks apply filters, this will call getEverything in News component. and news component will rerender 100 new news articles */}
     </div>
   );
 
@@ -114,6 +104,6 @@ function ResponsiveDrawer() {
       </Hidden>
     </div>
   );
-}
+};
 
 export default ResponsiveDrawer;
