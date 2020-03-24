@@ -1,66 +1,203 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
+import { getMapData } from '../services/mapAPIFuncs'
+
 
 export default class Map extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
+    this.state = {
+      countries: []
+    }
   }
 
   componentDidMount() {
+    getMapData().then(countries => this.setState({countries}))
+      //this.setState({countries}))
+    //console.log("getMapData()", getMapData())
+    console.log("this.state", this.state)
+
     // lazy load the required ArcGIS API for JavaScript modules and CSS
-    loadModules(['esri/Map', 'esri/layers/CSVLayer', 'esri/views/MapView'], {
+    loadModules([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/Graphic",
+      "esri/widgets/Legend"], {
       css: true,
-    }).then(([Map, CSVLayer, MapView]) => {
+    }).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
+
       //map is the container, all my layers are added to map
       const map = new Map({
         basemap: 'dark-gray',
       });
-      const renderer = {
-        type: 'simple',
-        field: 'mag',
-        symbol: {
-          type: 'simple-marker',
-          color: 'red',
-          outline: {
-            color: 'white',
+
+      console.log("Right before graphics:", this.state.countries)
+      const graphics = this.state.countries.map(point => {
+        return new Graphic({
+          attributes: {
+            ObjectId: point.id,
+            country_code: point.country_code,
+            country: point.country,
+            province: point.province,
+            last_updated: point.last_updated,
+            confirmed_cases: point.confirmed,
+            recovered: point.recovered,
+            deaths: point.deaths
           },
+          geometry: {
+            longitude: point.long,
+            latitude: point.lat,
+            type: "point"
+          }
+        })
+      })
+
+      const featureLayer = new FeatureLayer({
+        source: graphics,
+        renderer: {
+          type: "simple",                    // autocasts as new SimpleRenderer()
+          symbol: {                          // autocasts as new SimpleMarkerSymbol()
+            type: "simple-marker",
+            color: "red",
+            outline: {                       // autocasts as new SimpleLineSymbol()
+              color: "white",
+            },
+          },
+          visualVariables: [
+            {
+              type: 'size',
+              field: 'confirmed_cases',
+              legendOptions: {
+                title: "Data provided by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)"
+              },
+              stops: [
+                {
+                  value: 0,
+                  size: '0px',
+                },
+                {
+                  value: 1,
+                  size: '1px',
+                },
+                {
+                  value: 10,
+                  size: '5px',
+                },
+                {
+                  value: 100,
+                  size: '10px',
+                },
+                {
+                  value: 1000,
+                  size: '25px',
+                },
+                {
+                  value: 10000,
+                  size: '50px',
+                },
+              ],
+            },
+          ],
         },
-        visualVariables: [
+        title: "COVID-19 Cases Globally",
+        popupTemplate: {                     // autocasts as new PopupTemplate()
+          title: "COVID-19",
+          content: [{
+            type: "fields",
+            fieldInfos: [
+              {
+                fieldName: "country",
+                label: "Country",
+                visible: true
+              },
+              {
+                fieldName: "province",
+                label: "Province",
+                visible: true
+              },
+              {
+                fieldName: "last_updated",
+                label: "Last Updated",
+                visible: true
+              },
+              {
+                fieldName: "confirmed_cases",
+                label: "Confirmed Cases",
+                visible: true
+              },
+              {
+                fieldName: "recovered",
+                label: "Recovered",
+                visible: true
+              },
+              {
+                fieldName: "deaths",
+                label: "Deaths",
+                visible: true
+              }
+            ]
+          }]
+        },
+        objectIdField: "ObjectID",           // This must be defined when creating a layer from `Graphic` objects
+        fields: [
           {
-            type: 'size',
-            field: 'mag',
-            stops: [
-              {
-                value: 2.5,
-                size: '4px',
-              },
-              {
-                value: 8,
-                size: '40px',
-              },
-            ],
+            name: "ObjectID",
+            alias: "ObjectID",
+            type: "oid"
           },
-        ],
-      };
-      const csvLayer = new CSVLayer({
-        url:
-          'https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_19-covid-Confirmed.csv&filename=time_series_2019-ncov-Confirmed.csv',
-        copyright: 'USGS Earthquakes',
-        renderer: renderer,
+          {
+            name: "country",
+            alias: "Country",
+            type: "string"
+          },
+          {
+            name: "province",
+            alias: "Province",
+            type: "string"
+          },
+          {
+            name: "last_updated",
+            alias: "Last Updated",
+            type: "string"
+          },
+          {
+            name: "confirmed_cases",
+            alias: "Confirmed Cases",
+            type: "string"
+          },
+          {
+            name: "recovered",
+            alias: "Recovered",
+            type: "string"
+          },
+          {
+            name: "deaths",
+            alias: "Deaths",
+            type: "string"
+          }
+        ]
       });
-      map.add(csvLayer);
+
+      map.add(featureLayer)
+
+
       this.view = new MapView({
         container: this.mapRef.current,
         map: map,
         center: [-98, 36],
         zoom: 3,
       });
-      console.log("'webMapView.js' this.view: ", this.view);
-      console.log("'webMapView.js' map: ", map);
-      console.log("'webMapView.js' this.mapRef: ", this.mapRef);
+      this.view.ui.add(
+        new Legend({
+          view: this.view
+        }),
+        "top-right"
+      );
     });
   }
+
 
   componentWillUnmount() {
     if (this.view) {
@@ -69,7 +206,9 @@ export default class Map extends Component {
     }
   }
 
+
   render() {
+    //console.log("Rendering", this.state.countries)
     return (
       //<h1>Map.js is rendering</h1>
       <div className="webmap" ref={this.mapRef} />
