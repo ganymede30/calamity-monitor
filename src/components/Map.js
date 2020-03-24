@@ -23,9 +23,10 @@ export default class Map extends Component {
       "esri/Map",
       "esri/views/MapView",
       "esri/layers/FeatureLayer",
-      "esri/Graphic"], {
+      "esri/Graphic",
+      "esri/widgets/Legend"], {
       css: true,
-    }).then(([Map, MapView, FeatureLayer, Graphic]) => {
+    }).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
 
       //map is the container, all my layers are added to map
       const map = new Map({
@@ -68,19 +69,39 @@ export default class Map extends Component {
             {
               type: 'size',
               field: 'confirmed_cases',
+              legendOptions: {
+                title: "Data provided by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)"
+              },
               stops: [
                 {
-                  value: 2.5,
-                  size: '4px',
+                  value: 0,
+                  size: '0px',
                 },
                 {
-                  value: 8,
-                  size: '40px',
+                  value: 1,
+                  size: '1px',
+                },
+                {
+                  value: 10,
+                  size: '5px',
+                },
+                {
+                  value: 100,
+                  size: '10px',
+                },
+                {
+                  value: 1000,
+                  size: '25px',
+                },
+                {
+                  value: 10000,
+                  size: '50px',
                 },
               ],
             },
           ],
         },
+        title: "COVID-19 Cases Globally",
         popupTemplate: {                     // autocasts as new PopupTemplate()
           title: "COVID-19",
           content: [{
@@ -168,6 +189,12 @@ export default class Map extends Component {
         center: [-98, 36],
         zoom: 3,
       });
+      this.view.ui.add(
+        new Legend({
+          view: this.view
+        }),
+        "top-right"
+      );
     });
   }
 
