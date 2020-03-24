@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getEverything } from "../services/apiFuncs";
-import { Wrapper, Title } from "../styles/newsStyles";
+import { Wrapper, Title, SubWrapper } from "../styles/newsStyles";
 import List from "./List";
 import { useInfiniteScroll } from "../utils/hooks/useInfiniteScroll";
 import ResponsiveDrawer from "./NewsSidebar";
@@ -16,9 +16,11 @@ const News = () => {
 
   return (
     <>
-      <ResponsiveDrawer />
       <Wrapper>
-        <Title>News Feed</Title>
+        <SubWrapper>
+          <Title>News Feed</Title>
+          <ResponsiveDrawer />
+        </SubWrapper>
         <List articles={news.slice(0, count)} />
       </Wrapper>
     </>

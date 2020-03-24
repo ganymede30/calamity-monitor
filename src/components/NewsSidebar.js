@@ -1,32 +1,25 @@
 import React from "react";
 import { Divider, Drawer, Hidden, IconButton } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import FilterListIcon from "@material-ui/icons/FilterList";
 import { makeStyles } from "@material-ui/core/styles";
 
-const drawerWidth = 240;
+const drawerWidth = "250px";
 
 const useStyles = makeStyles(theme => {
+  console.log(theme);
   return {
     root: {
       display: "flex"
     },
     drawer: {
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("xs")]: {
         width: drawerWidth,
         flexShrink: 0
       }
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("md")]: {
-        display: "none"
-      }
-    },
-    // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
-      width: drawerWidth,
-      top: "66px"
+      width: drawerWidth
     },
     content: {
       flexGrow: 1,
@@ -55,10 +48,9 @@ const ResponsiveDrawer = () => {
       <IconButton
         color="inherit"
         aria-label="open drawer"
-        edge="start"
         onClick={handleDrawerToggle}
         className={classes.menuButton}>
-        <MenuIcon />
+        <FilterListIcon />
       </IconButton>
       <Hidden smUp implementation="css">
         <Drawer
@@ -71,16 +63,6 @@ const ResponsiveDrawer = () => {
           ModalProps={{
             keepMounted: true // Better open performance on mobile.
           }}>
-          {drawer}
-        </Drawer>
-      </Hidden>
-      <Hidden xsDown implementation="css">
-        <Drawer
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          variant="permanent"
-          open>
           {drawer}
         </Drawer>
       </Hidden>
