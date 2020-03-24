@@ -53,9 +53,9 @@ export default class Map extends Component {
           type: "simple",                    // autocasts as new SimpleRenderer()
           symbol: {                          // autocasts as new SimpleMarkerSymbol()
             type: "simple-marker",
-            color: "#102A44",
+            color: "red",
             outline: {                       // autocasts as new SimpleLineSymbol()
-              color: "#598DD8",
+              color: "pink",
               width: 2
             }
           }
