@@ -72,100 +72,105 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 
 // export default ResponsiveDrawer;
 
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import React, { Component } from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select
+} from "@material-ui/core/";
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
+class DialogSelect extends Component {
+  constructor() {
+    super();
+    this.state = {
+      open: false,
+      country: "",
+      category: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
-}));
 
-const DialogSelect = () => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [countries, setCountries] = useState("");
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
-  const handleChange = e => {
-    setCountries(e.target.value);
-  };
+  handleClickOpen() {
+    this.setState({ open: true });
+  }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  handleClose() {
+    this.setState({ open: false });
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <Button onClick={handleClickOpen}>
-        <FilterListIcon />
-      </Button>
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>Fill the form</DialogTitle>
-        <DialogContent>
-          <form className={classes.container}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="demo-dialog-native">Select Countr</InputLabel>
-              <Select
-                native
-                value={countries}
-                onChange={handleChange}
-                // input={<Input id="demo-dialog-native" />}>
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="us">United States</MenuItem>
-                <MenuItem value="fr">France</MenuItem>
-                <MenuItem value="ch">China</MenuItem>
-              </Select>
-            </FormControl>
-            {/* <FormControl className={classes.formControl}>
-              <InputLabel id="demo-dialog-select-label">countries</InputLabel>
-              <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={countries}
-                onChange={handleChange}
-                input={<Input />}>
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl> */}
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Ok
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div>
+        <Button onClick={this.handleClickOpen}>
+          <FilterListIcon />
+        </Button>
+        <Dialog
+          disableBackdropClick
+          disableEscapeKeyDown
+          open={this.state.open}
+          onClose={this.handleClose}>
+          <DialogTitle style={{ paddingBottom: 0 }}>Filter by: </DialogTitle>
+          <DialogContent>
+            <form style={{ display: "flex", flexWrap: "wrap" }}>
+              <FormControl style={{ margin: 20, minWidth: 120 }}>
+                <InputLabel htmlFor="demo-dialog-native">Country</InputLabel>
+                <Select
+                  name="country"
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={this.state.country}
+                  onChange={this.handleChange}>
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="us">United States</MenuItem>
+                  <MenuItem value="ch">China</MenuItem>
+                  <MenuItem value="fr">France</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl style={{ margin: 20, minWidth: 120 }}>
+                <InputLabel htmlFor="demo-dialog-native">Category</InputLabel>
+                <Select
+                  name="category"
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={this.state.category}
+                  onChange={this.handleChange}>
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="technology">Tech</MenuItem>
+                  <MenuItem value="business">Business</MenuItem>
+                  <MenuItem value="health">Health</MenuItem>
+                </Select>
+              </FormControl>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleClose} color="primary">
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+}
 export default DialogSelect;
