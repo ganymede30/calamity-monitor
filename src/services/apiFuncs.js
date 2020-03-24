@@ -1,7 +1,7 @@
 import axios from "axios";
 import APIKey from "../secrets";
 
-
+ 
 import { selectFields } from "../utils/utils";
 
 export const baseUrl = "http://newsapi.org/v2/";
@@ -20,7 +20,7 @@ export const getEverything = async (domains, language, sorting, page) => {
     .then(({ data }) => data.articles.map(article => selectFields(article)));
   return result;
 };
-
+ 
 export const getTopHeadlines = () => {};
 
 // setup category or q for corona virus everytime
