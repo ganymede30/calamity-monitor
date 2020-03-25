@@ -27,13 +27,13 @@ export default class World_Map extends Component {
       {
         css: true
       }
-    ).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
+    ).then(([Map, MapView, FeatureLayer, Graphic, LayerList, Collection]) => {
       //map is the container, all my layers are added to map
       const map = new Map({
         basemap: "dark-gray"
       });
 
-      console.log("Right before graphics:", this.state.countries);
+      // console.log("Right before graphics:", this.state.countries);
       const graphics = this.state.countries.map(point => {
         return new Graphic({
           attributes: {
@@ -55,97 +55,9 @@ export default class World_Map extends Component {
       });
 
       const featureLayer = new FeatureLayer({
+        outFields: ["*"],
         source: graphics,
-        renderer: {
-          type: "simple", // autocasts as new SimpleRenderer()
-          symbol: {
-            // autocasts as new SimpleMarkerSymbol()
-            type: "simple-marker",
-            color: "red",
-            outline: {
-              // autocasts as new SimpleLineSymbol()
-              color: "white"
-            }
-          },
-          visualVariables: [
-            {
-              type: "size",
-              field: "confirmed_cases",
-              legendOptions: {
-                title:
-                  "Data provided by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)"
-              },
-              stops: [
-                {
-                  value: 0,
-                  size: "0px"
-                },
-                {
-                  value: 1,
-                  size: "1px"
-                },
-                {
-                  value: 10,
-                  size: "5px"
-                },
-                {
-                  value: 100,
-                  size: "10px"
-                },
-                {
-                  value: 1000,
-                  size: "25px"
-                },
-                {
-                  value: 10000,
-                  size: "50px"
-                }
-              ]
-            }
-          ]
-        },
         title: "COVID-19 Cases Globally",
-        popupTemplate: {
-          // autocasts as new PopupTemplate()
-          title: "COVID-19",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "country",
-                  label: "Country",
-                  visible: true
-                },
-                {
-                  fieldName: "province",
-                  label: "Province",
-                  visible: true
-                },
-                {
-                  fieldName: "last_updated",
-                  label: "Last Updated",
-                  visible: true
-                },
-                {
-                  fieldName: "confirmed_cases",
-                  label: "Confirmed Cases",
-                  visible: true
-                },
-                {
-                  fieldName: "recovered",
-                  label: "Recovered",
-                  visible: true
-                },
-                {
-                  fieldName: "deaths",
-                  label: "Deaths",
-                  visible: true
-                }
-              ]
-            }
-          ]
-        },
         objectIdField: "ObjectID", // This must be defined when creating a layer from `Graphic` objects
         fields: [
           {
@@ -194,12 +106,18 @@ export default class World_Map extends Component {
         center: [-98, 36],
         zoom: 3
       });
-      this.view.ui.add(
-        new Legend({
-          view: this.view
-        }),
-        "top-right"
-      );
+
+      const layerList = new LayerList({
+        view: this.view,
+        listItemCreatedFunction: createActions
+      });
+      this.view.ui.add(layerList, "top-right");
+
+      const expressions = new Collection([
+
+      ])
+
+
     });
   }
 
