@@ -22,12 +22,13 @@ export default class World_Map extends Component {
         "esri/views/MapView",
         "esri/layers/FeatureLayer",
         "esri/Graphic",
-        "esri/widgets/Legend"
+        "esri/widgets/Legend",
+        "esri/widgets/BasemapToggle"
       ],
       {
         css: true
       }
-    ).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
+    ).then(([Map, MapView, FeatureLayer, Graphic, Legend, BasemapToggle]) => {
       //map is the container, all my layers are added to map
       const map = new Map({
         basemap: "dark-gray"
@@ -200,6 +201,13 @@ export default class World_Map extends Component {
         }),
         "top-right"
       );
+
+      const toggle = new BasemapToggle({
+        view: this.view,
+        nextBasemap: "gray"
+      })
+      this.view.ui.add(toggle, "bottom-right")
+
     });
   }
 
