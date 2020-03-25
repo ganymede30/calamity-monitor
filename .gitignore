@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules/
-
+.env
 /.pnp
 .pnp.js
 
@@ -24,3 +24,9 @@ yarn-debug.log*
 yarn-error.log*
 
 secrets.js
+
+
+git rm -r --cached .
+git add .
+git commit -m "remove gitignore files"
+git push
