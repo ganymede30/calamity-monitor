@@ -2,8 +2,6 @@
 
 # dependencies
 node_modules
-src/proxy/node_modules
-src/proxy/.env
 
 /.pnp
 .pnp.js
