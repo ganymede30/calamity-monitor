@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import GlobalStyles from "../styles/global";
 import { ThemeProvider } from "styled-components";
 import { colorsDark, colorsLight } from "../styles/palette";
+import LoadScreen from "./LoadScreen";
 
 const App = () => {
   const stored = localStorage.getItem("isDarkMode");
@@ -19,6 +20,7 @@ const App = () => {
     <BrowserRouter>
       <ThemeProvider theme={isDarkMode ? colorsDark : colorsLight}>
         <GlobalStyles />
+        <LoadScreen />
         <Navbar theme={isDarkMode} setTheme={toggler} />
         <Routes />
       </ThemeProvider>
