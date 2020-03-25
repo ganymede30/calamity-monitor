@@ -4,22 +4,20 @@ import { Wrapper, Title, TitleWrapper } from "../styles/newsStyles";
 import { ListWrapper } from "../styles/listStyles";
 import List from "./List";
 import { useInfiniteScroll } from "../utils/hooks/useInfiniteScroll";
- 
- 
+
 const News = () => {
   const { count } = useInfiniteScroll();
   const [news, setNews] = useState([]);
 
-  console.log(news)
+  console.log(news);
 
   useEffect(() => {
-    getEverything("", "en", "publishedAt", "").then(articles => setNews(articles));
-    // getTopHeadlines().then(articles => setNews(articles))
+    getTopHeadlines().then(articles => setNews(articles));
   }, []);
   // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
 
   return (
-    <> 
+    <>
       <Wrapper>
         <Title>News Feed</Title>
         <List articles={news.slice(0, count)} />
@@ -29,18 +27,6 @@ const News = () => {
 };
 
 export default News;
-
-
-
-
-
-
-
-
-
-
-
-
 
 // class News extends Component {
 //   state = {
@@ -53,17 +39,15 @@ export default News;
 //        .then(articles => this.setState({ articles }))
 //   }
 
-
 //   render () {
 //     console.log('This is the state: ', this.state)
-    
-    
+
 //     return (
 //      <div>
 //         <h1>News</h1>
 //         <ul>
 //           {
-//             this.state.articles.map(article => 
+//             this.state.articles.map(article =>
 //             <li key={article.url} article={article}>{article.title}</li>
 //               )
 //           }
@@ -74,6 +58,3 @@ export default News;
 // }
 
 // export default News
-
-
-
