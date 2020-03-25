@@ -6,7 +6,7 @@ import { selectFields } from "../utils/utils";
 
 export const baseUrl = "http://newsapi.org/v2/";
 // export const topHeadlines = `${baseUrl}top-headlines?apiKey=${APIKey}&q=coronavirus&pageSize=100`;
-
+// export const topHeadlines = `${baseUrl}top-headlines?apiKey=${APIKey}&q=coronavirus`
 export const getEverything = async (domains, language, sorting, page) => {
   let endPoint = `${baseUrl}everything?q=coronavirus&pageSize=100`;
   if (domains) endPoint += `&domains=${domains}`;
@@ -14,14 +14,20 @@ export const getEverything = async (domains, language, sorting, page) => {
   if (sorting) endPoint += `&sortBy=${sorting}`;
   // pageSize 20, page 1-5 = 100 articles
   if (page) endPoint += `&page=${page}`;
-
+ 
   const result = await axios
-    .get(`/endPoint/${endPoint}`)
-    .then(({ data }) => /*data.articles.map(article => selectFields(article)) */ console.log(data));
+    .get(`/topHeadlines`)
+    console.log('This is the result in apiFuncs: ', result)
+    // .then(({ data }) => /*data.articles.map(article => selectFields(article)) */ console.log(data));
   return result;
 };
  
-export const getTopHeadlines = () => {};
+// export const getTopHeadlines =  async () => {
+//    const result = await axios
+//       .get(`/${topHeadlines}`)
+//       .then(({ data }) => data.articles.map(article => article.title))
+//     return result
+// };
 
 // setup category or q for corona virus everytime
 

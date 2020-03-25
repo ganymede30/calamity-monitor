@@ -5,15 +5,16 @@ const fetch = require('node-fetch')
 
 require('dotenv').config()
 const app = express()
-
-app.use(morgan())
+ 
+app.use(morgan()) 
 app.use(cors())
-
+ 
 app.get('/topHeadlines', (req, res) => {
-    const url = 'http://newsapi.org/v2/top-headlines?q=coronavirus'
+    console.log('This is the req:', req.params)
+    const url = 'http://newsapi.org/v2/top-headlines?q=coronavirus&pageSize=100'
     fetch(`${url}&apiKey=${process.env.NEWS_API_KEY}`)
       .then(response => response.json())
-      .then(json => res.json(json))
+      .then(json => res.json(json.articles))
     
 })
 
@@ -21,7 +22,7 @@ app.get('/allNews', (req, res) => {
     const url = 'http://newsapi.org/v2/everything?q=coronavirus'
     fetch(`${url}&apiKey=${process.env.NEWS_API_KEY}`)
       .then(response => response.json())
-      .then(json => res.json(json))
+      .then(json => res.json(json.articles))
 })
 
 function notFound (req, res, next) {
