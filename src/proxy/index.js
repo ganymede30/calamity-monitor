@@ -10,20 +10,23 @@ app.use(morgan());
 app.use(cors());
 
 const baseUrl = "http://newsapi.org/v2/top-headlines?";
-// ${baseUrl}top-headlines?apiKey=${APIKey}&q=coronavirus&pageSize=100`
-app.get("/topHeadlines", (req, res) => {
-  const result = fetch(`${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus`)
+
+app.get("/topHeadlines/:country", (req, res) => {
+  let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
+  if (req.params.country) endPoint += `&country=${req.params.country}`;
+  const result = fetch(endPoint)
     .then(response => response.json())
     .then(({ articles }) => res.json(articles));
   return result;
 });
 
-// app.get('/allNews', (req, res) => {
-//     const url = 'http://newsapi.org/v2/everything?q=coronavirus'
-//     fetch(`${url}&apiKey=${process.env.NEWS_API_KEY}`)
-//       .then(response => response.json())
-//       .then(json => res.json(json.articles))
-// })
+app.get("/topHeadlines", (req, res) => {
+  let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
+  const result = fetch(endPoint)
+    .then(response => response.json())
+    .then(({ articles }) => res.json(articles));
+  return result;
+});
 
 function notFound(req, res, next) {
   res.status(404);

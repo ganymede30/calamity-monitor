@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import { getEverything, getTopHeadlines } from "../services/apiFuncs";
+import { getTopHeadlines } from "../services/apiFuncs";
 import { Wrapper, Title, TitleWrapper } from "../styles/newsStyles";
 import { ListWrapper } from "../styles/listStyles";
 import List from "./List";
