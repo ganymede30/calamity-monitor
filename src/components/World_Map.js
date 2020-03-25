@@ -59,6 +59,101 @@ export default class World_Map extends Component {
         source: graphics,
         outFields: ["*"],
         title: "COVID-19 Cases Globally",
+        renderer: {
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            // autocasts as new SimpleMarkerSymbol()
+            type: "simple-marker",
+            color: "red",
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              color: "white"
+            }
+          },
+          visualVariables: [
+            {
+              type: "size",
+              field: "confirmed_cases",
+              stops: [
+                {
+                  value: 0,
+                  size: "0px"
+                },
+                {
+                  value: 1,
+                  size: "1px"
+                },
+                {
+                  value: 101,
+                  size: "5px"
+                },
+                {
+                  value: 1001,
+                  size: "10px"
+                },
+                {
+                  value: 10001,
+                  size: "25px"
+                },
+                {
+                  value: 50001,
+                  size: "50px"
+                }
+              ]
+            },
+            {
+              type: "opacity",
+              field: "confirmed_cases",
+              stops: [
+                {
+                  value: 0,
+                  opacity: 0.4
+                }
+              ]
+            }
+          ]
+        },
+        popupTemplate: {
+          // autocasts as new PopupTemplate()
+          title: "COVID-19",
+          content: [
+            {
+              type: "fields",
+              fieldInfos: [
+                {
+                  fieldName: "country",
+                  label: "Country",
+                  visible: true
+                },
+                {
+                  fieldName: "province",
+                  label: "Province",
+                  visible: true
+                },
+                {
+                  fieldName: "last_updated",
+                  label: "Last Updated",
+                  visible: true
+                },
+                {
+                  fieldName: "confirmed_cases",
+                  label: "Confirmed Cases",
+                  visible: true
+                },
+                {
+                  fieldName: "recovered",
+                  label: "Recovered",
+                  visible: true
+                },
+                {
+                  fieldName: "deaths",
+                  label: "Deaths",
+                  visible: true
+                }
+              ]
+            }
+          ]
+        },
         objectIdField: "ObjectID", // This must be defined when creating a layer from `Graphic` objects
         fields: [
           {
@@ -116,17 +211,25 @@ export default class World_Map extends Component {
 
       const expressions = new Collection([
         {
-          id: "100+",
-          expression: "confirmed_cases > 100"
+          id: "50,000+",
+          expression: "confirmed_cases > 50000"
         },
         {
-          id: "10-100",
+          id: "10,000-50,000",
+          expression: "confirmed_cases > 10000 AND confirmed_cases <= 50000"
+        },
+        {
+          id: "1,000-10,000",
+          expression: "confirmed_cases > 1000 AND confirmed_cases <= 10000"
+        },
+        {
+          id: "100-1,000",
+          expression: "confirmed_cases > 100 AND confirmed_cases <= 1000"
+        },
+        {
+          id: "1-100",
           expression: "confirmed_cases > 10 AND confirmed_cases <= 100"
-        },
-        {
-          id: "1",
-          expression: "confirmed_cases < 10"
-        },
+        }
       ]);
 
       layerList.on("trigger-action", function(event) {
@@ -150,19 +253,29 @@ export default class World_Map extends Component {
         item.actionsSections = [
           [
             {
-              title: "100+",
+              title: "50,000+",
               className: "esri-icon-zoom-out-fixed",
-              id: "100+"
+              id: "50,000+",
             },
             {
-              title: "10-100",
+              title: "10,000-50,000",
               className: "esri-icon-zoom-out-fixed",
-              id: "10-100"
+              id: "10,000-50,000",
             },
             {
-              title: "25°-50°F",
+              title: "1,000-10,000",
               className: "esri-icon-zoom-out-fixed",
-              id: "1"
+              id: "1,000-10,000",
+            },
+            {
+              title: "100-1,000",
+              className: "esri-icon-zoom-out-fixed",
+              id: "100-1,000"
+            },
+            {
+              title: "1-100",
+              className: "esri-icon-zoom-out-fixed",
+              id: "1-100"
             }
           ],
         ];
