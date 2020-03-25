@@ -1,22 +1,18 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
-import { getMapData } from '../services/mapAPIFuncs'
+import {getCountyData} from '../services/mapAPIFuncs'
 
-
-export default class Map extends Component {
+export default class US_Map extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
     this.state = {
-      countries: []
+      counties: [],
     }
   }
 
   componentDidMount() {
-    getMapData().then(countries => this.setState({countries}))
-      //this.setState({countries}))
-    //console.log("getMapData()", getMapData())
-    console.log("this.state", this.state)
+    getCountyData().then(counties => this.setState({counties}))
 
     // lazy load the required ArcGIS API for JavaScript modules and CSS
     loadModules([
@@ -33,13 +29,14 @@ export default class Map extends Component {
         basemap: 'dark-gray',
       });
 
-      console.log("Right before graphics:", this.state.countries)
-      const graphics = this.state.countries.map(point => {
+
+      const graphics = this.state.counties.map(point => {
         return new Graphic({
           attributes: {
             ObjectId: point.id,
             country_code: point.country_code,
             country: point.country,
+            county: point.county,
             province: point.province,
             last_updated: point.last_updated,
             confirmed_cases: point.confirmed,
@@ -113,6 +110,11 @@ export default class Map extends Component {
                 visible: true
               },
               {
+                fieldName: "county",
+                label: "County",
+                visible: true
+              },
+              {
                 fieldName: "province",
                 label: "Province",
                 visible: true
@@ -153,6 +155,11 @@ export default class Map extends Component {
             type: "string"
           },
           {
+            name: "county",
+            alias: "County",
+            type: "string"
+          },
+          {
             name: "province",
             alias: "Province",
             type: "string"
@@ -189,12 +196,6 @@ export default class Map extends Component {
         center: [-98, 36],
         zoom: 3,
       });
-      this.view.ui.add(
-        new Legend({
-          view: this.view
-        }),
-        "top-right"
-      );
     });
   }
 
@@ -208,10 +209,11 @@ export default class Map extends Component {
 
 
   render() {
-    //console.log("Rendering", this.state.countries)
+    console.log("Zoom Level:", this.state.zoom)
     return (
       //<h1>Map.js is rendering</h1>
       <div className="webmap" ref={this.mapRef} />
     );
   }
 }
+
