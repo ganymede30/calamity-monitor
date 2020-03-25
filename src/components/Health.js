@@ -65,16 +65,34 @@ export default function Health() {
         }}
       >
         <div className={classes.toolbar} />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+        <a href="https://www.cdc.gov/" target="_blank">
+          <List>
+            <ListItem button>
+              <div className={classes.root}>
+                <ListItemIcon>
+                  <Icon className="fas fa-ribbon" />
+                </ListItemIcon>
+                <ListItemText primary="CDC" />
+              </div>
             </ListItem>
-          ))}
-        </List>
+          </List>
+        </a>
+        <Divider />
+        <a
+          href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public"
+          target="_blank"
+        >
+          <List>
+            <ListItem button>
+              <div className={classes.root}>
+                <ListItemIcon>
+                  <Icon className="fas fa-hand-paper" />
+                </ListItemIcon>
+                <ListItemText primary="Do The Five" />
+              </div>
+            </ListItem>
+          </List>
+        </a>
         <Divider />
         <a
           href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
