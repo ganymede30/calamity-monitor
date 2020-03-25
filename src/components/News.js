@@ -9,10 +9,8 @@ const News = () => {
   const { count } = useInfiniteScroll();
   const [news, setNews] = useState([]);
 
-  console.log(news);
-
   useEffect(() => {
-    getTopHeadlines('', 'technology').then(articles => setNews(articles));
+    getTopHeadlines("", "health").then(articles => setNews(articles));
   }, []);
   // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
 
