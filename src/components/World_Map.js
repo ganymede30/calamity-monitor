@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
 import { getCoordinateData } from '../services/mapAPIFuncs'
 
-
 export default class World_Map extends Component {
   constructor(props) {
     super(props);
