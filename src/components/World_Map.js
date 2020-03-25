@@ -22,7 +22,8 @@ export default class World_Map extends Component {
         "esri/views/MapView",
         "esri/layers/FeatureLayer",
         "esri/Graphic",
-        "esri/widgets/Legend"
+        "esri/widgets/LayerList",
+        "esri/core/Collection"
       ],
       {
         css: true
@@ -55,8 +56,8 @@ export default class World_Map extends Component {
       });
 
       const featureLayer = new FeatureLayer({
-        outFields: ["*"],
         source: graphics,
+        outFields: ["*"],
         title: "COVID-19 Cases Globally",
         objectIdField: "ObjectID", // This must be defined when creating a layer from `Graphic` objects
         fields: [
@@ -114,9 +115,75 @@ export default class World_Map extends Component {
       this.view.ui.add(layerList, "top-right");
 
       const expressions = new Collection([
+        {
+          id: "100+",
+          expression: "confirmed_cases > 100"
+        },
+        {
+          id: "10-100",
+          expression: "confirmed_cases > 10 AND confirmed_cases <= 100"
+        },
+        {
+          id: "1",
+          expression: "confirmed_cases < 10"
+        },
+      ]);
 
-      ])
+      layerList.on("trigger-action", function(event) {
+        const actionId = event.action.id;
+        const layer = event.item.layer;
 
+        const subExpression = expressions.find(function(item) {
+          return item.id === actionId;
+        }).expression;
+
+        const definitionExpression = createDefinitionExpression(subExpression);
+        layer.definitionExpression = definitionExpression;
+
+        zoomToLayer(layer);
+      });
+
+      function createActions(event) {
+        const item = event.item;
+
+        item.actionsOpen = true;
+        item.actionsSections = [
+          [
+            {
+              title: "100+",
+              className: "esri-icon-zoom-out-fixed",
+              id: "100+"
+            },
+            {
+              title: "10-100",
+              className: "esri-icon-zoom-out-fixed",
+              id: "10-100"
+            },
+            {
+              title: "25°-50°F",
+              className: "esri-icon-zoom-out-fixed",
+              id: "1"
+            }
+          ],
+        ];
+      }
+
+      function createDefinitionExpression(subExpression) {
+
+
+        return subExpression
+      }
+
+      // Zooms to the extent of the layer as defined by
+      // its definitionExpression
+      // This method will work for all FeatureLayers, even
+      // those without a saved `fullExtent` on the service.
+
+      function zoomToLayer(layer) {
+        return layer.queryExtent().then(function(response) {
+          this.view.goTo(response.extent);
+        });
+      }
 
     });
   }
