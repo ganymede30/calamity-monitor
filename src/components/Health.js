@@ -13,6 +13,7 @@ import NavBar from './Navbar';
 import {loadCSS} from 'fg-loadcss';
 import Icon from '@material-ui/core/Icon';
 import CheckIcon from '@material-ui/icons/Check';
+import Grid from '@material-ui/core/Grid';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -109,7 +110,51 @@ export default function Health() {
           </List>
         </a>
       </Drawer>
-      <main className={classes.content}>
+
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item>
+          <Grid container justify="center" spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="h4">
+                What is the Coronavirus(Covid-19)?
+              </Typography>
+              <Typography variant="caption">
+                COVID-19 is a respiratory disease caused by a new coronavirus
+                (SARS-CoV-2) not previously seen in humans. An outbreak of
+                COVID-19 began in late 2019 in Wuhan, a city in China’s Hubei
+                province. To date, cases of COVID-19 have spread around the
+                world, making the condition one of the most rapidly emerging
+                infectious diseases. COVID-19 can cause fever, cough, and
+                shortness of breath. This virus is spread through human contact,
+                much like the cold or flu. There is not yet a vaccine or
+                medication approved to treat it. The virus has been identified
+                in over 100,000 people across the globe. While most people
+                recover from COVID-19, it can be life-threatening.
+              </Typography>
+            </Grid>
+            <Grid xs={12} sm={6}>
+              <Typography variant="h4">Symptoms to lookout for</Typography>
+              <ListItem alignItems="flex-start">
+                <ListItemIcon>
+                  <CheckIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Fever, coughing, shortness of breath"
+                  secondary={
+                    <React.Fragment>
+                      {
+                        ' — These symptoms may take up to 2-14 days to appear after exposure'
+                      }
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      {/* <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography variant="subtitle1">Be Overprepared</Typography>
         <Typography paragraph>JIEJIFJIEFJIE</Typography>
@@ -134,36 +179,9 @@ export default function Health() {
             }
           />
         </ListItem>{' '}
-        <Typography variant="h4">What is the Coronavirus(Covid-19)?</Typography>
-        <Typography variant="caption">
-          COVID-19 is a respiratory disease caused by a new coronavirus
-          (SARS-CoV-2) not previously seen in humans. An outbreak of COVID-19
-          began in late 2019 in Wuhan, a city in China’s Hubei province. To
-          date, cases of COVID-19 have spread around the world, making the
-          condition one of the most rapidly emerging infectious diseases.
-          COVID-19 can cause fever, cough, and shortness of breath. This virus
-          is spread through human contact, much like the cold or flu. There is
-          not yet a vaccine or medication approved to treat it. The virus has
-          been identified in over 100,000 people across the globe. While most
-          people recover from COVID-19, it can be life-threatening.
-        </Typography>
-        <Typography variant="h4">Symptoms to lookout for</Typography>
-        <ListItem alignItems="flex-start">
-          <ListItemIcon>
-            <CheckIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Fever, coughing, shortness of breath"
-            secondary={
-              <React.Fragment>
-                {
-                  ' — These symptoms may take up to 2-14 days to appear after exposure'
-                }
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-      </main>
+        
+        
+      </main> */}
     </div>
   );
 }
