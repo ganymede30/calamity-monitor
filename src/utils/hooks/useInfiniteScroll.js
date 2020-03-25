@@ -9,14 +9,9 @@ export const useInfiniteScroll = () => {
   const [count, setCount] = useState(STORY_INCREMENT);
 
   const handleScroll = debounce(() => {
-    console.log("window: ", window.innerHeight + window.scrollY);
-    console.log("docu: ", document.body.scrollHeight);
-
     if (window.innerHeight + window.scrollY !== document.body.scrollHeight || loading) {
-      // console.log("firing", document.documentElement.scrollTop);
       return false;
     }
-
     setLoading(true);
   }, 500);
   // the innerHeight + scroll top !== offsetHeight;
