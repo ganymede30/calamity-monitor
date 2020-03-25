@@ -211,6 +211,10 @@ export default class World_Map extends Component {
 
       const expressions = new Collection([
         {
+          id: "All",
+          expression: "confirmed_cases > 0"
+        },
+        {
           id: "50,000+",
           expression: "confirmed_cases > 50000"
         },
@@ -252,6 +256,11 @@ export default class World_Map extends Component {
         item.actionsOpen = true;
         item.actionsSections = [
           [
+            {
+              title: "All Cases",
+              className: "esri-icon-zoom-out-fixed",
+              id: "All",
+            },
             {
               title: "50,000+",
               className: "esri-icon-zoom-out-fixed",
