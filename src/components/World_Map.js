@@ -36,7 +36,6 @@ export default class World_Map extends Component {
         basemap: "dark-gray"
       });
 
-      // console.log("Right before graphics:", this.state.countries);
       const graphics = this.state.countries.map(point => {
         return new Graphic({
           attributes: {
@@ -326,7 +325,6 @@ export default class World_Map extends Component {
 
   render() {
     return (
-      //<h1>Map.js is rendering</h1>
       <div className="webmap" ref={this.mapRef} />
     );
   }
