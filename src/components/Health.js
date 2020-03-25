@@ -76,20 +76,21 @@ export default function Health() {
           ))}
         </List>
         <Divider />
-        <List>
-          <ListItem button>
-            <div className={classes.root}>
-              <a
-                href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
-                target="_blank"
-              />
-              <ListItemIcon>
-                <Icon className="fas fa-medkit" />
-              </ListItemIcon>
-              <ListItemText primary="WHO" />
-            </div>
-          </ListItem>
-        </List>
+        <a
+          href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+          target="_blank"
+        >
+          <List>
+            <ListItem button>
+              <div className={classes.root}>
+                <ListItemIcon>
+                  <Icon className="fas fa-medkit" />
+                </ListItemIcon>
+                <ListItemText primary="WHO" />
+              </div>
+            </ListItem>
+          </List>
+        </a>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
