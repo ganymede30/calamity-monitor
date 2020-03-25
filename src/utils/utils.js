@@ -30,11 +30,16 @@ export const selectCoordinates = ({
   recovered: latest.recovered
 });
 
-// {locations: [
-//   {1: {
-//     lat: fslkvjndfskljvn,
-//     long: sjkfndnvsldfknv,
-//     death:
-//     confirmed:
-//   }}
-// ]}
+export const selectCounties = ({ id, coordinates, country_code, country, county, province, last_updated, latest} = []) => ({
+  id,
+  lat: coordinates.latitude,
+  long: coordinates.longitude,
+  country_code,
+  country,
+  county,
+  province,
+  last_updated,
+  confirmed: latest.confirmed,
+  deaths: latest.deaths,
+  recovered: latest.recovered
+})

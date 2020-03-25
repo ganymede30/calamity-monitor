@@ -20,3 +20,9 @@ export const Title = styled.h1`
   margin-top: 24px;
   margin-bottom: 26px;
 `;
+
+export const SubWrapper = styled.div`
+  color: ${props => props.theme.titleText};
+  display: flex;
+  align-items: center;
+`;

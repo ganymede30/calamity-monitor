@@ -6,6 +6,7 @@ export const ListWrapper = styled.ul`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
 `;

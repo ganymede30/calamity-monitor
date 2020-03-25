@@ -12,6 +12,9 @@ const darkMode = makeStyles(() => {
     },
     navBar: {
       backgroundColor: "#333333"
+    },
+    gridContainer: {
+      height: "65px"
     }
   };
 });
@@ -23,6 +26,9 @@ const lightMode = makeStyles(() => ({
   },
   navBar: {
     backgroundColor: "primary"
+  },
+  gridContainer: {
+    height: "65px"
   }
 }));
 
@@ -32,14 +38,19 @@ const Navbar = ({ theme, setTheme }) => {
   return (
     <Box component="nav">
       <AppBar position="static" className={classes.navBar}>
-        <Toolbar>
-          <Grid container alignItems="flex-start" direction="row">
+        <Grid
+          className={classes.gridContainer}
+          container
+          justify="space-between"
+          alignItems="center"
+          direction="row">
+          <Grid item>
             <Button href="/">
               <Typography className={classes.buttonText}>Calamity Monitor</Typography>
             </Button>
           </Grid>
 
-          <Grid container justify="flex-end" direction="row">
+          <Grid item>
             <Button href="/news">
               <Typography className={classes.buttonText}>News</Typography>
             </Button>
@@ -56,7 +67,7 @@ const Navbar = ({ theme, setTheme }) => {
               {theme ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
           </Grid>
-        </Toolbar>
+        </Grid>
       </AppBar>
     </Box>
   );

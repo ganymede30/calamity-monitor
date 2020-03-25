@@ -15,7 +15,6 @@ const ListItem = ({ article }) => {
         {" | "}
         Time: {article.publishedAt[1]}
       </Date>
-
       <Source>
         {" "}
         {" | "} By: {article.source}

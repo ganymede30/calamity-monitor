@@ -1,39 +1,39 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
-import { getMapData } from '../services/mapAPIFuncs'
+import { getCoordinateData } from '../services/mapAPIFuncs'
 
-
-export default class Map extends Component {
+export default class World_Map extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
     this.state = {
       countries: []
-    }
+    };
   }
 
   componentDidMount() {
-    getMapData().then(countries => this.setState({countries}))
-      //this.setState({countries}))
-    //console.log("getMapData()", getMapData())
-    console.log("this.state", this.state)
+
+    getCoordinateData().then(countries => this.setState({countries}))
 
     // lazy load the required ArcGIS API for JavaScript modules and CSS
-    loadModules([
-      "esri/Map",
-      "esri/views/MapView",
-      "esri/layers/FeatureLayer",
-      "esri/Graphic",
-      "esri/widgets/Legend"], {
-      css: true,
-    }).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
-
+    loadModules(
+      [
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/Graphic",
+        "esri/widgets/Legend"
+      ],
+      {
+        css: true
+      }
+    ).then(([Map, MapView, FeatureLayer, Graphic, Legend]) => {
       //map is the container, all my layers are added to map
       const map = new Map({
-        basemap: 'dark-gray',
+        basemap: "dark-gray"
       });
 
-      console.log("Right before graphics:", this.state.countries)
+      console.log("Right before graphics:", this.state.countries);
       const graphics = this.state.countries.map(point => {
         return new Graphic({
           attributes: {
@@ -51,96 +51,102 @@ export default class Map extends Component {
             latitude: point.lat,
             type: "point"
           }
-        })
-      })
+        });
+      });
 
       const featureLayer = new FeatureLayer({
         source: graphics,
         renderer: {
-          type: "simple",                    // autocasts as new SimpleRenderer()
-          symbol: {                          // autocasts as new SimpleMarkerSymbol()
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            // autocasts as new SimpleMarkerSymbol()
             type: "simple-marker",
             color: "red",
-            outline: {                       // autocasts as new SimpleLineSymbol()
-              color: "white",
-            },
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              color: "white"
+            }
           },
           visualVariables: [
             {
-              type: 'size',
-              field: 'confirmed_cases',
+              type: "size",
+              field: "confirmed_cases",
               legendOptions: {
-                title: "Data provided by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)"
+                title:
+                  "Data provided by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)"
               },
               stops: [
                 {
                   value: 0,
-                  size: '0px',
+                  size: "0px"
                 },
                 {
                   value: 1,
-                  size: '1px',
+                  size: "1px"
                 },
                 {
                   value: 10,
-                  size: '5px',
+                  size: "5px"
                 },
                 {
                   value: 100,
-                  size: '10px',
+                  size: "10px"
                 },
                 {
                   value: 1000,
-                  size: '25px',
+                  size: "25px"
                 },
                 {
                   value: 10000,
-                  size: '50px',
-                },
-              ],
-            },
-          ],
+                  size: "50px"
+                }
+              ]
+            }
+          ]
         },
         title: "COVID-19 Cases Globally",
-        popupTemplate: {                     // autocasts as new PopupTemplate()
+        popupTemplate: {
+          // autocasts as new PopupTemplate()
           title: "COVID-19",
-          content: [{
-            type: "fields",
-            fieldInfos: [
-              {
-                fieldName: "country",
-                label: "Country",
-                visible: true
-              },
-              {
-                fieldName: "province",
-                label: "Province",
-                visible: true
-              },
-              {
-                fieldName: "last_updated",
-                label: "Last Updated",
-                visible: true
-              },
-              {
-                fieldName: "confirmed_cases",
-                label: "Confirmed Cases",
-                visible: true
-              },
-              {
-                fieldName: "recovered",
-                label: "Recovered",
-                visible: true
-              },
-              {
-                fieldName: "deaths",
-                label: "Deaths",
-                visible: true
-              }
-            ]
-          }]
+          content: [
+            {
+              type: "fields",
+              fieldInfos: [
+                {
+                  fieldName: "country",
+                  label: "Country",
+                  visible: true
+                },
+                {
+                  fieldName: "province",
+                  label: "Province",
+                  visible: true
+                },
+                {
+                  fieldName: "last_updated",
+                  label: "Last Updated",
+                  visible: true
+                },
+                {
+                  fieldName: "confirmed_cases",
+                  label: "Confirmed Cases",
+                  visible: true
+                },
+                {
+                  fieldName: "recovered",
+                  label: "Recovered",
+                  visible: true
+                },
+                {
+                  fieldName: "deaths",
+                  label: "Deaths",
+                  visible: true
+                }
+              ]
+            }
+          ]
         },
-        objectIdField: "ObjectID",           // This must be defined when creating a layer from `Graphic` objects
+        objectIdField: "ObjectID", // This must be defined when creating a layer from `Graphic` objects
         fields: [
           {
             name: "ObjectID",
@@ -180,14 +186,13 @@ export default class Map extends Component {
         ]
       });
 
-      map.add(featureLayer)
-
+      map.add(featureLayer);
 
       this.view = new MapView({
         container: this.mapRef.current,
         map: map,
         center: [-98, 36],
-        zoom: 3,
+        zoom: 3
       });
       this.view.ui.add(
         new Legend({
@@ -198,7 +203,6 @@ export default class Map extends Component {
     });
   }
 
-
   componentWillUnmount() {
     if (this.view) {
       // destroy the map view
@@ -206,9 +210,7 @@ export default class Map extends Component {
     }
   }
 
-
   render() {
-    //console.log("Rendering", this.state.countries)
     return (
       //<h1>Map.js is rendering</h1>
       <div className="webmap" ref={this.mapRef} />
