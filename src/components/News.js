@@ -12,7 +12,7 @@ const News = () => {
   console.log(news);
 
   useEffect(() => {
-    getTopHeadlines().then(articles => setNews(articles));
+    getTopHeadlines('', 'technology').then(articles => setNews(articles));
   }, []);
   // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
 

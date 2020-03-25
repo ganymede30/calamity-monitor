@@ -11,14 +11,30 @@ app.use(cors());
 
 const baseUrl = "http://newsapi.org/v2/top-headlines?";
 
-app.get("/topHeadlines/:country", (req, res) => {
-  let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
-  if (req.params.country) endPoint += `&country=${req.params.country}`;
-  const result = fetch(endPoint)
-    .then(response => response.json())
-    .then(({ articles }) => res.json(articles));
-  return result;
-});
+
+
+
+
+app.get("/topHeadlines/:filter", (req, res, next) => {
+    let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`
+    if (req.params.filter.length === 2) endPoint += `&country=${req.params.filter}`
+    else endPoint += `&category=${req.params.filter}`
+    const result = fetch(endPoint)
+       .then(response => response.json())
+       .then(({ articles}) => res.json(articles))
+       console.log('this is category', req.params.category)
+    return result
+})
+
+
+// app.get("/topHeadlines/:country", (req, res) => {
+//   let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
+//   if (req.params.country) endPoint += `&country=${req.params.country}`;
+//   const result = fetch(endPoint)
+//     .then(response => response.json())
+//     .then(({ articles }) => res.json(articles));
+//   return result;
+// });
 
 app.get("/topHeadlines", (req, res) => {
   let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
