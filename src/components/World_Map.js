@@ -15,7 +15,6 @@ export default class World_Map extends Component {
 
     getCoordinateData().then(countries => this.setState({countries}))
 
-    // lazy load the required ArcGIS API for JavaScript modules and CSS
     loadModules(
       [
         "esri/Map",
@@ -31,7 +30,6 @@ export default class World_Map extends Component {
       }
     ).then(([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle]) => {
 
-      //map is the container, all my layers are added to map
       const map = new Map({
         basemap: "dark-gray"
       });
@@ -85,20 +83,20 @@ export default class World_Map extends Component {
                   size: "1px"
                 },
                 {
-                  value: 101,
+                  value: 100,
                   size: "5px"
                 },
                 {
-                  value: 1001,
+                  value: 1000,
                   size: "10px"
                 },
                 {
-                  value: 10001,
-                  size: "25px"
+                  value: 10000,
+                  size: "20px"
                 },
                 {
-                  value: 50001,
-                  size: "50px"
+                  value: 50000,
+                  size: "100px"
                 }
               ]
             },
@@ -155,7 +153,7 @@ export default class World_Map extends Component {
             }
           ]
         },
-        objectIdField: "ObjectID", // This must be defined when creating a layer from `Graphic` objects
+        objectIdField: "ObjectID",
         fields: [
           {
             name: "ObjectID",
