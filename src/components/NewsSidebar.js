@@ -12,6 +12,7 @@ import {
   Select,
   makeStyles
 } from "@material-ui/core/";
+import { getTopHeadlines } from "../services/apiFuncs";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DialogSelect = () => {
+const DialogSelect = ({ setNews }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useState("");
@@ -61,9 +62,35 @@ const DialogSelect = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="us">United States</MenuItem>
-                <MenuItem value="ch">China</MenuItem>
+                <MenuItem value="ar">Argentina</MenuItem>
+                <MenuItem value="at">Austria</MenuItem>
+                <MenuItem value="au">Australia</MenuItem>
+                <MenuItem value="be">Belgium</MenuItem>
+                <MenuItem value="ca">Canada</MenuItem>
+                <MenuItem value="ch">Switzerland</MenuItem>
+                <MenuItem value="co">Colombia</MenuItem>
+                <MenuItem value="cu">Cuba</MenuItem>
+                <MenuItem value="de">Germany</MenuItem>
                 <MenuItem value="fr">France</MenuItem>
+                <MenuItem value="gb">Great Britain</MenuItem>
+                <MenuItem value="ie">Ireland</MenuItem>
+                <MenuItem value="in">India</MenuItem>
+                <MenuItem value="it">Italy</MenuItem>
+                <MenuItem value="ma">Morocco</MenuItem>
+                <MenuItem value="mx">Mexico</MenuItem>
+                <MenuItem value="my">Malasia</MenuItem>
+                <MenuItem value="ng">Nigeria</MenuItem>
+                <MenuItem value="nl">Netherlands</MenuItem>
+                <MenuItem value="no">Norway</MenuItem>
+                <MenuItem value="nz">New Zealand</MenuItem>
+                <MenuItem value="ph">Philippines</MenuItem>
+                <MenuItem value="ro">Romania</MenuItem>
+                <MenuItem value="sa">Saudi Arabia</MenuItem>
+                <MenuItem value="se">Sweden</MenuItem>
+                <MenuItem value="sg">Singapore</MenuItem>
+                <MenuItem value="us">United States</MenuItem>
+                <MenuItem value="ve">Venezuela</MenuItem>
+                <MenuItem value="za">South Africa</MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -75,11 +102,14 @@ const DialogSelect = () => {
                 value={category}
                 onChange={e => setCategory(e.target.value)}>
                 <MenuItem value="">
-                  <em>None</em>
+                  <em>General</em>
                 </MenuItem>
-                <MenuItem value="technology">Tech</MenuItem>
-                <MenuItem value="business">Business</MenuItem>
                 <MenuItem value="health">Health</MenuItem>
+                <MenuItem value="business">Business</MenuItem>
+                <MenuItem value="technology">Tech</MenuItem>
+                <MenuItem value="entertainment">Entertainment</MenuItem>
+                <MenuItem value="science">Science</MenuItem>
+                <MenuItem value="sports">Sports</MenuItem>
               </Select>
             </FormControl>
           </form>
@@ -88,7 +118,12 @@ const DialogSelect = () => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={() => {
+              handleClose();
+              getTopHeadlines(country, category).then(articles => setNews(articles));
+            }}
+            color="primary">
             Ok
           </Button>
         </DialogActions>

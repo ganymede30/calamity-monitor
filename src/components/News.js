@@ -10,16 +10,17 @@ const News = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    getTopHeadlines("us", "health").then(articles => setNews(articles));
+    getTopHeadlines("us", "").then(articles => setNews(articles));
   }, []);
-  // [] = newsUpdate (true/false), will re-render if changed to true, setTimeout to change it. re renders everytime whats inside [] chnages
+
+  // getTopHeadlines and then call setNews()
 
   return (
     <>
       <Wrapper>
         <SubWrapper>
           <Title>News Feed</Title>
-          <DialogSelect />
+          <DialogSelect setNews={setNews} />
         </SubWrapper>
         <List articles={news.slice(0, count)} />
       </Wrapper>
