@@ -5,7 +5,7 @@ import { Item, Title, Link, Source, Date } from "../styles/listStyles";
 const LINK_REL = "noopener noreferrer nofollow";
 
 const ListItem = ({ article }) => {
-  return (
+  return (  
     <Item>
       <Link href={article.url} rel={LINK_REL} target="_blank">
         <Title>{article.title}</Title>

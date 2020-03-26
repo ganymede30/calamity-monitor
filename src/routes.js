@@ -12,6 +12,7 @@ const Routes = () => {
       {/* <Route exact path="/US_Map" component ={US_Map}/> */}
       <Route exact path="/news" component={News} />
       <Route exact path="/Health" component={Health} />
+      
     </Switch>
   );
 };
