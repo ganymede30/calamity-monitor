@@ -1,5 +1,5 @@
 import React from "react";
-import World_Map from "./World_Map";
+import World_Map from "./Map/World_Map";
 
 const Home = () => {
   return (

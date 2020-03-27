@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
-import { fetchData } from '../services/mapAPIFuncs'
+import { fetchData } from '../../services/mapServices/mapAPIFuncs'
+import { worldMapRenderer } from '../../services/mapServices/renderer'
+import { popupTemplateCovid19 } from '../../services/mapServices/popupTemplate'
 
 export default class World_Map extends Component {
   constructor(props) {
@@ -58,101 +60,8 @@ export default class World_Map extends Component {
         source: graphics,
         outFields: ["*"],
         title: "COVID-19 Cases Globally",
-        renderer: {
-          type: "simple", // autocasts as new SimpleRenderer()
-          symbol: {
-            // autocasts as new SimpleMarkerSymbol()
-            type: "simple-marker",
-            color: "red",
-            outline: {
-              // autocasts as new SimpleLineSymbol()
-              color: "white"
-            }
-          },
-          visualVariables: [
-            {
-              type: "size",
-              field: "confirmed_cases",
-              stops: [
-                {
-                  value: 0,
-                  size: "0px"
-                },
-                {
-                  value: 1,
-                  size: "1px"
-                },
-                {
-                  value: 100,
-                  size: "5px"
-                },
-                {
-                  value: 1000,
-                  size: "10px"
-                },
-                {
-                  value: 10000,
-                  size: "20px"
-                },
-                {
-                  value: 50000,
-                  size: "100px"
-                }
-              ]
-            },
-            {
-              type: "opacity",
-              field: "confirmed_cases",
-              stops: [
-                {
-                  value: 0,
-                  opacity: 0.4
-                }
-              ]
-            }
-          ]
-        },
-        popupTemplate: {
-          // autocasts as new PopupTemplate()
-          title: "COVID-19",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "country",
-                  label: "Country",
-                  visible: true
-                },
-                {
-                  fieldName: "province",
-                  label: "Province",
-                  visible: true
-                },
-                {
-                  fieldName: "last_updated",
-                  label: "Last Updated",
-                  visible: true
-                },
-                {
-                  fieldName: "confirmed_cases",
-                  label: "Confirmed Cases",
-                  visible: true
-                },
-                {
-                  fieldName: "recovered",
-                  label: "Recovered",
-                  visible: true
-                },
-                {
-                  fieldName: "deaths",
-                  label: "Deaths",
-                  visible: true
-                }
-              ]
-            }
-          ]
-        },
+        renderer: worldMapRenderer,
+        popupTemplate: popupTemplateCovid19,
         objectIdField: "ObjectID",
         fields: [
           {
