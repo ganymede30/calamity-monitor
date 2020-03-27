@@ -1,13 +1,13 @@
 import React from "react";
-import World_Map from "./World_Map";
-import LoadScreen from "./LoadScreen"
+import WorldMap from "./WorldMap";
+import LoadScreen from "./LoadScreen";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <LoadScreen />
-      <World_Map />
-    </div>
+      <WorldMap />
+    </>
   );
 };
 

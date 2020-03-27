@@ -1,19 +1,15 @@
-// React
 import React from "react";
-
-// Components
 import Loader from "calcite-react/Loader";
-import background from "../styles/images/worldMap.svg";
+// import background from "../styles/images/worldMap.svg";
 
 // Styled & Motion Components
 import styled from "styled-components";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 const Container = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-blend-mode: screen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 // background: rgba(255, 255, 255, 0.1) url(${background}) no-repeat center/cover;
@@ -23,7 +19,7 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-  color: ${(props) => props.theme.titleText}
+  color: ${props => props.theme.titleText};
 `;
 
 // const FadingContainer = () => (
@@ -46,7 +42,7 @@ const LoadScreen = props => {
     return (
       <Container>
         <Wrapper>
-          <Loader text="Map Loading" />
+          <Loader text={<h3>Map Loading</h3>} />
         </Wrapper>
       </Container>
     );

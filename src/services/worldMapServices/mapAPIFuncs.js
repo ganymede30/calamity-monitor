@@ -3,6 +3,7 @@ export const fetchData = () => {
     .then(response => response.json())
     .then(data => {
       const { locations, latest } = data;
+      // latest: latest data from the whole world
       return locations.map(location => ({
         id: location.id,
         lat: location.coordinates.latitude,

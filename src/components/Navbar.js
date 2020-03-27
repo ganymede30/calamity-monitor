@@ -1,8 +1,7 @@
 import React from "react";
-import { Grid, AppBar, Toolbar, Button, Typography, Box, IconButton } from "@material-ui/core";
+import { Grid, AppBar, Button, Typography, Box, IconButton } from "@material-ui/core";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-
 
 const darkMode = makeStyles(() => {
   return {

@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {loadModules} from 'esri-loader';
-import { fetchData } from '../services/worldMapServices/mapAPIFuncs'
-import { worldMapRenderer } from '../services/worldMapServices/renderer'
-import { popupTemplateCovid19 } from '../services/worldMapServices/popupTemplate'
-import { fieldsCovid19 } from '../services/worldMapServices/fields'
-import { expressionsCovid19 } from '../services/worldMapServices/expressions'
-import { actionSectionsCovid19 } from '../services/worldMapServices/actionSections'
+import React, { Component } from "react";
+import { loadModules } from "esri-loader";
+import { fetchData } from "../services/worldMapServices/mapAPIFuncs";
+import { worldMapRenderer } from "../services/worldMapServices/renderer";
+import { popupTemplateCovid19 } from "../services/worldMapServices/popupTemplate";
+import { fieldsCovid19 } from "../services/worldMapServices/fields";
+import { expressionsCovid19 } from "../services/worldMapServices/expressions";
+import { actionSectionsCovid19 } from "../services/worldMapServices/actionSections";
 
-export default class World_Map extends Component {
+export default class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
@@ -16,9 +16,8 @@ export default class World_Map extends Component {
     };
   }
 
-  componentDidMount() {
-
-    fetchData().then(countries => this.setState({countries}))
+  async componentDidMount() {
+    await fetchData().then(countries => this.setState({ countries }));
 
     loadModules(
       [
@@ -34,7 +33,6 @@ export default class World_Map extends Component {
         css: true
       }
     ).then(([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle]) => {
-
       const map = new Map({
         basemap: "dark-gray"
       });
@@ -74,9 +72,12 @@ export default class World_Map extends Component {
       this.view = new MapView({
         container: this.mapRef.current,
         map: map,
-        center: [-98, 36],
-        zoom: 3
+        center: [-98, 36]
       });
+
+      this.view.constraints = {
+        minZoom: 3
+      };
 
       const layerList = new LayerList({
         view: this.view,
@@ -91,7 +92,7 @@ export default class World_Map extends Component {
         const layer = event.item.layer;
         //This expression below is what lets us filter the virus by case load
         const subExpression = expressions.find(function(item) {
-          console.log("The item.id:", item.id)
+          console.log("The item.id:", item.id);
           return item.id === actionId;
         }).expression;
 
@@ -104,11 +105,11 @@ export default class World_Map extends Component {
       function createActions(event) {
         const item = event.item;
         item.actionsOpen = true;
-        item.actionsSections = actionSectionsCovid19
+        item.actionsSections = actionSectionsCovid19;
       }
 
       function createDefinitionExpression(subExpression) {
-        return subExpression
+        return subExpression;
       }
 
       // Zooms to the extent of the layer as defined by
@@ -125,8 +126,8 @@ export default class World_Map extends Component {
       const toggle = new BasemapToggle({
         view: this.view,
         nextBasemap: "gray"
-      })
-      this.view.ui.add(toggle, "bottom-right")
+      });
+      this.view.ui.add(toggle, "bottom-right");
     });
   }
 
@@ -138,8 +139,6 @@ export default class World_Map extends Component {
   }
 
   render() {
-    return (
-      <div className="webmap" ref={this.mapRef} />
-    );
+    return <div className="webmap" ref={this.mapRef} />;
   }
 }

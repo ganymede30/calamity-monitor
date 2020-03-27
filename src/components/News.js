@@ -13,8 +13,6 @@ const News = () => {
     getTopHeadlines("us", "").then(articles => setNews(articles));
   }, []);
 
-  // getTopHeadlines and then call setNews()
-
   return (
     <>
       <Wrapper>
