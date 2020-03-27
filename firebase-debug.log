@@ -1,0 +1,35 @@
+[debug] [2020-03-27T21:32:51.751Z] ----------------------------------------------------------------------
+[debug] [2020-03-27T21:32:51.753Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-03-27T21:32:51.753Z] CLI Version:   7.15.1
+[debug] [2020-03-27T21:32:51.753Z] Platform:      darwin
+[debug] [2020-03-27T21:32:51.753Z] Node Version:  v12.13.1
+[debug] [2020-03-27T21:32:51.753Z] Time:          Fri Mar 27 2020 17:32:51 GMT-0400 (Eastern Daylight Time)
+[debug] [2020-03-27T21:32:51.754Z] ----------------------------------------------------------------------
+[debug] [2020-03-27T21:32:51.754Z] 
+[debug] [2020-03-27T21:32:51.762Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-27T21:32:51.763Z] > authorizing via signed-in user
+[debug] [2020-03-27T21:32:51.763Z] [iam] checking project calamity-monitor for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]
+[debug] [2020-03-27T21:32:51.764Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-03-27T21:32:51.764Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-03-27T21:32:53.011Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-27T21:32:53.025Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/calamity-monitor:testIamPermissions  
+
+[debug] [2020-03-27T21:32:53.500Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-27T21:32:53.501Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/calamity-monitor  
+ 
+[debug] [2020-03-27T21:32:53.804Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'calamity-monitor'...
+[info] 
+[info] i  deploying database, functions, hosting
+[debug] [2020-03-27T21:32:53.936Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received type undefined
+    at validateString (internal/validators.js:112:11)
+    at Object.join (path.js:1040:7)
+    at Config.path (/usr/local/lib/node_modules/firebase-tools/lib/config.js:149:39)
+    at getChildEnvironment (/usr/local/lib/node_modules/firebase-tools/lib/deploy/lifecycleHooks.js:50:49)
+    at runTargetCommands (/usr/local/lib/node_modules/firebase-tools/lib/deploy/lifecycleHooks.js:71:14)
+    at /usr/local/lib/node_modules/firebase-tools/lib/deploy/lifecycleHooks.js:122:24
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+[error] 
+[error] Error: An unexpected error has occurred.
