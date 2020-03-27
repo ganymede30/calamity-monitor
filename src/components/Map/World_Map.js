@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
-import { fetchData } from '../../services/mapServices/mapAPIFuncs'
-import { worldMapRenderer } from '../../services/mapServices/renderer'
-import { popupTemplateCovid19 } from '../../services/mapServices/popupTemplate'
+import { fetchData } from '../../services/worldMapServices/mapAPIFuncs'
+import { worldMapRenderer } from '../../services/worldMapServices/renderer'
+import { popupTemplateCovid19 } from '../../services/worldMapServices/popupTemplate'
+import { fieldsCovid19 } from '../../services/worldMapServices/fields'
+import { expressionsCovid19 } from '../../services/worldMapServices/expressions'
 
 export default class World_Map extends Component {
   constructor(props) {
@@ -63,43 +65,7 @@ export default class World_Map extends Component {
         renderer: worldMapRenderer,
         popupTemplate: popupTemplateCovid19,
         objectIdField: "ObjectID",
-        fields: [
-          {
-            name: "ObjectID",
-            alias: "ObjectID",
-            type: "oid"
-          },
-          {
-            name: "country",
-            alias: "Country",
-            type: "string"
-          },
-          {
-            name: "province",
-            alias: "Province",
-            type: "string"
-          },
-          {
-            name: "last_updated",
-            alias: "Last Updated",
-            type: "string"
-          },
-          {
-            name: "confirmed_cases",
-            alias: "Confirmed Cases",
-            type: "string"
-          },
-          {
-            name: "recovered",
-            alias: "Recovered",
-            type: "string"
-          },
-          {
-            name: "deaths",
-            alias: "Deaths",
-            type: "string"
-          }
-        ]
+        fields: fieldsCovid19
       });
 
       map.add(featureLayer);
@@ -117,32 +83,7 @@ export default class World_Map extends Component {
       });
       this.view.ui.add(layerList, "top-right");
 
-      const expressions = new Collection([
-        {
-          id: "All",
-          expression: "confirmed_cases > 0"
-        },
-        {
-          id: "50,000+",
-          expression: "confirmed_cases > 50000"
-        },
-        {
-          id: "10,000-50,000",
-          expression: "confirmed_cases > 10000 AND confirmed_cases <= 50000"
-        },
-        {
-          id: "1,000-10,000",
-          expression: "confirmed_cases > 1000 AND confirmed_cases <= 10000"
-        },
-        {
-          id: "100-1,000",
-          expression: "confirmed_cases > 100 AND confirmed_cases <= 1000"
-        },
-        {
-          id: "1-100",
-          expression: "confirmed_cases > 10 AND confirmed_cases <= 100"
-        }
-      ]);
+      const expressions = new Collection(expressionsCovid19);
 
       layerList.on("trigger-action", function(event) {
         const actionId = event.action.id;
