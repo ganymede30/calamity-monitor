@@ -87,10 +87,8 @@ export default class World_Map extends Component {
       const expressions = new Collection(expressionsCovid19);
 
       layerList.on("trigger-action", function(event) {
-
         const actionId = event.action.id;
         const layer = event.item.layer;
-
         //This expression below is what lets us filter the virus by case load
         const subExpression = expressions.find(function(item) {
           console.log("The item.id:", item.id)
@@ -105,14 +103,11 @@ export default class World_Map extends Component {
 
       function createActions(event) {
         const item = event.item;
-
         item.actionsOpen = true;
         item.actionsSections = actionSectionsCovid19
       }
 
       function createDefinitionExpression(subExpression) {
-
-
         return subExpression
       }
 
