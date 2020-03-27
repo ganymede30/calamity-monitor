@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
-import { fetchData } from '../../services/worldMapServices/mapAPIFuncs'
-import { worldMapRenderer } from '../../services/worldMapServices/renderer'
-import { popupTemplateCovid19 } from '../../services/worldMapServices/popupTemplate'
-import { fieldsCovid19 } from '../../services/worldMapServices/fields'
-import { expressionsCovid19 } from '../../services/worldMapServices/expressions'
+import { fetchData } from '../services/worldMapServices/mapAPIFuncs'
+import { worldMapRenderer } from '../services/worldMapServices/renderer'
+import { popupTemplateCovid19 } from '../services/worldMapServices/popupTemplate'
+import { fieldsCovid19 } from '../services/worldMapServices/fields'
+import { expressionsCovid19 } from '../services/worldMapServices/expressions'
+import { actionSectionsCovid19 } from '../services/worldMapServices/actionSections'
 
 export default class World_Map extends Component {
   constructor(props) {
@@ -86,10 +87,13 @@ export default class World_Map extends Component {
       const expressions = new Collection(expressionsCovid19);
 
       layerList.on("trigger-action", function(event) {
+
         const actionId = event.action.id;
         const layer = event.item.layer;
 
+        //This expression below is what lets us filter the virus by case load
         const subExpression = expressions.find(function(item) {
+          console.log("The item.id:", item.id)
           return item.id === actionId;
         }).expression;
 
@@ -103,40 +107,7 @@ export default class World_Map extends Component {
         const item = event.item;
 
         item.actionsOpen = true;
-        item.actionsSections = [
-          [
-            {
-              title: "All Cases",
-              className: "esri-icon-zoom-out-fixed",
-              id: "All",
-            },
-            {
-              title: "50,000+",
-              className: "esri-icon-zoom-out-fixed",
-              id: "50,000+",
-            },
-            {
-              title: "10,000-50,000",
-              className: "esri-icon-zoom-out-fixed",
-              id: "10,000-50,000",
-            },
-            {
-              title: "1,000-10,000",
-              className: "esri-icon-zoom-out-fixed",
-              id: "1,000-10,000",
-            },
-            {
-              title: "100-1,000",
-              className: "esri-icon-zoom-out-fixed",
-              id: "100-1,000"
-            },
-            {
-              title: "1-100",
-              className: "esri-icon-zoom-out-fixed",
-              id: "1-100"
-            }
-          ],
-        ];
+        item.actionsSections = actionSectionsCovid19
       }
 
       function createDefinitionExpression(subExpression) {
