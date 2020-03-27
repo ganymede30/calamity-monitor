@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {loadModules} from 'esri-loader';
-import { fetchData } from '../services/mapAPIFuncs'
+import { fetchData } from '../services/worldMapServices/mapAPIFuncs'
+import { worldMapRenderer } from '../services/worldMapServices/renderer'
+import { popupTemplateCovid19 } from '../services/worldMapServices/popupTemplate'
+import { fieldsCovid19 } from '../services/worldMapServices/fields'
+import { expressionsCovid19 } from '../services/worldMapServices/expressions'
+import { actionSectionsCovid19 } from '../services/worldMapServices/actionSections'
 
 export default class World_Map extends Component {
   constructor(props) {
@@ -58,139 +63,10 @@ export default class World_Map extends Component {
         source: graphics,
         outFields: ["*"],
         title: "COVID-19 Cases Globally",
-        renderer: {
-          type: "simple", // autocasts as new SimpleRenderer()
-          symbol: {
-            // autocasts as new SimpleMarkerSymbol()
-            type: "simple-marker",
-            color: "red",
-            outline: {
-              // autocasts as new SimpleLineSymbol()
-              color: "white"
-            }
-          },
-          visualVariables: [
-            {
-              type: "size",
-              field: "confirmed_cases",
-              stops: [
-                {
-                  value: 0,
-                  size: "0px"
-                },
-                {
-                  value: 1,
-                  size: "1px"
-                },
-                {
-                  value: 100,
-                  size: "5px"
-                },
-                {
-                  value: 1000,
-                  size: "10px"
-                },
-                {
-                  value: 10000,
-                  size: "20px"
-                },
-                {
-                  value: 50000,
-                  size: "100px"
-                }
-              ]
-            },
-            {
-              type: "opacity",
-              field: "confirmed_cases",
-              stops: [
-                {
-                  value: 0,
-                  opacity: 0.4
-                }
-              ]
-            }
-          ]
-        },
-        popupTemplate: {
-          // autocasts as new PopupTemplate()
-          title: "COVID-19",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "country",
-                  label: "Country",
-                  visible: true
-                },
-                {
-                  fieldName: "province",
-                  label: "Province",
-                  visible: true
-                },
-                {
-                  fieldName: "last_updated",
-                  label: "Last Updated",
-                  visible: true
-                },
-                {
-                  fieldName: "confirmed_cases",
-                  label: "Confirmed Cases",
-                  visible: true
-                },
-                {
-                  fieldName: "recovered",
-                  label: "Recovered",
-                  visible: true
-                },
-                {
-                  fieldName: "deaths",
-                  label: "Deaths",
-                  visible: true
-                }
-              ]
-            }
-          ]
-        },
+        renderer: worldMapRenderer,
+        popupTemplate: popupTemplateCovid19,
         objectIdField: "ObjectID",
-        fields: [
-          {
-            name: "ObjectID",
-            alias: "ObjectID",
-            type: "oid"
-          },
-          {
-            name: "country",
-            alias: "Country",
-            type: "string"
-          },
-          {
-            name: "province",
-            alias: "Province",
-            type: "string"
-          },
-          {
-            name: "last_updated",
-            alias: "Last Updated",
-            type: "string"
-          },
-          {
-            name: "confirmed_cases",
-            alias: "Confirmed Cases",
-            type: "string"
-          },
-          {
-            name: "recovered",
-            alias: "Recovered",
-            type: "string"
-          },
-          {
-            name: "deaths",
-            alias: "Deaths",
-            type: "string"
-          }
-        ]
+        fields: fieldsCovid19
       });
 
       map.add(featureLayer);
@@ -208,38 +84,14 @@ export default class World_Map extends Component {
       });
       this.view.ui.add(layerList, "top-right");
 
-      const expressions = new Collection([
-        {
-          id: "All",
-          expression: "confirmed_cases > 0"
-        },
-        {
-          id: "50,000+",
-          expression: "confirmed_cases > 50000"
-        },
-        {
-          id: "10,000-50,000",
-          expression: "confirmed_cases > 10000 AND confirmed_cases <= 50000"
-        },
-        {
-          id: "1,000-10,000",
-          expression: "confirmed_cases > 1000 AND confirmed_cases <= 10000"
-        },
-        {
-          id: "100-1,000",
-          expression: "confirmed_cases > 100 AND confirmed_cases <= 1000"
-        },
-        {
-          id: "1-100",
-          expression: "confirmed_cases > 10 AND confirmed_cases <= 100"
-        }
-      ]);
+      const expressions = new Collection(expressionsCovid19);
 
       layerList.on("trigger-action", function(event) {
         const actionId = event.action.id;
         const layer = event.item.layer;
-
+        //This expression below is what lets us filter the virus by case load
         const subExpression = expressions.find(function(item) {
+          console.log("The item.id:", item.id)
           return item.id === actionId;
         }).expression;
 
@@ -251,47 +103,11 @@ export default class World_Map extends Component {
 
       function createActions(event) {
         const item = event.item;
-
         item.actionsOpen = true;
-        item.actionsSections = [
-          [
-            {
-              title: "All Cases",
-              className: "esri-icon-zoom-out-fixed",
-              id: "All",
-            },
-            {
-              title: "50,000+",
-              className: "esri-icon-zoom-out-fixed",
-              id: "50,000+",
-            },
-            {
-              title: "10,000-50,000",
-              className: "esri-icon-zoom-out-fixed",
-              id: "10,000-50,000",
-            },
-            {
-              title: "1,000-10,000",
-              className: "esri-icon-zoom-out-fixed",
-              id: "1,000-10,000",
-            },
-            {
-              title: "100-1,000",
-              className: "esri-icon-zoom-out-fixed",
-              id: "100-1,000"
-            },
-            {
-              title: "1-100",
-              className: "esri-icon-zoom-out-fixed",
-              id: "1-100"
-            }
-          ],
-        ];
+        item.actionsSections = actionSectionsCovid19
       }
 
       function createDefinitionExpression(subExpression) {
-
-
         return subExpression
       }
 
