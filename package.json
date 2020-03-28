@@ -2,6 +2,7 @@
   "name": "calamity-monitor",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "@google-cloud/storage": "^4.6.0",
     "@material-ui/core": "^4.9.7",
@@ -44,7 +45,6 @@
     "eject": "react-scripts eject",
     "start-dev": "npm start & nodemon server/server.js"
   },
-  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },
