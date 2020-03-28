@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const app = express();
+const port = process.env.PORT || 8080;
 require("dotenv").config();
 
 // logging middleware
@@ -19,8 +20,6 @@ app.use("/api", require("./api"));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
-
-const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log("Listening on port ", port);
