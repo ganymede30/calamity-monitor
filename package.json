@@ -42,7 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-dev": "npm start & nodemon src/proxy/index.js"
+    "start-dev": "npm start & nodemon server/server.js"
   },
   "proxy": "http://localhost:5000/",
   "eslintConfig": {
