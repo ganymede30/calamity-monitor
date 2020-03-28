@@ -5,14 +5,8 @@ export const getTopHeadlines = async (country, category) => {
   let baseRoute = `api/topHeadlines`;
   if (country) baseRoute += `/${country}`;
   if (category) baseRoute += `/${category}`;
-  const { data } = await axios.get(baseRoute);
-  console.log("data", data);
-  const select = data.map(article => selectFields(article));
-  const filter = filterArticles(select);
-  return filter;
-  // .then(res => res.data.map(article => selectFields(article)))
-  // .then(articles => {
-  //   console.log(articles);
-  //   return filterArticles(articles);
-  // });
+  return await axios
+    .get(baseRoute)
+    .then(({ data }) => data.map(article => selectFields(article)))
+    .then(articles => filterArticles(articles));
 };
