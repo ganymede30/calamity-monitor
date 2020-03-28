@@ -1,7 +1,6 @@
 {
   "name": "calamity-monitor",
   "version": "0.1.0",
-  "homepage": "https://calamity-monitor.firebaseapp.com/",
   "private": true,
   "dependencies": {
     "@google-cloud/storage": "^4.6.0",

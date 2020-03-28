@@ -8,9 +8,7 @@ export const getTopHeadlines = async (country, category) => {
   const { data } = await axios.get(baseRoute);
   console.log("data", data);
   const select = data.map(article => selectFields(article));
-  console.log("select", select);
   const filter = filterArticles(select);
-  console.log("filter", Array.isArray(filter));
   return filter;
   // .then(res => res.data.map(article => selectFields(article)))
   // .then(articles => {
