@@ -2,7 +2,6 @@
   "name": "calamity-monitor",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000/",
   "dependencies": {
     "@google-cloud/storage": "^4.6.0",
     "@material-ui/core": "^4.9.7",
@@ -22,6 +21,7 @@
     "firebase-functions": "^3.5.0",
     "firebase-tools": "^7.15.1",
     "framer-motion": "^1.10.2",
+    "http-proxy-middleware": "^1.0.3",
     "local-storage-fallback": "^4.1.1",
     "material-ui": "^0.20.2",
     "newsapi": "^2.4.0",
@@ -43,7 +43,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-dev": "npm start & nodemon server/server.js"
+    "start-dev": "npm start & nodemon server/server.js",
+    "heroku-postbuild": "npm install --prefix src && npm run build --prefix src"
   },
   "eslintConfig": {
     "extends": "react-app"

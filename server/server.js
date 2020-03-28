@@ -2,12 +2,22 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const fetch = require("node-fetch");
+const port = process.env.PORT || 5000;
+const path = require("path");
 
 require("dotenv").config();
 const app = express();
 
 app.use(morgan());
 app.use(cors());
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../build", "index.html"));
+  });
+}
 
 const baseUrl = "http://newsapi.org/v2/top-headlines?";
 const apiKey = process.env.REACT_APP_NEWS_API_KEY;
