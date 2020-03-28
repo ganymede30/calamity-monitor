@@ -22,7 +22,9 @@
     "framer-motion": "^1.10.2",
     "local-storage-fallback": "^4.1.1",
     "material-ui": "^0.20.2",
+    "morgan": "^1.10.0",
     "newsapi": "^2.4.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "os": "^0.1.1",
     "react": "^16.13.0",
@@ -41,9 +43,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-dev": "npm start & nodemon src/proxy/index.js"
+    "dev": "nodemon server/server.js"
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": "react-app"
   },

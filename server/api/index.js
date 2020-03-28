@@ -1,22 +1,14 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+const router = require("express").Router();
 const fetch = require("node-fetch");
 
-require("dotenv").config();
-const app = express();
+const baseUrl = "https://newsapi.org/v2/top-headlines?";
 
-app.use(morgan());
-app.use(cors());
-
-const baseUrl = "http://newsapi.org/v2/top-headlines?";
-
-app.get("/topHeadlines/:country/:category", (req, res, next) => {
+router.get("/topHeadlines/:country/:category", (req, res, next) => {
   let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
   const { country, category } = req.params;
   endPoint += `&country=${country}&category=${category}`;
   try {
-    fetch(endPoint)
+    return fetch(endPoint)
       .then(response => response.json())
       .then(({ articles }) => res.json(articles));
   } catch (error) {
@@ -24,18 +16,18 @@ app.get("/topHeadlines/:country/:category", (req, res, next) => {
   }
 });
 
-app.get("/topHeadlines/:filter", (req, res, next) => {
+router.get("/topHeadlines/:filter", (req, res, next) => {
   let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
   if (req.params.filter.length === 2) endPoint += `&country=${req.params.filter}`;
   else endPoint += `&category=${req.params.filter}`;
-  fetch(endPoint)
+  return fetch(endPoint)
     .then(response => response.json())
     .then(({ articles }) => res.json(articles));
 });
 
-app.get("/topHeadlines", (req, res) => {
+router.get("/topHeadlines", (req, res) => {
   let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
-  fetch(endPoint)
+  return fetch(endPoint)
     .then(response => response.json())
     .then(({ articles }) => res.json(articles));
 });
@@ -53,11 +45,7 @@ function errorHandler(error, req, res, next) {
   });
 }
 
-app.use(notFound);
-app.use(errorHandler);
+router.use(notFound);
+router.use(errorHandler);
 
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => {
-  console.log("Listening on port ", port);
-});
+module.exports = router;
