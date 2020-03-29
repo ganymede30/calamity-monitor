@@ -40,11 +40,11 @@
     "use-dark-mode": "^2.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run start-client & nodemon server/server.js",
+    "start-client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start-dev": "npm start & nodemon server/server.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
