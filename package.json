@@ -1,7 +1,7 @@
 {
   "name": "calamity-monitor",
   "version": "0.1.0",
-  "proxy": true,
+  "proxy": "http://localhost:3001/",
   "private": true,
   "dependencies": {
     "@google-cloud/storage": "^4.6.0",
