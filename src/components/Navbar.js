@@ -13,7 +13,7 @@ const darkMode = makeStyles(() => {
       backgroundColor: "#333333"
     },
     gridContainer: {
-      height: "65px"
+      height: "9vh"
     }
   };
 });
@@ -27,7 +27,7 @@ const lightMode = makeStyles(() => ({
     backgroundColor: "primary"
   },
   gridContainer: {
-    height: "65px"
+    height: "9vh"
   }
 }));
 
