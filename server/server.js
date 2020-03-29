@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const fetch = require("node-fetch");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const path = require("path");
 
 require("dotenv").config();
