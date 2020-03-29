@@ -11,14 +11,6 @@ const app = express();
 app.use(morgan());
 app.use(cors());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../build")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", "index.html"));
-  });
-}
-
 const baseUrl = "http://newsapi.org/v2/top-headlines?";
 const apiKey = process.env.REACT_APP_NEWS_API_KEY;
 
@@ -45,10 +37,11 @@ app.get("/topHeadlines/:filter", (req, res, next) => {
 });
 
 app.get("/topHeadlines", (req, res) => {
-  let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
-  fetch(endPoint)
-    .then(response => response.json())
-    .then(({ articles }) => res.json(articles));
+  // let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
+  // fetch(endPoint)
+  //   .then(response => response.json())
+  //   .then(({ articles }) => res.json(articles));
+  return res.send("the route is being hit?");
 });
 
 function notFound(req, res, next) {
@@ -61,6 +54,14 @@ function errorHandler(error, req, res, next) {
   res.status(res.statusCode || 500);
   res.json({
     message: error.message
+  });
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "index.html"));
   });
 }
 
