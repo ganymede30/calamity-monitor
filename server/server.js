@@ -37,11 +37,10 @@ app.get("/topHeadlines/:filter", (req, res, next) => {
 });
 
 app.get("/topHeadlines", (req, res) => {
-  // let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
-  // fetch(endPoint)
-  //   .then(response => response.json())
-  //   .then(({ articles }) => res.json(articles));
-  return res.send("the route is being hit?");
+  let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
+  fetch(endPoint)
+    .then(response => response.json())
+    .then(({ articles }) => res.json(articles));
 });
 
 function notFound(req, res, next) {
