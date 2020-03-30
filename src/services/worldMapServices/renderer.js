@@ -1,4 +1,4 @@
-export const worldMapRenderer = {
+export const renderer = {
   type: "simple", // autocasts as new SimpleRenderer()
   symbol: {
     // autocasts as new SimpleMarkerSymbol()
@@ -19,23 +19,11 @@ export const worldMapRenderer = {
           size: "0px"
         },
         {
-          value: 1,
-          size: "1px"
-        },
-        {
           value: 100,
           size: "5px"
         },
         {
-          value: 1000,
-          size: "10px"
-        },
-        {
-          value: 10000,
-          size: "20px"
-        },
-        {
-          value: 50000,
+          value: 100000,
           size: "100px"
         }
       ]
