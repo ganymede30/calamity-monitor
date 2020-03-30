@@ -16,7 +16,7 @@ const News = () => {
   // getTopHeadlines and then call setNews()
 
   return (
-    <>
+    <> 
       <Wrapper>
         <SubWrapper>
           <Title>News Feed</Title>
