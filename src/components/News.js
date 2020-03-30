@@ -10,10 +10,8 @@ const News = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    getTopHeadlines("us", "").then(articles => setNews(articles));
+    getTopHeadlines("", "").then(articles => setNews(articles));
   }, []);
-
-  // getTopHeadlines and then call setNews()
 
   return (
     <> 

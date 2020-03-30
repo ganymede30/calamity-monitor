@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .webmap {
-    height: Calc(100vh - 67.81px);
+    height: Calc(100vh - 9vh);
   }
 
   `;

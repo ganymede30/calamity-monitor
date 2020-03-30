@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const fetch = require("node-fetch");
+const port = process.env.PORT || 3001;
+const path = require("path");
 
 require("dotenv").config();
 const app = express();
@@ -10,9 +12,10 @@ app.use(morgan());
 app.use(cors());
 
 const baseUrl = "http://newsapi.org/v2/top-headlines?";
+const apiKey = process.env.REACT_APP_NEWS_API_KEY;
 
 app.get("/topHeadlines/:country/:category", (req, res, next) => {
-  let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
+  let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
   const { country, category } = req.params;
   endPoint += `&country=${country}&category=${category}`;
   try {
@@ -25,7 +28,7 @@ app.get("/topHeadlines/:country/:category", (req, res, next) => {
 });
 
 app.get("/topHeadlines/:filter", (req, res, next) => {
-  let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
+  let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
   if (req.params.filter.length === 2) endPoint += `&country=${req.params.filter}`;
   else endPoint += `&category=${req.params.filter}`;
   fetch(endPoint)
@@ -34,7 +37,7 @@ app.get("/topHeadlines/:filter", (req, res, next) => {
 });
 
 app.get("/topHeadlines", (req, res) => {
-  let endPoint = `${baseUrl}apiKey=${process.env.NEWS_API_KEY}&q=coronavirus&pageSize=100`;
+  let endPoint = `${baseUrl}apiKey=${apiKey}&q=coronavirus&pageSize=100`;
   fetch(endPoint)
     .then(response => response.json())
     .then(({ articles }) => res.json(articles));
@@ -53,10 +56,16 @@ function errorHandler(error, req, res, next) {
   });
 }
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "index.html"));
+  });
+}
+
 app.use(notFound);
 app.use(errorHandler);
-
-const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log("Listening on port ", port);

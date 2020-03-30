@@ -51,7 +51,15 @@ const MyIcon = styled.button`
 
 const MyDesktopNav = styled.div`
     ${mobile}: {
-      display: none;
+      display: none; background: #3f51b5;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-evenly;
+      align-self: flex-end
+    
+      
+      height: 60vh;
     } 
 `
 
