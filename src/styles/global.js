@@ -32,11 +32,10 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ${mobile} {
-    min-height: -moz-available; /* WebKit-based browsers will ignore this. */
-    min-height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    min-height: fill-available;
+    .webmap {
+      height: Calc(90vh - 10vh)
+    }
   }
-
-  `;
+`;
 
 export default GlobalStyles;
