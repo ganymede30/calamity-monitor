@@ -101,6 +101,8 @@ export default class WorldMap extends Component {
           fields: usFields
         });
 
+        usFeatureLayer.visible = false;
+
         map.add(usFeatureLayer);
         map.add(worldFeatureLayer);
 
@@ -138,6 +140,8 @@ export default class WorldMap extends Component {
           const definitionExpression = createDefinitionExpression(subExpression);
           layer.definitionExpression = definitionExpression;
         });
+
+        layerList.statusIndicatorsVisible = false;
 
         function createActions(event) {
           const item = event.item;
