@@ -32,10 +32,10 @@ export const worldMapRenderer = {
         },
         {
           value: 10000,
-          size: "20px"
+          size: "10px"
         },
         {
-          value: 50000,
+          value: 100000,
           size: "100px"
         }
       ]

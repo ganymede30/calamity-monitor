@@ -60,7 +60,7 @@ export default class WorldMap extends Component {
       const featureLayer = new FeatureLayer({
         source: graphics,
         outFields: ["*"],
-        title: "COVID-19 Cases Globally",
+        title: "Toggle Layer List",
         renderer: worldMapRenderer,
         popupTemplate: popupTemplateCovid19,
         objectIdField: "ObjectID",
