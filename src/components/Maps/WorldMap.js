@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
-import { fetchData } from "../../services/worldMapServices/mapAPIFuncs";
-import { worldMapRenderer } from "../../services/worldMapServices/renderer";
-import { popupTemplateCovid19 } from "../../services/worldMapServices/popupTemplate";
-import { fieldsCovid19 } from "../../services/worldMapServices/fields";
+import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
+import { renderer } from "../../services/worldMapServices/renderer";
+import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServices/popupTemplate";
+import { worldFields, usFields } from "../../services/worldMapServices/fields";
 import { expressionsCovid19 } from "../../services/worldMapServices/expressions";
 import { actionSectionsCovid19 } from "../../services/worldMapServices/actionSections";
 
@@ -12,12 +12,14 @@ export default class WorldMap extends Component {
     super(props);
     this.mapRef = React.createRef();
     this.state = {
-      countries: []
+      countries: [],
+      states: []
     };
   }
 
   async componentDidMount() {
-    await fetchData().then(countries => this.setState({ countries }));
+    await fetchWorldData().then(countries => this.setState({ countries }));
+    await fetchUSData().then(states => this.setState({ states }));
 
     loadModules(
       [
@@ -37,7 +39,7 @@ export default class WorldMap extends Component {
         basemap: "dark-gray"
       });
 
-      const graphics = this.state.countries.map(point => {
+      const worldGraphics = this.state.countries.map(point => {
         return new Graphic({
           attributes: {
             ObjectId: point.id,
@@ -57,17 +59,48 @@ export default class WorldMap extends Component {
         });
       });
 
-      const featureLayer = new FeatureLayer({
-        source: graphics,
+      const usGraphics = this.state.states.map(point => {
+        return new Graphic({
+          attributes: {
+            ObjectId: point.id,
+            country_code: point.country_code,
+            country: point.country,
+            state: point.state,
+            county: point.county,
+            last_updated: point.last_updated,
+            confirmed_cases: point.confirmed,
+            recovered: point.recovered,
+            deaths: point.deaths
+          },
+          geometry: {
+            longitude: point.long,
+            latitude: point.lat,
+            type: "point"
+          }
+        })
+      })
+
+      const worldFeatureLayer = new FeatureLayer({
+        source: worldGraphics,
         outFields: ["*"],
-        title: "COVID-19 Cases Globally",
-        renderer: worldMapRenderer,
-        popupTemplate: popupTemplateCovid19,
+        title: "Global COVID-19 Cases",
+        renderer: renderer,
+        popupTemplate: worldPopupTemplate,
         objectIdField: "ObjectID",
-        fields: fieldsCovid19
+        fields: worldFields
       });
 
-      map.add(featureLayer);
+      const usFeatureLayer = new FeatureLayer({
+        source: usGraphics,
+        title: "US COVID-19 Cases",
+        renderer: renderer,
+        popupTemplate: usPopupTemplate,
+        objectIdField: "ObjectID",
+        fields: usFields
+      })
+
+      map.add(worldFeatureLayer);
+      map.add(usFeatureLayer);
 
       this.view = new MapView({
         container: this.mapRef.current,
@@ -106,10 +139,6 @@ export default class WorldMap extends Component {
         const item = event.item;
         item.actionsOpen = true;
         item.actionsSections = actionSectionsCovid19;
-      }
-
-      function createDefinitionExpression(subExpression) {
-        return subExpression;
       }
 
       // Zooms to the extent of the layer as defined by
