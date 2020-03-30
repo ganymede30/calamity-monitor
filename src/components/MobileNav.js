@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from "@material-ui/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import styled from 'styled-components'
-import { Box, Button, Typography, IconButton, Drawer, 
+import { Grid,  Box, Button, Typography, IconButton, Drawer, 
   AppBar, Toolbar, 
  } from '@material-ui/core'
  import MenuIcon from '@material-ui/icons/Menu';
@@ -13,64 +13,6 @@ import { Brightness4, Brightness7 } from "@material-ui/icons";
 
 
 
-const drawerWidth = 240
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  },
-}));
 
 const darkMode = makeStyles(() => {
     return {
@@ -106,6 +48,8 @@ const MobileNav = ({ theme, setTheme }) => {
     theme ? (classes = darkMode()) : (classes = lightMode());
     const [open, setOpen] = React.useState(false);
 
+    
+
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -116,8 +60,10 @@ const MobileNav = ({ theme, setTheme }) => {
 
    return (
    
-
+    
     <div className={classes.root}>
+    
+    
     <CssBaseline />
     <AppBar
       position="fixed"
@@ -137,15 +83,30 @@ const MobileNav = ({ theme, setTheme }) => {
           onClick={handleDrawerOpen}
           className={clsx(open && classes.hide)}
         >
-    <MenuIcon />
+          
+        
+             <MenuIcon/>
+           
+         
         </IconButton>
+
+        <IconButton
+              color="default"
+              className={classes.buttonText}
+              title="Toggle light/dark theme"
+              aria-label="Toggle light/dark theme"
+              onClick={() => setTheme()}>
+              {theme ? <Brightness7 /> : <Brightness4 />}
+            </IconButton> 
+      
+          
       </Toolbar>
     </AppBar>
            
    
         <Drawer
        
-        className={classes.drawer}
+        className={classes.navBar}
         variant="persistent"
         anchor="right"
         open={open}
@@ -154,15 +115,16 @@ const MobileNav = ({ theme, setTheme }) => {
         }}
          >
       
-      <div className={classes.drawerHeader}>
+      <div className={classes.drawerHeader} >
           <IconButton onClick={handleDrawerClose}>
             {classes.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
           </div>
-
+   
+      
          
            <Button color="inherit" href="/news">
-              <Typography >News</Typography>
+              <Typography> News</Typography>
             </Button>
 
            
@@ -172,19 +134,17 @@ const MobileNav = ({ theme, setTheme }) => {
             </Button>
 
 
-            <IconButton
-              color="default"
-              className={classes.buttonText}
-              title="Toggle light/dark theme"
-              aria-label="Toggle light/dark theme"
-              onClick={() => setTheme()}>
-              {theme ? <Brightness7 /> : <Brightness4 />}
-            </IconButton>
+           
+
+      
        </Drawer>    
+      
+      
+       
         
-        </div>
+      </div>
         
-   
+        
     )
     
 }
