@@ -101,7 +101,7 @@ const darkMode = makeStyles(() => {
   }));
 
 
-const MobileNav = ({ menu, theme, setTheme }) => {
+const MobileNav = ({ theme, setTheme }) => {
     let classes;
     theme ? (classes = darkMode()) : (classes = lightMode());
     const [open, setOpen] = React.useState(false);
@@ -137,7 +137,7 @@ const MobileNav = ({ menu, theme, setTheme }) => {
           onClick={handleDrawerOpen}
           className={clsx(open && classes.hide)}
         >
-          <MenuIcon />
+    <MenuIcon />
         </IconButton>
       </Toolbar>
     </AppBar>
@@ -154,11 +154,9 @@ const MobileNav = ({ menu, theme, setTheme }) => {
         }}
          >
       
-      <div className={classes.drawerHeader}
-           
-      >
+      <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {/* {menu.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
+            {classes.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
           </div>
 

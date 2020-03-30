@@ -51,7 +51,9 @@ const Navbar = ({ theme, setTheme }) => {
   
   return ( 
   
-    matches ? <MobileNav theme={theme} setTheme={setTheme}/> : 
+    matches ? 
+    <MobileNav theme={theme} setTheme={setTheme}/> 
+    : 
  
    <Box component="nav">
      <AppBar position="static" className={classes.navBar}>
