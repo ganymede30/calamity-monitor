@@ -42,7 +42,7 @@ const LoadScreen = props => {
     return (
       <Container>
         <Wrapper>
-          <Loader text={<h3>Map Loading</h3>} />
+          <Loader string={<h3>Map Loading</h3>} />
         </Wrapper>
       </Container>
     );

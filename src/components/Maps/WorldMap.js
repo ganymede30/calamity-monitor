@@ -29,12 +29,13 @@ export default class WorldMap extends Component {
         "esri/Graphic",
         "esri/widgets/LayerList",
         "esri/core/Collection",
-        "esri/widgets/BasemapToggle"
+        "esri/widgets/BasemapToggle",
+        "esri/widgets/Expand"
       ],
       {
         css: true
       }
-    ).then(([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle]) => {
+    ).then(([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle, Expand]) => {
       const map = new Map({
         basemap: "dark-gray"
       });
@@ -48,7 +49,7 @@ export default class WorldMap extends Component {
             province: point.province,
             last_updated: point.last_updated,
             confirmed_cases: point.confirmed,
-            recovered: point.recovered,
+            //recovered: point.recovered,
             deaths: point.deaths
           },
           geometry: {
@@ -69,7 +70,7 @@ export default class WorldMap extends Component {
             county: point.county,
             last_updated: point.last_updated,
             confirmed_cases: point.confirmed,
-            recovered: point.recovered,
+            //recovered: point.recovered,
             deaths: point.deaths
           },
           geometry: {
@@ -99,8 +100,8 @@ export default class WorldMap extends Component {
         fields: usFields
       })
 
-      map.add(worldFeatureLayer);
       map.add(usFeatureLayer);
+      map.add(worldFeatureLayer);
 
       this.view = new MapView({
         container: this.mapRef.current,
@@ -116,7 +117,11 @@ export default class WorldMap extends Component {
         view: this.view,
         listItemCreatedFunction: createActions
       });
-      this.view.ui.add(layerList, "top-right");
+
+      const layerListExpand = new Expand({
+        content: layerList
+      });
+      this.view.ui.add(layerListExpand, "top-right");
 
       const expressions = new Collection(expressionsCovid19);
 
@@ -125,14 +130,12 @@ export default class WorldMap extends Component {
         const layer = event.item.layer;
         //This expression below is what lets us filter the virus by case load
         const subExpression = expressions.find(function(item) {
-          console.log("The item.id:", item.id);
+          //console.log("The item.id:", item.id);
           return item.id === actionId;
         }).expression;
 
         const definitionExpression = createDefinitionExpression(subExpression);
         layer.definitionExpression = definitionExpression;
-
-        zoomToLayer(layer);
       });
 
       function createActions(event) {
@@ -141,15 +144,8 @@ export default class WorldMap extends Component {
         item.actionsSections = actionSectionsCovid19;
       }
 
-      // Zooms to the extent of the layer as defined by
-      // its definitionExpression
-      // This method will work for all FeatureLayers, even
-      // those without a saved `fullExtent` on the service.
-
-      function zoomToLayer(layer) {
-        return layer.queryExtent().then(function(response) {
-          this.view.goTo(response.extent);
-        });
+      function createDefinitionExpression(subExpression) {
+        return subExpression;
       }
 
       const toggle = new BasemapToggle({

@@ -22,17 +22,17 @@ export const worldFields = [
   {
     name: "confirmed_cases",
     alias: "Confirmed Cases",
-    type: "string"
+    type: "integer"
   },
-  {
-    name: "recovered",
-    alias: "Recovered",
-    type: "string"
-  },
+  // {
+  //   name: "recovered",
+  //   alias: "Recovered",
+  //   type: "integer"
+  // },
   {
     name: "deaths",
     alias: "Deaths",
-    type: "string"
+    type: "integer"
   }
 ]
 
@@ -65,16 +65,16 @@ export const usFields = [
   {
     name: "confirmed_cases",
     alias: "Confirmed Cases",
-    type: "string"
+    type: "integer"
   },
-  {
-    name: "recovered",
-    alias: "Recovered",
-    type: "string"
-  },
+  // {
+  //   name: "recovered",
+  //   alias: "Recovered",
+  //   type: "integer"
+  // },
   {
     name: "deaths",
     alias: "Deaths",
-    type: "string"
+    type: "integer"
   }
 ]
