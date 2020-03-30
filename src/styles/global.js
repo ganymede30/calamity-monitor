@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { mobile } from "./mediaQueries";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -28,6 +29,12 @@ const GlobalStyles = createGlobalStyle`
 
   .webmap {
     height: Calc(100vh - 9vh);
+  }
+
+  ${mobile} {
+    min-height: -moz-available; /* WebKit-based browsers will ignore this. */
+  min-height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  min-height: fill-available;
   }
 
   `;
