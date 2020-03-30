@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
 
   ${tablet} {
     width: 96%;
@@ -25,4 +25,13 @@ export const SubWrapper = styled.div`
   color: ${props => props.theme.titleText};
   display: flex;
   align-items: center;
+`;
+
+export const Text = styled.h3`
+  color: ${({ theme }) => theme.titleText};
+  font-size: 1em;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `;
