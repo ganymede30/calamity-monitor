@@ -13,13 +13,13 @@ export default class WorldMap extends Component {
     this.mapRef = React.createRef();
     this.state = {
       countries: [],
-      states: []
+      counties: []
     };
   }
 
   async componentDidMount() {
     await fetchWorldData().then(countries => this.setState({ countries }));
-    await fetchUSData().then(states => this.setState({ states }));
+    await fetchUSData().then(counties => this.setState({ counties }));
 
     loadModules(
       [
@@ -60,7 +60,7 @@ export default class WorldMap extends Component {
         });
       });
 
-      const usGraphics = this.state.states.map(point => {
+      const usGraphics = this.state.counties.map(point => {
         return new Graphic({
           attributes: {
             ObjectId: point.id,
