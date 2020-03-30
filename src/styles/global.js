@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { mobile } from "./mediaQueries";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -30,6 +31,11 @@ const GlobalStyles = createGlobalStyle`
     height: Calc(100vh - 9vh);
   }
 
-  `;
+  ${mobile} {
+    .webmap {
+      height: Calc(90vh - 10vh)
+    }
+  }
+`;
 
 export default GlobalStyles;

@@ -1,33 +1,33 @@
 export const actionSectionsCovid19 = [
   [
     {
-      title: "All Cases",
-      className: "esri-icon-zoom-out-fixed",
+      title: "View All Layers",
+      className: "esri-icon-globe",
       id: "All",
     },
     {
-      title: "50,000+",
-      className: "esri-icon-zoom-out-fixed",
-      id: "50,000+",
+      title: "100,000+ Confirmed Cases",
+      className: "esri-icon-close-circled",
+      id: "100,000+",
     },
     {
-      title: "10,000-50,000",
-      className: "esri-icon-zoom-out-fixed",
-      id: "10,000-50,000",
+      title: "10,000-100,000 Confirmed Cases",
+      className: "esri-icon-close-circled",
+      id: "10,000-100,000",
     },
     {
-      title: "1,000-10,000",
-      className: "esri-icon-zoom-out-fixed",
+      title: "1,000-10,000 Confirmed Cases",
+      className: "esri-icon-close-circled",
       id: "1,000-10,000",
     },
     {
-      title: "100-1,000",
-      className: "esri-icon-zoom-out-fixed",
+      title: "100-1,000 Confirmed Cases",
+      className: "esri-icon-close-circled",
       id: "100-1,000"
     },
     {
-      title: "1-100",
-      className: "esri-icon-zoom-out-fixed",
+      title: "1-100 Confirmed Cases",
+      className: "esri-icon-close-circled",
       id: "1-100"
     }
   ],

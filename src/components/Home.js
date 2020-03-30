@@ -1,6 +1,6 @@
 import React from "react";
-import WorldMap from "./WorldMap";
-import LoadScreen from "./LoadScreen";
+import WorldMap from "./Maps/WorldMap";
+import LoadScreen from "./Maps/LoadScreen";
 
 const Home = () => {
   return (
