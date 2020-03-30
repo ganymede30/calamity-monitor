@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
 import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
-import { worldRenderer, usRenderer } from "../../services/worldMapServices/renderer";
+import { renderer } from "../../services/worldMapServices/renderer";
 import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServices/popupTemplate";
 import { worldFields, usFields } from "../../services/worldMapServices/fields";
 import { expressionsCovid19 } from "../../services/worldMapServices/expressions";
@@ -86,7 +86,7 @@ export default class WorldMap extends Component {
           source: worldGraphics,
           outFields: ["*"],
           title: "Global COVID-19 Cases",
-          renderer: worldRenderer,
+          renderer: renderer,
           popupTemplate: worldPopupTemplate,
           objectIdField: "ObjectID",
           fields: worldFields
@@ -95,11 +95,13 @@ export default class WorldMap extends Component {
         const usFeatureLayer = new FeatureLayer({
           source: usGraphics,
           title: "US COVID-19 Cases",
-          renderer: usRenderer,
+          renderer: renderer,
           popupTemplate: usPopupTemplate,
           objectIdField: "ObjectID",
           fields: usFields
         });
+
+        usFeatureLayer.visible = false;
 
         map.add(usFeatureLayer);
         map.add(worldFeatureLayer);
@@ -138,6 +140,8 @@ export default class WorldMap extends Component {
           const definitionExpression = createDefinitionExpression(subExpression);
           layer.definitionExpression = definitionExpression;
         });
+
+        layerList.statusIndicatorsVisible = false;
 
         function createActions(event) {
           const item = event.item;
