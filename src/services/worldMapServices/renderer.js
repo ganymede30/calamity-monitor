@@ -19,7 +19,7 @@ export const worldRenderer = {
           size: "0px"
         },
         {
-          value: 1,
+          value: 100,
           size: "15px"
         },
         {
@@ -61,10 +61,6 @@ export const usRenderer = {
           size: "0px"
         },
         {
-          value: 1,
-          size: "0px"
-        },
-        {
           value: 50,
           size: "10px"
         },
@@ -73,7 +69,7 @@ export const usRenderer = {
           size: "20px"
         },
         {
-          value: 500,
+          value: 1000,
           size: "40px"
         }
         // {
