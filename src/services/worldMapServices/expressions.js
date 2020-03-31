@@ -4,12 +4,12 @@ export const expressionsCovid19 = [
     expression: "confirmed_cases > 0"
   },
   {
-    id: "50,000+",
-    expression: "confirmed_cases > 50000"
+    id: "100,000+",
+    expression: "confirmed_cases > 100000"
   },
   {
-    id: "10,000-50,000",
-    expression: "confirmed_cases > 10000 AND confirmed_cases <= 50000"
+    id: "10,000-100,000",
+    expression: "confirmed_cases > 10000 AND confirmed_cases <= 100000"
   },
   {
     id: "1,000-10,000",
