@@ -60,7 +60,7 @@ const DialogSelect = ({ setNews }) => {
                 value={country}
                 onChange={e => setCountry(e.target.value)}>
                 <MenuItem value="">
-                  <em>None</em>
+                  <em>Global</em>
                 </MenuItem>
                 <MenuItem value="ar">Argentina</MenuItem>
                 <MenuItem value="at">Austria</MenuItem>
@@ -106,7 +106,7 @@ const DialogSelect = ({ setNews }) => {
                 </MenuItem>
                 <MenuItem value="health">Health</MenuItem>
                 <MenuItem value="business">Business</MenuItem>
-                <MenuItem value="technology">Tech</MenuItem>
+                <MenuItem value="technology">Technology</MenuItem>
                 <MenuItem value="entertainment">Entertainment</MenuItem>
                 <MenuItem value="science">Science</MenuItem>
                 <MenuItem value="sports">Sports</MenuItem>
