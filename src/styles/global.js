@@ -32,9 +32,7 @@ const GlobalStyles = createGlobalStyle`
 
   ${mobile} {
     .webmap {
-      height: Calc(90vh - 8vh)
-    }
-  }
+      height: Calc(90vh - 8vh);
 `;
 
 export default GlobalStyles;
