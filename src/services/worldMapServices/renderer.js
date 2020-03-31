@@ -94,7 +94,7 @@ export const covidDeathsRenderer = {
 
 const less1000 = {
   type: "simple-fill", // autocasts as new SimpleFillSymbol()
-  color: "pink",
+  color: "#E57373",
   style: "solid",
   outline: {
     width: 0.2,
@@ -104,7 +104,7 @@ const less1000 = {
 
 const less10000 = {
   type: "simple-fill", // autocasts as new SimpleFillSymbol()
-  color: "red",
+  color: "#F44336",
   style: "solid",
   outline: {
     width: 0.2,
@@ -114,7 +114,7 @@ const less10000 = {
 
 const less100000 = {
   type: "simple-fill", // autocasts as new SimpleFillSymbol()
-  color: "maroon",
+  color: "#D32F2F",
   style: "solid",
   outline: {
     width: 0.2,
@@ -124,7 +124,7 @@ const less100000 = {
 
 const less1000000 = {
   type: "simple-fill", // autocasts as new SimpleFillSymbol()
-  color: "black",
+  color: "#8B0000",
   style: "solid",
   outline: {
     width: 0.2,

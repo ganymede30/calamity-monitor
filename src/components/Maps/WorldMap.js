@@ -137,7 +137,7 @@ export default class WorldMap extends Component {
 
         const map = new Map({
           basemap: "dark-gray",
-          layers: [usCovidDeaths, usCovidCases, worldCovidDeaths, worldCovidCases, covidChoropleth]
+          layers: [covidChoropleth, usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths]
         });
 
         this.view = new MapView({
