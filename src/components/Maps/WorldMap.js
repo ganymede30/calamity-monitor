@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
 import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
-import { covidCasesRenderer, covidDeathsRenderer } from "../../services/worldMapServices/renderer";
-import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServices/popupTemplate";
-import { worldFields, usFields } from "../../services/worldMapServices/fields";
+import { covidCasesRenderer, covidDeathsRenderer, choroplethRenderer } from "../../services/worldMapServices/renderer";
+import { worldPopupTemplate, usPopupTemplate, choroplethPopupTemplate } from "../../services/worldMapServices/popupTemplate";
+import { worldFields, usFields, choroplethFields } from "../../services/worldMapServices/fields";
 import { covidCasesExpressions } from "../../services/worldMapServices/expressions";
 import { covidCasesGlobalActionSections, covidCasesUSActionSections } from "../../services/worldMapServices/actionSections";
 
@@ -80,9 +80,20 @@ export default class WorldMap extends Component {
           });
         });
 
+        const covidChoropleth = new FeatureLayer({
+          url: "https://services7.arcgis.com/Ya9q8cnnxtYOu4WD/arcgis/rest/services/Choropleth2/FeatureServer",
+          visible: true,
+          outFields: ["*"],
+          title: "Global COVID-19 Cases Choropleth",
+          renderer: choroplethRenderer,
+          popupTemplate: choroplethPopupTemplate,
+          objectIdField: "JOIN_FID",
+          fields: choroplethFields
+        })
+
         const worldCovidCases = new FeatureLayer({
           source: worldGraphics,
-          visible: true,
+          visible: false,
           outFields: ["*"],
           title: "Global COVID-19 Cases",
           renderer: covidCasesRenderer,
@@ -93,7 +104,7 @@ export default class WorldMap extends Component {
 
         const worldCovidDeaths = new FeatureLayer({
           source: worldGraphics,
-          visible: true,
+          visible: false,
           outFields: ["*"],
           title: "Global COVID-19 Deaths",
           renderer: covidDeathsRenderer,
@@ -126,7 +137,7 @@ export default class WorldMap extends Component {
 
         const map = new Map({
           basemap: "dark-gray",
-          layers: [usCovidDeaths, usCovidCases, worldCovidDeaths, worldCovidCases]
+          layers: [usCovidDeaths, usCovidCases, worldCovidDeaths, worldCovidCases, covidChoropleth]
         });
 
         this.view = new MapView({

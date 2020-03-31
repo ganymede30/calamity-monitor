@@ -25,11 +25,11 @@ export const worldPopupTemplate = {
           label: "Confirmed Cases",
           visible: true
         },
-        {
-          fieldName: "recovered",
-          label: "Recovered",
-          visible: true
-        },
+        // {
+        //   fieldName: "recovered",
+        //   label: "Recovered",
+        //   visible: true
+        // },
         {
           fieldName: "deaths",
           label: "Deaths",
@@ -72,13 +72,50 @@ export const usPopupTemplate = {
           label: "Confirmed Cases",
           visible: true
         },
+        // {
+        //   fieldName: "recovered",
+        //   label: "Recovered",
+        //   visible: true
+        // },
         {
-          fieldName: "recovered",
-          label: "Recovered",
+          fieldName: "deaths",
+          label: "Deaths",
+          visible: true
+        }
+      ]
+    }
+  ]
+}
+
+export const choroplethPopupTemplate = {
+  // autocasts as new PopupTemplate()
+  title: "COVID-19",
+  content: [
+    {
+      type: "fields",
+      fieldInfos: [
+        {
+          fieldName: "COUNTRY",
+          label: "Country",
           visible: true
         },
         {
-          fieldName: "deaths",
+          fieldName: "Date",
+          label: "Last Updated",
+          visible: true
+        },
+        {
+          fieldName: "number_of_cases",
+          label: "Confirmed Cases",
+          visible: true
+        },
+        // {
+        //   fieldName: "recovered",
+        //   label: "Recovered",
+        //   visible: true
+        // },
+        {
+          fieldName: "number_of_deaths",
           label: "Deaths",
           visible: true
         }

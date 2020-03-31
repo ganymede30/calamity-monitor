@@ -91,3 +91,84 @@ export const covidDeathsRenderer = {
     }
   ]
 };
+
+const less1000 = {
+  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+  color: "pink",
+  style: "solid",
+  outline: {
+    width: 0.2,
+    color: [255, 255, 255, 0.5]
+  }
+}
+
+const less10000 = {
+  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+  color: "red",
+  style: "solid",
+  outline: {
+    width: 0.2,
+    color: [255, 255, 255, 0.5]
+  }
+}
+
+const less100000 = {
+  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+  color: "maroon",
+  style: "solid",
+  outline: {
+    width: 0.2,
+    color: [255, 255, 255, 0.5]
+  }
+}
+
+const less1000000 = {
+  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+  color: "black",
+  style: "solid",
+  outline: {
+    width: 0.2,
+    color: [255, 255, 255, 0.5]
+  }
+}
+
+export const choroplethRenderer = {
+  type: "class-breaks", // autocasts as new ClassBreaksRenderer()
+  field: "number_of_cases",
+  defaultSymbol: {
+    type: "simple-fill", // autocasts as new SimpleFillSymbol()
+    color: "black",
+    style: "backward-diagonal",
+    outline: {
+      width: 0.5,
+      color: [50, 50, 50, 0.6]
+    }
+  },
+  defaultLabel: "no data",
+  classBreakInfos: [
+    {
+      minValue: 0,
+      maxValue: 1000,
+      symbol: less1000,
+      label: "< 35%"
+    },
+    {
+      minValue: 1001,
+      maxValue: 10000,
+      symbol: less10000,
+      label: "35 - 50%"
+    },
+    {
+      minValue: 10001,
+      maxValue: 100000,
+      symbol: less100000,
+      label: "50 - 75%"
+    },
+    {
+      minValue: 100001,
+      maxValue: 1000000,
+      symbol: less1000000,
+      label: "> 75%"
+    }
+  ]
+}

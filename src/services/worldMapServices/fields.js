@@ -78,3 +78,36 @@ export const usFields = [
     type: "integer"
   }
 ]
+
+export const choroplethFields = [
+  {
+    name: "JOIN_FID",
+    alias: "JOIN_FID",
+    type: "oid"
+  },
+  {
+    name: "COUNTRY",
+    alias: "Country",
+    type: "string"
+  },
+  {
+    name: "Date",
+    alias: "Last Updated",
+    type: "string"
+  },
+  {
+    name: "number_of_cases",
+    alias: "Confirmed Cases",
+    type: "integer"
+  },
+  // {
+  //   name: "recovered",
+  //   alias: "Recovered",
+  //   type: "integer"
+  // },
+  {
+    name: "number_of_deaths",
+    alias: "Deaths",
+    type: "integer"
+  }
+]
