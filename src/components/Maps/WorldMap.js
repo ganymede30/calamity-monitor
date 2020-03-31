@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
 import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
-import { renderer } from "../../services/worldMapServices/renderer";
+import { covidCasesRenderer, covidDeathsRenderer } from "../../services/worldMapServices/renderer";
 import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServices/popupTemplate";
 import { worldFields, usFields } from "../../services/worldMapServices/fields";
-import { expressionsCovid19 } from "../../services/worldMapServices/expressions";
-import { actionSectionsCovid19 } from "../../services/worldMapServices/actionSections";
+import { covidCasesExpressions } from "../../services/worldMapServices/expressions";
+import { covidCasesGlobalActionSections, covidCasesUSActionSections } from "../../services/worldMapServices/actionSections";
 
 export default class WorldMap extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ export default class WorldMap extends Component {
         "esri/views/MapView",
         "esri/layers/FeatureLayer",
         "esri/Graphic",
+        "esri/layers/GroupLayer",
         "esri/widgets/LayerList",
         "esri/core/Collection",
         "esri/widgets/BasemapToggle",
@@ -36,10 +37,7 @@ export default class WorldMap extends Component {
         css: true
       }
     ).then(
-      ([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle, Expand]) => {
-        const map = new Map({
-          basemap: "dark-gray"
-        });
+      ([Map, MapView, FeatureLayer, Graphic, GroupLayer, LayerList, Collection, BasemapToggle, Expand]) => {
 
         const worldGraphics = this.state.countries.map(point => {
           return new Graphic({
@@ -82,29 +80,54 @@ export default class WorldMap extends Component {
           });
         });
 
-        const worldFeatureLayer = new FeatureLayer({
+        const worldCovidCases = new FeatureLayer({
           source: worldGraphics,
+          visible: true,
           outFields: ["*"],
           title: "Global COVID-19 Cases",
-          renderer: renderer,
+          renderer: covidCasesRenderer,
           popupTemplate: worldPopupTemplate,
           objectIdField: "ObjectID",
           fields: worldFields
         });
 
-        const usFeatureLayer = new FeatureLayer({
+        const worldCovidDeaths = new FeatureLayer({
+          source: worldGraphics,
+          visible: true,
+          outFields: ["*"],
+          title: "Global COVID-19 Deaths",
+          renderer: covidDeathsRenderer,
+          popupTemplate: worldPopupTemplate,
+          objectIdField: "ObjectID",
+          fields: worldFields
+        });
+
+        const usCovidCases = new FeatureLayer({
           source: usGraphics,
+          visible: false,
+          outFields: ["*"],
           title: "US COVID-19 Cases",
-          renderer: renderer,
+          renderer: covidCasesRenderer,
           popupTemplate: usPopupTemplate,
           objectIdField: "ObjectID",
           fields: usFields
         });
 
-        usFeatureLayer.visible = false;
+        const usCovidDeaths = new FeatureLayer({
+          source: usGraphics,
+          visible: false,
+          outFields: ["*"],
+          title: "US COVID-19 Deaths",
+          renderer: covidDeathsRenderer,
+          popupTemplate: usPopupTemplate,
+          objectIdField: "ObjectID",
+          fields: usFields
+        });
 
-        map.add(usFeatureLayer);
-        map.add(worldFeatureLayer);
+        const map = new Map({
+          basemap: "dark-gray",
+          layers: [usCovidDeaths, usCovidCases, worldCovidDeaths, worldCovidCases]
+        });
 
         this.view = new MapView({
           container: this.mapRef.current,
@@ -126,7 +149,7 @@ export default class WorldMap extends Component {
         });
         this.view.ui.add(layerListExpand, "top-right");
 
-        const expressions = new Collection(expressionsCovid19);
+        const expressions = new Collection(covidCasesExpressions);
 
         layerList.on("trigger-action", function(event) {
           const actionId = event.action.id;
@@ -145,8 +168,9 @@ export default class WorldMap extends Component {
 
         function createActions(event) {
           const item = event.item;
+          // console.log("event:", event)
           item.actionsOpen = true;
-          item.actionsSections = actionSectionsCovid19;
+          item.actionsSections = covidCasesGlobalActionSections;
         }
 
         function createDefinitionExpression(subExpression) {
