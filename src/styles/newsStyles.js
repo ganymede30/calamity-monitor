@@ -6,13 +6,11 @@ export const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
-  padding-bottom: 50px; 
-  // padding-bottom: 50px;
 
   ${tablet} {
     width: 96%;
-  } 
-`;   
+  }
+`;
 
 export const Title = styled.h1`
   color: ${props => props.theme.titleText};

@@ -1,152 +1,118 @@
-import React from 'react'
-import clsx from 'clsx';
-import { makeStyles, useTheme } from "@material-ui/styles";
-import CssBaseline from '@material-ui/core/CssBaseline';
-import styled from 'styled-components'
-import { Grid,  Box, Button, Typography, IconButton, Drawer, 
-  AppBar, Toolbar, 
- } from '@material-ui/core'
- import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Drawer, Button, IconButton, Grid, Typography, AppBar, Box } from "@material-ui/core";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
-
-
-
+import MenuIcon from "@material-ui/icons/Menu";
 
 const darkMode = makeStyles(() => {
-    return {
-      buttonText: {
-        fontSize: "1.2em", 
-        color: "#e0e0e0"
-      },
-      navBar: {
-        backgroundColor: "#333333"
-      },
-      gridContainer: {
-        height: "65px"
-      }
-    };
-  });
-  
-  const lightMode = makeStyles(() => ({
+  return {
     buttonText: {
       fontSize: "1.2em",
-      color: "#fafafa"
+      color: "#e0e0e0"
     },
     navBar: {
-      backgroundColor: "primary"
+      backgroundColor: "#333333"
     },
-    gridContainer: {
-      height: "65px"
+    list: {
+      width: "40vw"
+    },
+    drawer: {
+      fontSize: "1.2em",
+      color: "#e0e0e0"
     }
-  }));
+  };
+});
 
+const lightMode = makeStyles(() => ({
+  buttonText: {
+    fontSize: "1.2em",
+    color: "#fafafa"
+  },
+  navBar: {
+    backgroundColor: "primary"
+  },
+  list: {
+    width: "40vw"
+  },
+  drawer: {
+    fontSize: "1.2em",
+    color: "#333333"
+  }
+}));
 
 const MobileNav = ({ theme, setTheme }) => {
-    let classes;
-    theme ? (classes = darkMode()) : (classes = lightMode());
-    const [open, setOpen] = React.useState(false);
+  let classes;
+  theme ? (classes = darkMode()) : (classes = lightMode());
+  const [open, setOpen] = React.useState(false);
 
-    
+  const toggleDrawer = open => event => {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+      return;
+    }
 
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
+    setOpen(open);
+  };
 
-   return (
-   
-    
-    <div className={classes.root}>
-    
-    
-    <CssBaseline />
-    <AppBar
-      position="fixed"
-      className={clsx(classes.appBar, {
-        [classes.appBarShift]: open,
-      })}
-    >
-      <Toolbar>
-      <Button color="inherit" href="/">
-              <Typography >Calamity Monitor</Typography>
-            </Button>
-        
+  const list = () => (
+    <Grid
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+      className={classes.list}
+      container
+      alignItems="center"
+      direction="column">
+      <Grid item>
+        <Button href="/news">
+          <Typography className={classes.drawer}>News</Typography>
+        </Button>
+      </Grid>
+
+      <Grid item>
+        <Button href="/health">
+          <Typography className={classes.drawer}>Health</Typography>
+        </Button>
+      </Grid>
+      <Grid item>
         <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="end"
-          onClick={handleDrawerOpen}
-          className={clsx(open && classes.hide)}
-        >
-          
-        
-             <MenuIcon/>
-           
-         
+          className={classes.drawer}
+          title="Toggle light/dark theme"
+          aria-label="Toggle light/dark theme"
+          onClick={() => setTheme()}>
+          {theme ? <Brightness7 /> : <Brightness4 />}
         </IconButton>
+      </Grid>
+    </Grid>
+  );
 
-        <IconButton
-              color="default"
-              className={classes.buttonText}
-              title="Toggle light/dark theme"
-              aria-label="Toggle light/dark theme"
-              onClick={() => setTheme()}>
-              {theme ? <Brightness7 /> : <Brightness4 />}
-            </IconButton> 
-      
-          
-      </Toolbar>
-    </AppBar>
-           
-   
-        <Drawer
-       
-        className={classes.navBar}
-        variant="persistent"
-        anchor="right"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-         >
-      
-      <div className={classes.drawerHeader} >
-          <IconButton onClick={handleDrawerClose}>
-            {classes.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-          </div>
-   
-      
-         
-           <Button color="inherit" href="/news">
-              <Typography> News</Typography>
-            </Button>
+  return (
+    <>
+      <Box component="nav">
+        <AppBar position="static" className={classes.navBar}>
+          <Grid container justify="space-between" alignItems="center" direction="row">
+            <Grid item>
+              <Button href="/">
+                <Typography className={classes.buttonText}>Calamity Monitor</Typography>
+              </Button>
+            </Grid>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
+            <Drawer
+              classes={{ paper: classes.navBar }}
+              anchor="right"
+              open={open}
+              onClose={toggleDrawer(false)}>
+              {list()}
+            </Drawer>
+          </Grid>
+        </AppBar>
+      </Box>
+    </>
+  );
+};
 
-           
-
-            <Button color="inherit" href="/health">
-              <Typography>Health</Typography>
-            </Button>
-
-
-           
-
-      
-       </Drawer>    
-      
-      
-       
-        
-      </div>
-        
-        
-    )
-    
-}
-
-export default MobileNav
+export default MobileNav;

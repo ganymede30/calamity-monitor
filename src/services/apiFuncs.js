@@ -4,7 +4,7 @@ import { selectFields, filterArticles } from "../utils/utils";
 export const baseUrl = "http://newsapi.org/v2/";
 
 export const getTopHeadlines = async (country, category) => {
-  let baseRoute = `/topHeadlines`;
+  let baseRoute = `api/topHeadlines`;
   if (country) baseRoute += `/${country}`;
   if (category) baseRoute += `/${category}`;
   const result = await axios

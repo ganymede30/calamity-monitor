@@ -6,11 +6,6 @@ import GlobalStyles from "../styles/global";
 import { ThemeProvider } from "styled-components";
 import { colorsDark, colorsLight } from "../styles/palette";
 
- 
-// const toggleThemes = () => {
-//   const [theme, setTheme] = useState(colorsDark);
-// }; 
-
 const App = () => {
   const stored = localStorage.getItem("isDarkMode");
   const [isDarkMode, setIsDarkMode] = useState(stored === "true" ? true : false);
@@ -21,17 +16,15 @@ const App = () => {
   };
 
   return (
-    <div style={{height: '100'}}>
-    <BrowserRouter>
-      <ThemeProvider theme={isDarkMode ? colorsDark : colorsLight}>
-        <GlobalStyles />
-        <Navbar theme={isDarkMode} setTheme={toggler} />
-
-    
-        <Routes />
-      </ThemeProvider>
-    </BrowserRouter>
-   </div>
+    <>
+      <BrowserRouter>
+        <ThemeProvider theme={isDarkMode ? colorsDark : colorsLight}>
+          <GlobalStyles />
+          <Navbar theme={isDarkMode} setTheme={toggler} />
+          <Routes />
+        </ThemeProvider>
+      </BrowserRouter>
+    </>
   );
 };
 

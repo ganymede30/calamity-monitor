@@ -10,8 +10,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: Lato, Helvetica, Roboto, sans-serif;
-    width: 100vw;
-    overflow-x: hidden;
+    width: 100%;
     background: ${({ theme }) => theme.backgroundColor};
   }
 
@@ -28,14 +27,12 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .webmap {
-    height: Calc(100vh - 9vh);
+    height: Calc(100vh - 55px);
   }
 
   ${mobile} {
     .webmap {
-      height: Calc(90vh - 10vh)
-    }
-  }
+      height: Calc(90vh - 55px);
 `;
 
 export default GlobalStyles;
