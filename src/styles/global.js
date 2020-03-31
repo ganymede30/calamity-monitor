@@ -27,12 +27,12 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .webmap {
-    height: Calc(100vh - 10vh);
+    height: Calc(100vh - 55px);
   }
 
   ${mobile} {
     .webmap {
-      height: Calc(90vh - 8vh);
+      height: Calc(90vh - 55px);
 `;
 
 export default GlobalStyles;
