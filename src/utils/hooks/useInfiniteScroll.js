@@ -14,8 +14,6 @@ export const useInfiniteScroll = () => {
     }
     setLoading(true);
   }, 500);
-  // the innerHeight + scroll top !== offsetHeight;
-  // if its bigger then show loading;
 
   useEffect(() => {
     if (!loading) return;
