@@ -4,6 +4,11 @@ import Showhide from './Showhide';
 import {Simulation} from './Simulation';
 import './Health.css';
 
+const virusURL =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/SARS-CoV-2_without_background.png/220px-SARS-CoV-2_without_background.png';
+const shipURL =
+  'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/the-us-naval-hospital-ship-comfort-sits-docked-at-the-port-news-photo-1585323139.jpg?crop=0.668xw:1.00xh;0.00680xw,0&resize=980:*';
+
 class Health extends React.Component {
   render() {
     const query = new URLSearchParams(window.location.search);
@@ -11,18 +16,20 @@ class Health extends React.Component {
       <Parallax ref={ref => (this.parallax = ref)} pages={3}>
         <ParallaxLayer offset={0.15} speed={0.8}>
           <img
-            src={
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/SARS-CoV-2_without_background.png/220px-SARS-CoV-2_without_background.png'
-            }
+            src={virusURL}
             style={{display: 'block', width: '20%', marginLeft: '55%'}}
           />
           <ParallaxLayer offset={0.5} speed={1.2}>
             <img
-              src={
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/SARS-CoV-2_without_background.png/220px-SARS-CoV-2_without_background.png'
-              }
+              src={virusURL}
               style={{display: 'block', width: '10%', marginLeft: '15%'}}
             />
+            <ParallaxLayer offset={2.1} speed={0.4}>
+              <img
+                src={virusURL}
+                style={{display: 'block', width: '16%', marginLeft: '80%'}}
+              />
+            </ParallaxLayer>
           </ParallaxLayer>
         </ParallaxLayer>
         <ParallaxLayer
@@ -35,7 +42,7 @@ class Health extends React.Component {
           }}
         >
           <img
-            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/the-us-naval-hospital-ship-comfort-sits-docked-at-the-port-news-photo-1585323139.jpg?crop=0.668xw:1.00xh;0.00680xw,0&resize=980:*"
+            src={shipURL}
             style={{width: '75%', borderRadius: '20px 0px 0px 20px'}}
           />
         </ParallaxLayer>
@@ -46,7 +53,7 @@ class Health extends React.Component {
           style={{
             display: 'flex',
             alignItems: 'center',
-            // justifyContent: 'center',
+            justifyContent: 'center',
           }}
         >
           <a
@@ -62,7 +69,7 @@ class Health extends React.Component {
           style={{
             display: 'flex',
             alignItems: 'right',
-            // justifyContent: 'center',
+            justifyContent: 'center',
           }}
         >
           <a onClick={() => this.parallax.scrollTo(2)}>
@@ -72,10 +79,17 @@ class Health extends React.Component {
         <ParallaxLayer
           offset={2}
           speed={1}
-          style={{alignItems: 'center', justifyContent: 'center'}}
+          style={{
+            alignItems: 'right',
+            justifyContent: 'center',
+            textAlign: 'center',
+          }}
         >
           <a onClick={() => this.parallax.scrollTo(0)}>
-            <h1>Back to top</h1>
+            <img
+              src="https://static.thenounproject.com/png/1195138-200.png"
+              id="top"
+            />
           </a>
           <Simulation
             cx={400}
@@ -88,6 +102,7 @@ class Health extends React.Component {
             defaultSocialDistancing={query.get('socialDistancing') || 0}
             defaultReinfectability={query.get('reinfectability') || 30}
           />
+          <h4>Credit: Swizec Teller</h4>
         </ParallaxLayer>
         {/* <ParallaxLayer
           offset={0}

@@ -147,7 +147,7 @@ const infectPeople = (
   });
 };
 
-const peopleDieOrGetBetter = (
+const peopleRecoverOrDie = (
   population,
   iterationCount,
   mortality,
@@ -237,7 +237,7 @@ const usePopulation = ({
         virality,
         reinfectability
       );
-      newPop = peopleDieOrGetBetter(
+      newPop = peopleRecoverOrDie(
         newPop,
         iterationCount,
         mortality / 100,
@@ -316,9 +316,13 @@ export const Simulation = ({
       </svg>
       <div>
         {simulating ? (
-          <button onClick={stopSimulation}>Stop</button>
+          <button style={{alignItems: 'center'}} onClick={stopSimulation}>
+            Stop
+          </button>
         ) : (
-          <button onClick={startSimulation}>Start simulation</button>
+          <button style={{alignItems: 'center'}} onClick={startSimulation}>
+            Start simulation
+          </button>
         )}
       </div>
       <p>
