@@ -5,7 +5,6 @@ class Health extends React.Component {
   render() {
     return (
       <Parallax ref={ref => (this.parallax = ref)} pages={3}>
-        {/* <ParallaxLayer offset={1} speed={1} style={{backgroundColor: 'red'}} /> */}
         <ParallaxLayer offset={1} speed={0.8}>
           <img
             src={
@@ -28,7 +27,7 @@ class Health extends React.Component {
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
           }}
         >
           <img
@@ -36,32 +35,35 @@ class Health extends React.Component {
             style={{width: '75%'}}
           />
         </ParallaxLayer>
+
         <ParallaxLayer
-          offset={0}
-          speed={0.7}
+          offset={-0.01}
+          speed={0.4}
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            // justifyContent: 'center',
           }}
         >
           <a
-            style={{position: 'absolute'}}
+            style={{position: 'absolute', marginBottom: 50}}
             onClick={() => this.parallax.scrollTo(1)}
           >
-            <h1>SIMULATION</h1>
+            <h1>SYMPTOMS</h1>
           </a>
         </ParallaxLayer>
         <ParallaxLayer
-          offset={1}
+          offset={0.1}
           speed={0.2}
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            // justifyContent: 'center',
           }}
         >
-          <h1 style={{position: 'absolute'}}>VIRRRRRUS</h1>
+          <a onClick={() => this.parallax.scrollTo(2)}>
+            <h1>SIMULATION</h1>
+          </a>
         </ParallaxLayer>
         <ParallaxLayer
           offset={2}
