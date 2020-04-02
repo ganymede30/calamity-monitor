@@ -28,7 +28,7 @@ class Health extends React.Component {
           >
             <Grid item style={{margin: '10px'}}>
               <Button
-                onClick={() => this.parallax.scrollTo(1)}
+                onClick={() => this.parallax.scrollTo(1.1)}
                 variant="contained"
                 color="primary"
               >
@@ -77,7 +77,7 @@ class Health extends React.Component {
                 position: 'absolute',
               }}
             />
-            <ParallaxLayer offset={1.7} speed={0.4}>
+            <ParallaxLayer offset={0.8} speed={0.4}>
               <img
                 src={virusURL}
                 style={{
