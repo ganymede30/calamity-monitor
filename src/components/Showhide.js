@@ -26,14 +26,8 @@ const sym2 = (
     </li>
   </ul>
 );
-const sym3 = 'What are some symptoms?';
-const sym4 =
-  'Diarrhea, fever, cough, shortness of breath, blueish lips or face';
-const sym5 = "What happens to people if they're infected?";
-const sym6 =
-  'People usually get respiratory problems and fever, and recovery times vary';
 
-export class Showhide extends React.PureComponent {
+export default class Showhide extends React.PureComponent {
   state = {show: true};
   toggle = e => this.setState(state => ({show: !state.show}));
   render() {
@@ -51,58 +45,6 @@ export class Showhide extends React.PureComponent {
               show
                 ? props => <animated.div style={props}>{sym1}</animated.div>
                 : props => <animated.div style={props}>{sym2}</animated.div>
-            }
-          </Transition>
-        </div>
-      </div>
-    );
-  }
-}
-
-export class Showhide2 extends React.PureComponent {
-  state = {show: true};
-  toggle = e => this.setState(state => ({show: !state.show}));
-  render() {
-    return (
-      <div>
-        <div className="reveals-main" onClick={this.toggle}>
-          <Transition
-            native
-            items={this.state.show}
-            from={{position: 'absolute', overflow: 'hidden', height: 0}}
-            enter={[{height: 'auto'}]}
-            leave={{height: 0}}
-          >
-            {show =>
-              show
-                ? props => <animated.div style={props}>{sym3}</animated.div>
-                : props => <animated.div style={props}>{sym4}</animated.div>
-            }
-          </Transition>
-        </div>
-      </div>
-    );
-  }
-}
-
-export class Showhide3 extends React.PureComponent {
-  state = {show: true};
-  toggle = e => this.setState(state => ({show: !state.show}));
-  render() {
-    return (
-      <div>
-        <div className="reveals-main" onClick={this.toggle}>
-          <Transition
-            native
-            items={this.state.show}
-            from={{position: 'absolute', overflow: 'hidden', height: 0}}
-            enter={[{height: 'auto'}]}
-            leave={{height: 0}}
-          >
-            {show =>
-              show
-                ? props => <animated.div style={props}>{sym5}</animated.div>
-                : props => <animated.div style={props}>{sym6}</animated.div>
             }
           </Transition>
         </div>

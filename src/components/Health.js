@@ -1,19 +1,20 @@
 import React from 'react';
 import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons';
-import {Showhide, Showhide2, Showhide3} from './Showhide';
+import Showhide from './Showhide';
 import {Simulation} from './Simulation';
 import './Health.css';
 
 const virusURL =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/SARS-CoV-2_without_background.png/220px-SARS-CoV-2_without_background.png';
-const shipURL =
-  'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/the-us-naval-hospital-ship-comfort-sits-docked-at-the-port-news-photo-1585323139.jpg?crop=0.668xw:1.00xh;0.00680xw,0&resize=980:*';
 
 class Health extends React.Component {
   render() {
     const query = new URLSearchParams(window.location.search);
     return (
       <Parallax ref={ref => (this.parallax = ref)} pages={3}>
+        <ParallaxLayer offset={0} speed={0.9}>
+          <img src="https://www.stratfor.com/sites/default/files/styles/wv_small/public/world-coronavirus-totals-01282020_0.png?itok=qMMAbHYA" />
+        </ParallaxLayer>
         <ParallaxLayer offset={0.15} speed={0.8}>
           <img
             src={virusURL}
@@ -47,24 +48,7 @@ class Health extends React.Component {
             </ParallaxLayer>
           </ParallaxLayer>
         </ParallaxLayer>
-        <ParallaxLayer
-          offset={0.5}
-          speed={0.4}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <img
-            src={shipURL}
-            style={{
-              width: '75%',
-              borderRadius: '20px 0px 0px 20px',
-              position: 'relative',
-            }}
-          />
-        </ParallaxLayer>
+
         <ParallaxLayer
           offset={-0.01}
           speed={0.4}
@@ -130,10 +114,8 @@ class Health extends React.Component {
           speed={0.9}
           style={{
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: '',
             alignItems: 'center',
-            // flexDirection: 'column',
-            marginBottom: '40%',
           }}
         >
           <a href="https://www.cdc.gov/coronavirus" target="_blank">
@@ -148,8 +130,9 @@ class Health extends React.Component {
           speed={0.7}
           style={{
             display: 'flex',
+            justifyContent: 'flex-start',
             alignItems: 'center',
-            marginLeft: '8%',
+            marginLeft: '25%',
           }}
         >
           <a
@@ -162,29 +145,6 @@ class Health extends React.Component {
             />
           </a>
           <Showhide />
-        </ParallaxLayer>
-        <ParallaxLayer
-          offset={1}
-          speed={0.7}
-          style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            marginBottom: '17%',
-            marginLeft: '24%',
-          }}
-        >
-          <Showhide2 />
-        </ParallaxLayer>
-        <ParallaxLayer
-          offset={1}
-          speed={0.7}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginLeft: '48%',
-          }}
-        >
-          <Showhide3 />
         </ParallaxLayer>
       </Parallax>
     );
