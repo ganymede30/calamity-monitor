@@ -8,13 +8,15 @@ const darkMode = makeStyles(() => {
   return {
     buttonText: {
       fontSize: "1.2em",
-      color: "#e0e0e0"
+      color: "#e0e0e0",
+      padding: "0 8px 0 0"
     },
     navBar: {
       backgroundColor: "#333333"
     },
     list: {
-      width: "40vw"
+      width: "50vw",
+      marginTop: "4%"
     },
     drawer: {
       fontSize: "1.2em",
@@ -26,13 +28,15 @@ const darkMode = makeStyles(() => {
 const lightMode = makeStyles(() => ({
   buttonText: {
     fontSize: "1.2em",
-    color: "#fafafa"
+    color: "#fafafa",
+    padding: "0 8px 0 0"
   },
   navBar: {
     backgroundColor: "primary"
   },
   list: {
-    width: "40vw"
+    width: "50vw",
+    marginTop: "4%"
   },
   drawer: {
     fontSize: "1.2em",
@@ -61,26 +65,15 @@ const MobileNav = ({ theme, setTheme }) => {
       container
       alignItems="center"
       direction="column">
-      <Grid item>
-        <Button href="/news">
-          <Typography className={classes.drawer}>News</Typography>
-        </Button>
-      </Grid>
-
-      <Grid item>
-        <Button href="/health">
-          <Typography className={classes.drawer}>Health</Typography>
-        </Button>
-      </Grid>
-      <Grid item>
-        <IconButton
-          className={classes.drawer}
-          title="Toggle light/dark theme"
-          aria-label="Toggle light/dark theme"
-          onClick={() => setTheme()}>
-          {theme ? <Brightness7 /> : <Brightness4 />}
-        </IconButton>
-      </Grid>
+      <Button href="/">
+        <Typography className={classes.drawer}>Map</Typography>
+      </Button>
+      <Button href="/news">
+        <Typography className={classes.drawer}>News</Typography>
+      </Button>
+      <Button href="/health">
+        <Typography className={classes.drawer}>Health</Typography>
+      </Button>
     </Grid>
   );
 
@@ -94,13 +87,22 @@ const MobileNav = ({ theme, setTheme }) => {
                 <Typography className={classes.buttonText}>Calamity Monitor</Typography>
               </Button>
             </Grid>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              onClick={toggleDrawer(true)}>
-              <MenuIcon />
-            </IconButton>
+            <Grid>
+              <IconButton
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}>
+                <MenuIcon />
+              </IconButton>
+              <IconButton
+                className={classes.buttonText}
+                title="Toggle light/dark theme"
+                aria-label="Toggle light/dark theme"
+                onClick={() => setTheme()}>
+                {theme ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </Grid>
             <Drawer
               classes={{ paper: classes.navBar }}
               anchor="right"

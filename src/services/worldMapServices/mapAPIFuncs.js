@@ -40,3 +40,10 @@ export const fetchUSData = () => {
       }));
     });
 };
+
+// export const fetchLatestData = () => {
+//   return fetch("https://coronavirus-tracker-api.herokuapp.com/v2/latest?source=jhu")
+//         .then(data => {
+            
+//         })
+// }

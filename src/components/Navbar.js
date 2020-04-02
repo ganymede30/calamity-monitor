@@ -10,8 +10,9 @@ import { mobile } from "../styles/mediaQueries";
 const darkMode = makeStyles(() => {
   return {
     buttonText: {
-      fontSize: "1.2em",
+      fontSize: "1rem",
       color: "#e0e0e0"
+      // textTransform: "capitalize"
     },
     navBar: {
       backgroundColor: "#333333",
@@ -59,6 +60,9 @@ const Navbar = ({ theme, setTheme }) => {
             </Button>
           </Grid>
           <Grid item>
+            <Button href="/">
+              <Typography className={classes.buttonText}>Map</Typography>
+            </Button>
             <Button href="/news">
               <Typography className={classes.buttonText}>News</Typography>
             </Button>
