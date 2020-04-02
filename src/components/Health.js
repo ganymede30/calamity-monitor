@@ -1,6 +1,6 @@
 import React from 'react';
 import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons';
-import Showhide from './Showhide';
+import {Showhide, Showhide2, Showhide3} from './Showhide';
 import {Simulation} from './Simulation';
 import './Health.css';
 
@@ -48,7 +48,7 @@ class Health extends React.Component {
           </ParallaxLayer>
         </ParallaxLayer>
         <ParallaxLayer
-          offset={0.6}
+          offset={0.5}
           speed={0.4}
           style={{
             display: 'flex',
@@ -76,7 +76,7 @@ class Health extends React.Component {
         >
           <a
             style={{position: 'absolute', marginBottom: 50}}
-            onClick={() => this.parallax.scrollTo(1)}
+            onClick={() => this.parallax.scrollTo(1.1)}
           >
             <button>HELP</button>
           </a>
@@ -135,6 +135,29 @@ class Health extends React.Component {
           }}
         >
           <Showhide />
+        </ParallaxLayer>
+        <ParallaxLayer
+          offset={1}
+          speed={0.7}
+          style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+            marginBottom: '17%',
+            marginLeft: '24%',
+          }}
+        >
+          <Showhide2 />
+        </ParallaxLayer>
+        <ParallaxLayer
+          offset={1}
+          speed={0.7}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginLeft: '48%',
+          }}
+        >
+          <Showhide3 />
         </ParallaxLayer>
       </Parallax>
     );
