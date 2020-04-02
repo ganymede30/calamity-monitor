@@ -6,6 +6,7 @@ import {Simulation} from './Simulation';
 import './Health.css';
 import {Button, Grid, Typography} from '@material-ui/core';
 import {Title} from '../styles/healthStyled';
+import Chart from './Chart'
 
 const virusURL =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/SARS-CoV-2_without_background.png/220px-SARS-CoV-2_without_background.png';
@@ -46,18 +47,19 @@ class Health extends React.Component {
             </Grid>
           </Grid>
           <Grid container justify="center">
-            <Title>Global Data</Title>
+            <Title>Total Worldwide Infections</Title>
           </Grid>
           <Grid
             item
             style={{width: '50%', marginLeft: 'auto', marginRight: 'auto'}}
           >
-            <img src=".././coronavirus_graph.png" />
+            <Chart /> 
           </Grid>
         </ParallaxLayer>
 
         <ParallaxLayer className="offset-0.15" offset={0.7} speed={0.8}>
           <img
+            
             src={virusURL}
             style={{
               zIndex: 0,

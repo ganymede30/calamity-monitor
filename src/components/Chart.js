@@ -24,7 +24,7 @@ class Chart extends Component {
                 labels: ['Confirmed Cases', 'Deaths'],
                 datasets: [
                   {
-                    barThickness: 100,
+                    barThickness: 50,
                     label: 'Total World Population Infected',
                     data: [
                         chartData.latest.confirmed,
@@ -53,11 +53,7 @@ class Chart extends Component {
             width={100}
              height={50}
             options={{
-                title: {
-                  display: true,
-                  text: 'Total Worldwide Infections',
-                  fontSize: 25
-                },
+                responsive: true,
                 legend: {
                   display: false
                 }
