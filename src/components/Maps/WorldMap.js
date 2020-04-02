@@ -6,7 +6,7 @@ import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServ
 import { worldFields, usFields } from "../../services/worldMapServices/fields";
 import { expressionsCovid19 } from "../../services/worldMapServices/expressions";
 import { actionSectionsCovid19 } from "../../services/worldMapServices/actionSections";
-import Chart from '../Chart'
+
 
 export default class WorldMap extends Component {
   constructor(props) {

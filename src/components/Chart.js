@@ -24,6 +24,7 @@ class Chart extends Component {
                 labels: ['Confirmed Cases', 'Deaths'],
                 datasets: [
                   {
+                    barThickness: 100,
                     label: 'Total World Population Infected',
                     data: [
                         chartData.latest.confirmed,
@@ -43,7 +44,7 @@ class Chart extends Component {
 
     render () { 
 
-         console.log('State: ', this.state)
+      
 
         return (
           
