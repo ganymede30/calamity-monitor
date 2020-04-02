@@ -54,12 +54,9 @@ export const fetchTimeData = async () => {
         let country_code = location.country_code
         let country = location.country
         let province = location.province
-
         //console.log("dailyCases", dailyCases)
         dailyCases.map(point => {
           counter++
-          // console.log(counter)
-          // console.log(lat)
           // console.log(point[0])
           return ({
             id: counter,
