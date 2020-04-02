@@ -40,3 +40,39 @@ export const fetchUSData = () => {
       }));
     });
 };
+
+export const fetchTimeData = async () => {
+  return await fetch("https://coronavirus-tracker-api.herokuapp.com/all")
+    .then(response => response.json())
+    .then(data => {
+      const { confirmed } = data;
+      let counter = 0
+      return confirmed.locations.map(location => {
+        let dailyCases = Object.entries(location.history)
+        let lat = location.coordinates.lat
+        let long = location.coordinates.long
+        let country_code = location.country_code
+        let country = location.country
+        let province = location.province
+
+        //console.log("dailyCases", dailyCases)
+        dailyCases.map(point => {
+          counter++
+          // console.log(counter)
+          // console.log(lat)
+          // console.log(point[0])
+          return ({
+            id: counter,
+            lat: lat,
+            long: long,
+            country_code: country_code,
+            country: country,
+            province: province,
+            date: point[0],
+            cases: point[1]
+          })
+        })
+    })
+  })
+};
+

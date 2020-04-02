@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
-import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
+import { fetchWorldData, fetchUSData, fetchTimeData } from "../../services/worldMapServices/mapAPIFuncs";
 import { covidCasesRenderer, covidDeathsRenderer, choroplethRenderer } from "../../services/worldMapServices/renderer";
 import { worldPopupTemplate, usPopupTemplate, choroplethPopupTemplate } from "../../services/worldMapServices/popupTemplate";
 import { worldFields, usFields, choroplethFields } from "../../services/worldMapServices/fields";
@@ -13,13 +13,16 @@ export default class WorldMap extends Component {
     this.mapRef = React.createRef();
     this.state = {
       countries: [],
-      counties: []
+      counties: [],
+      timeline: []
     };
   }
 
   async componentDidMount() {
     await fetchWorldData().then(countries => this.setState({ countries }));
     await fetchUSData().then(counties => this.setState({ counties }));
+    await fetchTimeData().then(timeline => this.setState({ timeline }))
+    console.log(await fetchTimeData())
 
     loadModules(
       [
@@ -27,7 +30,6 @@ export default class WorldMap extends Component {
         "esri/views/MapView",
         "esri/layers/FeatureLayer",
         "esri/Graphic",
-        "esri/layers/GroupLayer",
         "esri/widgets/LayerList",
         "esri/core/Collection",
         "esri/widgets/BasemapToggle",
@@ -37,7 +39,30 @@ export default class WorldMap extends Component {
         css: true
       }
     ).then(
-      ([Map, MapView, FeatureLayer, Graphic, GroupLayer, LayerList, Collection, BasemapToggle, Expand]) => {
+      ([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle, Expand]) => {
+
+
+
+        console.log("this.state", this.state.timeline)
+        const timelineGraphics = this.state.timeline.map(point => {
+          //console.log(point)
+          //console.log(point.history)
+
+          return new Graphic({
+            attributes: {
+              ObjectId: point.id,
+              country: point.country,
+              // history: point.history,
+              date: point.date,
+              cases: point.cases
+            },
+            geometry: {
+              longitude: point.long,
+              latitude: point.lat,
+              type: "point"
+            }
+          })
+        })
 
         const worldGraphics = this.state.countries.map(point => {
           return new Graphic({
@@ -80,9 +105,21 @@ export default class WorldMap extends Component {
           });
         });
 
+        const timeLine = new FeatureLayer({
+          source: timelineGraphics,
+          visible: true,
+          outFields: ["*"],
+          title: "COVID-19 Timeline",
+          renderer: covidCasesRenderer,
+          popupTemplate: worldPopupTemplate,
+          objectIdField: "ObjectID",
+          fields: worldFields
+        })
+
+
         const covidChoropleth = new FeatureLayer({
           url: "https://services7.arcgis.com/Ya9q8cnnxtYOu4WD/arcgis/rest/services/Choropleth2/FeatureServer",
-          visible: true,
+          visible: false,
           outFields: ["*"],
           title: "Global COVID-19 Cases Choropleth",
           renderer: choroplethRenderer,
@@ -137,7 +174,7 @@ export default class WorldMap extends Component {
 
         const map = new Map({
           basemap: "dark-gray",
-          layers: [covidChoropleth, usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths]
+          layers: [covidChoropleth, usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths, timeLine]
         });
 
         this.view = new MapView({
