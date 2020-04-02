@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
-import { fetchWorldData, fetchUSData, fetchTimeData } from "../../services/worldMapServices/mapAPIFuncs";
-import { covidCasesRenderer, covidDeathsRenderer, choroplethRenderer } from "../../services/worldMapServices/renderer";
-import { worldPopupTemplate, usPopupTemplate, choroplethPopupTemplate } from "../../services/worldMapServices/popupTemplate";
-import { worldFields, usFields, choroplethFields } from "../../services/worldMapServices/fields";
+import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
+import { covidCasesRenderer, covidDeathsRenderer } from "../../services/worldMapServices/renderer";
+import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServices/popupTemplate";
+import { worldFields, usFields } from "../../services/worldMapServices/fields";
 import { covidCasesExpressions } from "../../services/worldMapServices/expressions";
-import { covidCasesGlobalActionSections, covidCasesUSActionSections } from "../../services/worldMapServices/actionSections";
+import { covid19ActionSections } from "../../services/worldMapServices/actionSections";
 
 export default class WorldMap extends Component {
   constructor(props) {
@@ -13,15 +13,13 @@ export default class WorldMap extends Component {
     this.mapRef = React.createRef();
     this.state = {
       countries: [],
-      counties: [],
-      timeline: []
+      counties: []
     };
   }
 
   async componentDidMount() {
     await fetchWorldData().then(countries => this.setState({ countries }));
     await fetchUSData().then(counties => this.setState({ counties }));
-    await fetchTimeData().then(timeline => this.setState({ timeline }))
 
     loadModules(
       [
@@ -40,29 +38,6 @@ export default class WorldMap extends Component {
     ).then(
       ([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle, Expand]) => {
 
-
-
-        console.log("this.state", this.state.timeline)
-        const timelineGraphics = this.state.timeline.map(point => {
-          //console.log(point)
-          //console.log(point.history)
-
-          return new Graphic({
-            attributes: {
-              ObjectId: point.id,
-              country: point.country,
-              // history: point.history,
-              date: point.date,
-              cases: point.cases
-            },
-            geometry: {
-              longitude: point.long,
-              latitude: point.lat,
-              type: "point"
-            }
-          })
-        })
-
         const worldGraphics = this.state.countries.map(point => {
           return new Graphic({
             attributes: {
@@ -72,7 +47,6 @@ export default class WorldMap extends Component {
               province: point.province,
               last_updated: point.last_updated,
               confirmed_cases: point.confirmed,
-              //recovered: point.recovered,
               deaths: point.deaths
             },
             geometry: {
@@ -93,7 +67,6 @@ export default class WorldMap extends Component {
               county: point.county,
               last_updated: point.last_updated,
               confirmed_cases: point.confirmed,
-              //recovered: point.recovered,
               deaths: point.deaths
             },
             geometry: {
@@ -104,32 +77,9 @@ export default class WorldMap extends Component {
           });
         });
 
-        const timeLine = new FeatureLayer({
-          source: timelineGraphics,
-          visible: true,
-          outFields: ["*"],
-          title: "COVID-19 Timeline",
-          renderer: covidCasesRenderer,
-          popupTemplate: worldPopupTemplate,
-          objectIdField: "ObjectID",
-          fields: worldFields
-        })
-
-
-        const covidChoropleth = new FeatureLayer({
-          url: "https://services7.arcgis.com/Ya9q8cnnxtYOu4WD/arcgis/rest/services/Choropleth2/FeatureServer",
-          visible: false,
-          outFields: ["*"],
-          title: "Global COVID-19 Cases Choropleth",
-          renderer: choroplethRenderer,
-          popupTemplate: choroplethPopupTemplate,
-          objectIdField: "JOIN_FID",
-          fields: choroplethFields
-        })
-
         const worldCovidCases = new FeatureLayer({
           source: worldGraphics,
-          visible: false,
+          visible: true,
           outFields: ["*"],
           title: "Global COVID-19 Cases",
           renderer: covidCasesRenderer,
@@ -140,7 +90,7 @@ export default class WorldMap extends Component {
 
         const worldCovidDeaths = new FeatureLayer({
           source: worldGraphics,
-          visible: false,
+          visible: true,
           outFields: ["*"],
           title: "Global COVID-19 Deaths",
           renderer: covidDeathsRenderer,
@@ -173,7 +123,7 @@ export default class WorldMap extends Component {
 
         const map = new Map({
           basemap: "dark-gray",
-          layers: [covidChoropleth, usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths, timeLine]
+          layers: [usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths]
         });
 
         this.view = new MapView({
@@ -198,9 +148,7 @@ export default class WorldMap extends Component {
         layerList.on("trigger-action", function(event) {
           const actionId = event.action.id;
           const layer = event.item.layer;
-          //This expression below is what lets us filter the virus by case load
           const subExpression = expressions.find(function(item) {
-            //console.log("The item.id:", item.id);
             return item.id === actionId;
           }).expression;
 
@@ -212,9 +160,8 @@ export default class WorldMap extends Component {
 
         function createActions(event) {
           const item = event.item;
-          // console.log("event:", event)
           item.actionsOpen = true;
-          item.actionsSections = covidCasesGlobalActionSections;
+          item.actionsSections = covid19ActionSections;
         }
 
         function createDefinitionExpression(subExpression) {
@@ -232,7 +179,6 @@ export default class WorldMap extends Component {
 
   componentWillUnmount() {
     if (this.view) {
-      // destroy the map view
       this.view.container = null;
     }
   }
