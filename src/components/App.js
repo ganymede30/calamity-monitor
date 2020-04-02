@@ -16,13 +16,15 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={isDarkMode ? colorsDark : colorsLight}>
-        <GlobalStyles />
-        <Navbar theme={isDarkMode} setTheme={toggler} />
-        <Routes />
-      </ThemeProvider>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <ThemeProvider theme={isDarkMode ? colorsDark : colorsLight}>
+          <GlobalStyles />
+          <Navbar theme={isDarkMode} setTheme={toggler} />
+          <Routes />
+        </ThemeProvider>
+      </BrowserRouter>
+    </>
   );
 };
 

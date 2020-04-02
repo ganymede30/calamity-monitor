@@ -10,8 +10,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: Lato, Helvetica, Roboto, sans-serif;
-    width: 100vw;
-    overflow-x: hidden;
+    width: 100%;
     background: ${({ theme }) => theme.backgroundColor};
   }
 
@@ -28,15 +27,12 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .webmap {
-    height: Calc(100vh - 9vh);
+    height: Calc(100vh - 55px);
   }
 
   ${mobile} {
-    min-height: -moz-available; /* WebKit-based browsers will ignore this. */
-    min-height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    min-height: fill-available;
-  }
-
-  `;
+    .webmap {
+      height: Calc(90vh - 55px);
+`;
 
 export default GlobalStyles;

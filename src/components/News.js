@@ -14,7 +14,7 @@ const News = () => {
   }, []);
 
   return (
-    <>
+    <> 
       <Wrapper>
         <SubWrapper>
           <Title>News Feed</Title>
