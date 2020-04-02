@@ -18,7 +18,7 @@
   will-change: transform, opacity;
   overflow: hidden;
   display: flex;
-  align-items: left;
+  text-align: center;
   justify-content: flex-end;
 }
 

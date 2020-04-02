@@ -17,17 +17,32 @@ class Health extends React.Component {
         <ParallaxLayer offset={0.15} speed={0.8}>
           <img
             src={virusURL}
-            style={{display: 'block', width: '20%', marginLeft: '55%'}}
+            style={{
+              display: 'block',
+              width: '20%',
+              marginLeft: '55%',
+              position: 'absolute',
+            }}
           />
           <ParallaxLayer offset={0.5} speed={1.2}>
             <img
               src={virusURL}
-              style={{display: 'block', width: '10%', marginLeft: '15%'}}
+              style={{
+                display: 'block',
+                width: '10%',
+                marginLeft: '15%',
+                position: 'absolute',
+              }}
             />
             <ParallaxLayer offset={2.1} speed={0.4}>
               <img
                 src={virusURL}
-                style={{display: 'block', width: '16%', marginLeft: '80%'}}
+                style={{
+                  display: 'block',
+                  width: '16%',
+                  marginLeft: '80%',
+                  position: 'absolute',
+                }}
               />
             </ParallaxLayer>
           </ParallaxLayer>
@@ -43,10 +58,13 @@ class Health extends React.Component {
         >
           <img
             src={shipURL}
-            style={{width: '75%', borderRadius: '20px 0px 0px 20px'}}
+            style={{
+              width: '75%',
+              borderRadius: '20px 0px 0px 20px',
+              position: 'relative',
+            }}
           />
         </ParallaxLayer>
-
         <ParallaxLayer
           offset={-0.01}
           speed={0.4}
@@ -60,7 +78,7 @@ class Health extends React.Component {
             style={{position: 'absolute', marginBottom: 50}}
             onClick={() => this.parallax.scrollTo(1)}
           >
-            <h1>SYMPTOMS</h1>
+            <button>HELP</button>
           </a>
         </ParallaxLayer>
         <ParallaxLayer
@@ -73,7 +91,7 @@ class Health extends React.Component {
           }}
         >
           <a onClick={() => this.parallax.scrollTo(2)}>
-            <h1>SIMULATION</h1>
+            <button>SIMULATION</button>
           </a>
         </ParallaxLayer>
         <ParallaxLayer
@@ -107,44 +125,17 @@ class Health extends React.Component {
             <small>Credit: Swizec Teller</small>
           </h6>
         </ParallaxLayer>
-        {/* <ParallaxLayer
-          offset={0}
-          speed={0}
-          style={{backgroundImage: url('stars', true), backgroundSize: 'cover'}}
-        >
-          Pink
-        </ParallaxLayer>
-
         <ParallaxLayer
-          offset={0}
-          speed={2}
-          onClick={() => this.parallax.scrollTo(1)}
+          offset={1}
+          speed={0.7}
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            backgroundImage: url(
-              'https://www.genengnews.com/wp-content/uploads/2020/02/Feb27_2020_CDC_Coronavirus.jpg'
-            ),
-          }}  
-        >
-          PAGE ZERO TO ONE
-        </ParallaxLayer>
-
-
-        <ParallaxLayer
-          offset={2}
-          speed={-0}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            marginLeft: '8%',
           }}
-          onClick={() => this.parallax.scrollTo(0)}
         >
-          PAGE TWO TO ZERO
-          <img href={url('bash')} style={{width: '40%'}} />
-        </ParallaxLayer> */}
+          <Showhide />
+        </ParallaxLayer>
       </Parallax>
     );
   }
