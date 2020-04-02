@@ -11,8 +11,7 @@ const Routes = () => {
       <Route exact path="/" component={Home} />
       {/* <Route exact path="/US_Map" component ={US_Map}/> */}
       <Route exact path="/news" component={News} />
-      <Route exact path="/Health" component={Health} />
-      
+      <Route exact path="/health" component={Health} />
     </Switch>
   );
 };

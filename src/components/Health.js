@@ -14,22 +14,20 @@ class Health extends React.Component {
   render() {
     const query = new URLSearchParams(window.location.search);
     return (
-      <Parallax ref={ref => (this.parallax = ref)} pages={3} style={{ height: "90vh" }}>
-        <ParallaxLayer offset={0} speed={0.9}>
-          <Grid container justify="center" style={{ margin: "10px" }}>
+      <Parallax
+        className="Parallax-main"
+        ref={ref => (this.parallax = ref)}
+        pages={2}
+        style={{ height: "90vh" }}>
+        <ParallaxLayer className="offset-0" offset={0} speed={1}>
+          <Grid className="Grid-container" container justify="center" style={{ margin: "10px" }}>
             <Grid item style={{ margin: "10px" }}>
-              <Button
-                onClick={() => this.parallax.scrollTo(1.1)}
-                variant="contained"
-                color="primary">
+              <Button onClick={() => this.parallax.scrollTo(1)} variant="contained" color="primary">
                 <Typography>Health</Typography>
               </Button>
             </Grid>
             <Grid item style={{ margin: "10px" }}>
-              <Button
-                onClick={() => this.parallax.scrollTo(1.1)}
-                variant="contained"
-                color="primary">
+              <Button onClick={() => this.parallax.scrollTo(2)} variant="contained" color="primary">
                 <Typography>Simulation</Typography>
               </Button>
             </Grid>
@@ -37,13 +35,12 @@ class Health extends React.Component {
           <Grid container justify="center">
             <Title>Global Data</Title>
           </Grid>
-
           <Grid item style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
             <img src=".././coronavirus_graph.png" />
           </Grid>
         </ParallaxLayer>
 
-        <ParallaxLayer offset={0.15} speed={0.8}>
+        <ParallaxLayer className="offset-0.15" offset={0.7} speed={0.8}>
           <img
             src={virusURL}
             style={{
@@ -54,7 +51,7 @@ class Health extends React.Component {
               position: "absolute"
             }}
           />
-          <ParallaxLayer offset={0.5} speed={1.2}>
+          <ParallaxLayer offset={1.3} speed={1.2}>
             <img
               src={virusURL}
               style={{
@@ -64,7 +61,7 @@ class Health extends React.Component {
                 position: "absolute"
               }}
             />
-            <ParallaxLayer offset={2.1} speed={0.4}>
+            <ParallaxLayer offset={1.7} speed={0.4}>
               <img
                 src={virusURL}
                 style={{
@@ -77,72 +74,10 @@ class Health extends React.Component {
             </ParallaxLayer>
           </ParallaxLayer>
         </ParallaxLayer>
-        <ParallaxLayer
-          offset={0.5}
-          speed={0.4}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end"
-          }}></ParallaxLayer>
-        <ParallaxLayer
-          offset={-0.01}
-          speed={0.4}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}></ParallaxLayer>
-        <ParallaxLayer
-          offset={0.1}
-          speed={0.2}
-          style={{
-            display: "flex",
-            alignItems: "right",
-            justifyContent: "center"
-          }}></ParallaxLayer>
-        <ParallaxLayer
-          offset={2}
-          speed={1}
-          style={{
-            alignItems: "right",
-            justifyContent: "center",
-            textAlign: "center"
-          }}>
-          <a id="top" onClick={() => this.parallax.scrollTo(0)}>
-            <div>
-              <div>^^</div>
-              <div>go back to the top</div>
-            </div>
-          </a>
-
-          <Simulation
-            cx={400}
-            cy={200}
-            width={400}
-            height={300}
-            defaultMortality={query.get("mortality") || 4}
-            defaultVirality={query.get("virality") || 50}
-            defaultLengthOfInfection={query.get("lengthOfInfection") || 40}
-            defaultSocialDistancing={query.get("socialDistancing") || 0}
-            defaultReinfectability={query.get("reinfectability") || 30}
-          />
-          <h6>
-            <small>Credit: Swizec Teller</small>
-          </h6>
-        </ParallaxLayer>
-        <ParallaxLayer offset={1.15} speed={0.8}>
+        <ParallaxLayer offset={0.9999999} speed={1}>
           <h2 id="mid">Tips and Links</h2>
         </ParallaxLayer>
-        <ParallaxLayer
-          offset={1}
-          speed={0.9}
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            marginBottom: "40%"
-          }}>
+        <ParallaxLayer offset={0.9999999} speed={1}>
           <a href="https://www.cdc.gov/coronavirus" target="_blank">
             <img
               style={{ width: "85px", height: "75px" }}
@@ -157,15 +92,30 @@ class Health extends React.Component {
             />
           </a>
         </ParallaxLayer>
-        <ParallaxLayer
-          offset={1.3}
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center"
-          }}>
-          <h2>PLACEHOLDER</h2>
-          <h2>PLACEHOLDER</h2>
+
+        <ParallaxLayer offset={1.2} speed={1}>
+          <a id="top" onClick={() => this.parallax.scrollTo(0)}>
+            <div>
+              <div>^^</div>
+              <div>go back to the top</div>
+            </div>
+          </a>
+          <>
+            <Simulation
+              cx={400}
+              cy={200}
+              width={400}
+              height={300}
+              defaultMortality={query.get("mortality") || 4}
+              defaultVirality={query.get("virality") || 50}
+              defaultLengthOfInfection={query.get("lengthOfInfection") || 40}
+              defaultSocialDistancing={query.get("socialDistancing") || 0}
+              defaultReinfectability={query.get("reinfectability") || 30}
+            />
+            <h6>
+              <small>Credit: Swizec Teller</small>
+            </h6>
+          </>
         </ParallaxLayer>
       </Parallax>
     );
