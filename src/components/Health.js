@@ -14,29 +14,34 @@ class Health extends React.Component {
   render() {
     const query = new URLSearchParams(window.location.search);
     return (
-      // <div className="test">
       <Parallax ref={ref => (this.parallax = ref)} pages={3} style={{ height: "90vh" }}>
-        {/* <ParallaxLayer offset={0} speed={0.9}> */}
-        <Grid container justify="center" style={{ margin: "10px" }}>
-          <Grid item style={{ margin: "10px" }}>
-            <Button onClick={() => this.parallax.scrollTo(1.1)} variant="contained" color="primary">
-              <Typography>Health</Typography>
-            </Button>
+        <ParallaxLayer offset={0} speed={0.9}>
+          <Grid container justify="center" style={{ margin: "10px" }}>
+            <Grid item style={{ margin: "10px" }}>
+              <Button
+                onClick={() => this.parallax.scrollTo(1.1)}
+                variant="contained"
+                color="primary">
+                <Typography>Health</Typography>
+              </Button>
+            </Grid>
+            <Grid item style={{ margin: "10px" }}>
+              <Button
+                onClick={() => this.parallax.scrollTo(1.1)}
+                variant="contained"
+                color="primary">
+                <Typography>Simulation</Typography>
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item style={{ margin: "10px" }}>
-            <Button onClick={() => this.parallax.scrollTo(1.1)} variant="contained" color="primary">
-              <Typography>Simulation</Typography>
-            </Button>
+          <Grid container justify="center">
+            <Title>Global Data</Title>
           </Grid>
-        </Grid>
-        <Grid container justify="center">
-          <Title>Global Data</Title>
-        </Grid>
 
-        <Grid item style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
-          <img src=".././coronavirus_graph.png" />
-        </Grid>
-        {/* </ParallaxLayer> */}
+          <Grid item style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
+            <img src=".././coronavirus_graph.png" />
+          </Grid>
+        </ParallaxLayer>
 
         <ParallaxLayer offset={0.15} speed={0.8}>
           <img
@@ -136,7 +141,6 @@ class Health extends React.Component {
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
-            // flexDirection: 'column',
             marginBottom: "40%"
           }}>
           <a href="https://www.cdc.gov/coronavirus" target="_blank">
@@ -164,7 +168,6 @@ class Health extends React.Component {
           <h2>PLACEHOLDER</h2>
         </ParallaxLayer>
       </Parallax>
-      // </div>
     );
   }
 }
