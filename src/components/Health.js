@@ -131,6 +131,22 @@ class Health extends React.Component {
           style={{
             display: 'flex',
             alignItems: 'center',
+            marginBottom: '40%',
+          }}
+        >
+          <a href="https://www.cdc.gov/coronavirus" target="_blank">
+            <img
+              style={{width: '85px', height: '75px'}}
+              src="https://wlflegalpulse.files.wordpress.com/2011/06/cdc_logo3.jpg?w=300&"
+            />
+          </a>
+        </ParallaxLayer>
+        <ParallaxLayer
+          offset={1}
+          speed={0.7}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
             marginLeft: '8%',
           }}
         >
