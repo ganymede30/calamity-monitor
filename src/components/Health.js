@@ -85,12 +85,13 @@ class Health extends React.Component {
             textAlign: 'center',
           }}
         >
-          <a onClick={() => this.parallax.scrollTo(0)}>
-            <img
-              src="https://static.thenounproject.com/png/1195138-200.png"
-              id="top"
-            />
+          <a id="top" onClick={() => this.parallax.scrollTo(0)}>
+            <div>
+              <div>^^</div>
+              <div>go back to the top</div>
+            </div>
           </a>
+
           <Simulation
             cx={400}
             cy={200}
@@ -102,7 +103,9 @@ class Health extends React.Component {
             defaultSocialDistancing={query.get('socialDistancing') || 0}
             defaultReinfectability={query.get('reinfectability') || 30}
           />
-          <h4>Credit: Swizec Teller</h4>
+          <h6>
+            <small>Credit: Swizec Teller</small>
+          </h6>
         </ParallaxLayer>
         {/* <ParallaxLayer
           offset={0}
