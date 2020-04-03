@@ -36,9 +36,28 @@
     </style> -->
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
     <div id="root"></div>
-    <!--
+
+  <!-- load the amCharts base library -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<!-- in this case, we only need bar charts, so we'll load the appropriate amCharts script -->
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<!-- load the arcgis-rest-js scripts -->
+<script src="https://unpkg.com/@esri/arcgis-rest-request"></script>
+<script src="https://unpkg.com/@esri/arcgis-rest-feature-layer"></script>
+<!-- optionally load an amcharts theme; cedar provides a calcite theme -->
+<script src="https://unpkg.com/@esri/cedar/dist/umd/themes/amCharts/calcite.js"></script>
+<!-- load cedar -->
+<script src="https://unpkg.com/@esri/cedar/dist/umd/cedar.js"></script>
+
+
+
+
+
+
+
+<!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 

@@ -7,15 +7,16 @@ import { worldFields, usFields } from "../../services/worldMapServices/fields";
 import { covidCasesExpressions } from "../../services/worldMapServices/expressions";
 import { covid19ActionSections } from "../../services/worldMapServices/actionSections";
 
+
 export default class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
     this.state = {
       countries: [],
-      counties: []
+      counties: [] 
     };
-  }
+  } 
 
   async componentDidMount() {
     await fetchWorldData().then(countries => this.setState({ countries }));
@@ -126,6 +127,8 @@ export default class WorldMap extends Component {
           layers: [usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths]
         });
 
+         
+
         this.view = new MapView({
           container: this.mapRef.current,
           map: map,
@@ -173,6 +176,11 @@ export default class WorldMap extends Component {
           nextBasemap: "gray"
         });
         this.view.ui.add(toggle, "bottom-right");
+
+       
+       
+
+
       }
     );
   }
@@ -184,6 +192,15 @@ export default class WorldMap extends Component {
   }
 
   render() {
-    return <div className="webmap" ref={this.mapRef} theme={"light"} />;
+  return (
+    <div className="webmap" ref={this.mapRef} theme={"light"}>
+      
+  </div>
+  
+    
+    
+     
+  );
+
   }
 }
