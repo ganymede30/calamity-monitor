@@ -1,4 +1,4 @@
-export const actionSectionsCovid19 = [
+export const covid19ActionSections = [
   [
     {
       title: "View All Layers",
@@ -21,14 +21,11 @@ export const actionSectionsCovid19 = [
       id: "1,000-10,000",
     },
     {
-      title: "100-1,000 Confirmed Cases",
+      title: "1-1000 Confirmed Cases",
       className: "esri-icon-close-circled",
-      id: "100-1,000"
-    },
-    {
-      title: "1-100 Confirmed Cases",
-      className: "esri-icon-close-circled",
-      id: "1-100"
+      id: "1-1,000"
     }
   ],
 ];
+
+

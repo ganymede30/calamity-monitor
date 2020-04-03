@@ -1,5 +1,4 @@
 export const worldPopupTemplate = {
-  // autocasts as new PopupTemplate()
   title: "COVID-19",
   content: [
     {
@@ -25,11 +24,11 @@ export const worldPopupTemplate = {
           label: "Confirmed Cases",
           visible: true
         },
-        {
-          fieldName: "recovered",
-          label: "Recovered",
-          visible: true
-        },
+        // {
+        //   fieldName: "recovered",
+        //   label: "Recovered",
+        //   visible: true
+        // },
         {
           fieldName: "deaths",
           label: "Deaths",
@@ -41,7 +40,6 @@ export const worldPopupTemplate = {
 }
 
 export const usPopupTemplate = {
-  // autocasts as new PopupTemplate()
   title: "COVID-19",
   content: [
     {
@@ -72,11 +70,11 @@ export const usPopupTemplate = {
           label: "Confirmed Cases",
           visible: true
         },
-        {
-          fieldName: "recovered",
-          label: "Recovered",
-          visible: true
-        },
+        // {
+        //   fieldName: "recovered",
+        //   label: "Recovered",
+        //   visible: true
+        // },
         {
           fieldName: "deaths",
           label: "Deaths",
@@ -86,4 +84,3 @@ export const usPopupTemplate = {
     }
   ]
 }
-

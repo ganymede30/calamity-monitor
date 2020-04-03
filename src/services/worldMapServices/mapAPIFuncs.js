@@ -3,7 +3,6 @@ export const fetchWorldData = () => {
     .then(response => response.json())
     .then(data => {
       const { locations } = data;
-      // latest: latest data from the whole world
       return locations.map(location => ({
         id: location.id,
         lat: location.coordinates.latitude,
@@ -13,8 +12,7 @@ export const fetchWorldData = () => {
         province: location.province,
         last_updated: location.last_updated,
         confirmed: location.latest.confirmed,
-        deaths: location.latest.deaths,
-        //recovered: location.latest.recovered
+        deaths: location.latest.deaths
       }));
     });
 };
@@ -24,7 +22,6 @@ export const fetchUSData = () => {
     .then(response => response.json())
     .then(data => {
       const { locations } = data;
-      // latest: latest data from the whole world
       return locations.map(location => ({
         id: location.id,
         lat: location.coordinates.latitude,
@@ -35,15 +32,7 @@ export const fetchUSData = () => {
         county: location.county,
         last_updated: location.last_updated,
         confirmed: location.latest.confirmed,
-        deaths: location.latest.deaths,
-        //recovered: location.latest.recovered
+        deaths: location.latest.deaths
       }));
     });
 };
-
-// export const fetchLatestData = () => {
-//   return fetch("https://coronavirus-tracker-api.herokuapp.com/v2/latest?source=jhu")
-//         .then(data => {
-            
-//         })
-// }
