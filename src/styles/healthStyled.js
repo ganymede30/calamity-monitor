@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { tablet } from "./mediaQueries";
 
 export const Title = styled.h1`
   color: ${props => props.theme.titleText};

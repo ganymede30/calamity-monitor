@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
-//import US_Map from "./components/US_Map"
 import News from "./components/News";
 import Health from "./components/Health";
 

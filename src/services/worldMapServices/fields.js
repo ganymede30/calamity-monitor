@@ -24,17 +24,12 @@ export const worldFields = [
     alias: "Confirmed Cases",
     type: "integer"
   },
-  // {
-  //   name: "recovered",
-  //   alias: "Recovered",
-  //   type: "integer"
-  // },
   {
     name: "deaths",
     alias: "Deaths",
     type: "integer"
   }
-]
+];
 
 export const usFields = [
   {
@@ -67,14 +62,9 @@ export const usFields = [
     alias: "Confirmed Cases",
     type: "integer"
   },
-  // {
-  //   name: "recovered",
-  //   alias: "Recovered",
-  //   type: "integer"
-  // },
   {
     name: "deaths",
     alias: "Deaths",
     type: "integer"
   }
-]
+];

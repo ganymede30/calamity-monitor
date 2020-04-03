@@ -17,22 +17,16 @@ export const useInfiniteScroll = () => {
 
   useEffect(() => {
     if (!loading) return;
-
     if (count + STORY_INCREMENT >= MAX_STORIES) {
-      // if count + story increment is > than max stop the scrolling;
       setCount(MAX_STORIES);
     } else {
-      // else increment the count by story increment
       setCount(count + STORY_INCREMENT);
     }
-
     setLoading(false);
   }, [loading]);
 
   useEffect(() => {
-    // listen for the scroll;
     window.addEventListener("scroll", handleScroll);
-    // unsubscribe, cleanup.
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

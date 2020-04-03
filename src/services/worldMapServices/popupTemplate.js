@@ -24,11 +24,6 @@ export const worldPopupTemplate = {
           label: "Confirmed Cases",
           visible: true
         },
-        // {
-        //   fieldName: "recovered",
-        //   label: "Recovered",
-        //   visible: true
-        // },
         {
           fieldName: "deaths",
           label: "Deaths",
@@ -37,7 +32,7 @@ export const worldPopupTemplate = {
       ]
     }
   ]
-}
+};
 
 export const usPopupTemplate = {
   title: "COVID-19",
@@ -70,11 +65,6 @@ export const usPopupTemplate = {
           label: "Confirmed Cases",
           visible: true
         },
-        // {
-        //   fieldName: "recovered",
-        //   label: "Recovered",
-        //   visible: true
-        // },
         {
           fieldName: "deaths",
           label: "Deaths",
@@ -83,4 +73,4 @@ export const usPopupTemplate = {
       ]
     }
   ]
-}
+};

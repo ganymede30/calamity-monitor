@@ -1,10 +1,6 @@
 import React from "react";
 import Loader from "calcite-react/Loader";
-// import background from "../styles/images/worldMap.svg";
-
-// Styled & Motion Components
 import styled from "styled-components";
-// import { motion } from "framer-motion";
 
 const Container = styled.div`
   display: flex;

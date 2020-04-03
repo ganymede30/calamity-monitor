@@ -1,6 +1,4 @@
-import styled from "styled-components"
-import { mobile } from "./mediaQueries"
-
+import styled from "styled-components";
 
 const MyMobileNav = styled.nav`
    background: #3f51b5;
@@ -11,11 +9,7 @@ const MyMobileNav = styled.nav`
    align-self: flex-end
    height: 60vh;
 
-  //  transition: transform 1s;
-  //  transform: translateX(100%)
-  
 
-`; 
- 
+`;
 
-export default MyMobileNav 
+export default MyMobileNav;
