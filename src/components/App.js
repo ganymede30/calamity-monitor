@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import GlobalStyles from "../styles/global";
 import { ThemeProvider } from "styled-components";
 import { colorsDark, colorsLight } from "../styles/palette";
-
 const App = () => {
   const stored = localStorage.getItem("isDarkMode");
   const [isDarkMode, setIsDarkMode] = useState(stored === "true" ? true : false);
