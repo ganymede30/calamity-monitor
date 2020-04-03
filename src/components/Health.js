@@ -15,9 +15,17 @@ class Health extends React.Component {
   render() {
     const query = new URLSearchParams(window.location.search);
     return (
-      <Parallax className="parallax-main" ref={ref => (this.parallax = ref)} pages={1}>
+      <Parallax
+        style={{ height: "calc(100vh - 55px)" }}
+        className="parallax-main"
+        ref={ref => (this.parallax = ref)}
+        pages={1}>
         <ParallaxLayer className="offset-0" offset={0} speed={1}>
-          <Grid className="Grid-container" container justify="center" style={{ margin: "10px" }}>
+          <Grid
+            className="Grid-container"
+            container
+            justify="center"
+            style={{ margin: "10px", height: "auto" }}>
             <Grid item style={{ margin: "10px" }}>
               <Button
                 onClick={() => this.parallax.scrollTo(0.3)}

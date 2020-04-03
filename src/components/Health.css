@@ -7,10 +7,6 @@
   cursor: pointer;
 }
 
-.parallax-main {
-  height: calc(100vh - 55px) !important;
-}
-
 .parallax-main > div {
   overflow: unset !important;
 }
@@ -46,8 +42,4 @@
 
 .MuiGrid-item > div {
   position: unset;
-}
-
-.offset-0 {
-  height: auto !important;
 }
