@@ -12,7 +12,6 @@ const darkMode = makeStyles(() => {
     buttonText: {
       fontSize: "1rem",
       color: "#e0e0e0"
-      // textTransform: "capitalize"
     },
     navBar: {
       backgroundColor: "#333333",

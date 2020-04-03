@@ -1,0 +1,59 @@
+/* img:hover {
+  opacity: 0.5;
+} */
+
+.reveals-main {
+  width: 100%;
+  height: auto;
+  /* overflow: hidden; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  cursor: pointer;
+}
+
+.parallax-main {
+  height: calc(100vh - 55px) !important;
+}
+
+.parallax-main > div {
+  overflow: unset !important;
+}
+
+.reveals-main > div {
+  font-weight: 800;
+  font-size: 10;
+  will-change: transform, opacity;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+#main2 {
+  display: flex;
+  align-items: flex-end;
+}
+
+#top {
+  display: flex;
+  align-items: flex-start;
+}
+
+#mid {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+#sim {
+  text-align: center;
+}
+
+.MuiGrid-item > div {
+  position: unset;
+}
+
+.offset-0 {
+  height: auto !important;
+}
