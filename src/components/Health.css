@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 
-.parallax-main > div {
+.parallax-main div {
   overflow: unset !important;
 }
 
