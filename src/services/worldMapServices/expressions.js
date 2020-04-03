@@ -1,4 +1,4 @@
-export const expressionsCovid19 = [
+export const covidCasesExpressions = [
   {
     id: "All",
     expression: "confirmed_cases > 0"
@@ -16,11 +16,30 @@ export const expressionsCovid19 = [
     expression: "confirmed_cases > 1000 AND confirmed_cases <= 10000"
   },
   {
-    id: "100-1,000",
-    expression: "confirmed_cases > 100 AND confirmed_cases <= 1000"
+    id: "1-1,000",
+    expression: "confirmed_cases > 1 AND confirmed_cases <= 1000"
+  }
+]
+
+export const covidDeathsExpressions = [
+  {
+    id: "All",
+    expression: "deaths > 0"
+  },
+  {
+    id: "10,000+",
+    expression: "deaths > 10000"
+  },
+  {
+    id: "1,000-10,000",
+    expression: "deaths > 1000 AND deaths <= 10000"
+  },
+  {
+    id: "1000-1,000",
+    expression: "deaths > 100 AND deaths <= 1000"
   },
   {
     id: "1-100",
-    expression: "confirmed_cases > 10 AND confirmed_cases <= 100"
+    expression: "deaths > 1 AND deaths <= 100"
   }
 ]

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { loadModules } from "esri-loader";
 import { fetchWorldData, fetchUSData } from "../../services/worldMapServices/mapAPIFuncs";
-import { renderer } from "../../services/worldMapServices/renderer";
+import { covidCasesRenderer, covidDeathsRenderer } from "../../services/worldMapServices/renderer";
 import { worldPopupTemplate, usPopupTemplate } from "../../services/worldMapServices/popupTemplate";
 import { worldFields, usFields } from "../../services/worldMapServices/fields";
-import { expressionsCovid19 } from "../../services/worldMapServices/expressions";
-import { actionSectionsCovid19 } from "../../services/worldMapServices/actionSections";
+import { covidCasesExpressions } from "../../services/worldMapServices/expressions";
+import { covid19ActionSections } from "../../services/worldMapServices/actionSections";
 
 
 export default class WorldMap extends Component {
@@ -38,9 +38,6 @@ export default class WorldMap extends Component {
       }
     ).then(
       ([Map, MapView, FeatureLayer, Graphic, LayerList, Collection, BasemapToggle, Expand]) => {
-        const map = new Map({
-          basemap: "dark-gray"
-        });
 
         const worldGraphics = this.state.countries.map(point => {
           return new Graphic({
@@ -51,7 +48,6 @@ export default class WorldMap extends Component {
               province: point.province,
               last_updated: point.last_updated,
               confirmed_cases: point.confirmed,
-              //recovered: point.recovered,
               deaths: point.deaths
             },
             geometry: {
@@ -72,7 +68,6 @@ export default class WorldMap extends Component {
               county: point.county,
               last_updated: point.last_updated,
               confirmed_cases: point.confirmed,
-              //recovered: point.recovered,
               deaths: point.deaths
             },
             geometry: {
@@ -83,41 +78,63 @@ export default class WorldMap extends Component {
           });
         });
 
-        const worldFeatureLayer = new FeatureLayer({
+        const worldCovidCases = new FeatureLayer({
           source: worldGraphics,
+          visible: true,
           outFields: ["*"],
           title: "Global COVID-19 Cases",
-          renderer: renderer,
+          renderer: covidCasesRenderer,
           popupTemplate: worldPopupTemplate,
           objectIdField: "ObjectID",
           fields: worldFields
         });
 
-        const usFeatureLayer = new FeatureLayer({
+        const worldCovidDeaths = new FeatureLayer({
+          source: worldGraphics,
+          visible: true,
+          outFields: ["*"],
+          title: "Global COVID-19 Deaths",
+          renderer: covidDeathsRenderer,
+          popupTemplate: worldPopupTemplate,
+          objectIdField: "ObjectID",
+          fields: worldFields
+        });
+
+        const usCovidCases = new FeatureLayer({
           source: usGraphics,
+          visible: false,
+          outFields: ["*"],
           title: "US COVID-19 Cases",
-          renderer: renderer,
+          renderer: covidCasesRenderer,
           popupTemplate: usPopupTemplate,
           objectIdField: "ObjectID",
           fields: usFields
         });
 
-        usFeatureLayer.visible = false;
+        const usCovidDeaths = new FeatureLayer({
+          source: usGraphics,
+          visible: false,
+          outFields: ["*"],
+          title: "US COVID-19 Deaths",
+          renderer: covidDeathsRenderer,
+          popupTemplate: usPopupTemplate,
+          objectIdField: "ObjectID",
+          fields: usFields
+        });
 
-        map.add(usFeatureLayer);
-        map.add(worldFeatureLayer);
+        const map = new Map({
+          basemap: "dark-gray",
+          layers: [usCovidCases, usCovidDeaths, worldCovidCases, worldCovidDeaths]
+        });
 
          
 
         this.view = new MapView({
           container: this.mapRef.current,
           map: map,
-          center: [-98, 36]
+          center: [-98, 36],
+          constraints: {minZoom: 3}
         });
-
-        this.view.constraints = {
-          minZoom: 3
-        };
 
         const layerList = new LayerList({
           view: this.view,
@@ -129,14 +146,12 @@ export default class WorldMap extends Component {
         });
         this.view.ui.add(layerListExpand, "top-right");
 
-        const expressions = new Collection(expressionsCovid19);
+        const expressions = new Collection(covidCasesExpressions);
 
         layerList.on("trigger-action", function(event) {
           const actionId = event.action.id;
           const layer = event.item.layer;
-          //This expression below is what lets us filter the virus by case load
           const subExpression = expressions.find(function(item) {
-            //console.log("The item.id:", item.id);
             return item.id === actionId;
           }).expression;
 
@@ -149,7 +164,7 @@ export default class WorldMap extends Component {
         function createActions(event) {
           const item = event.item;
           item.actionsOpen = true;
-          item.actionsSections = actionSectionsCovid19;
+          item.actionsSections = covid19ActionSections;
         }
 
         function createDefinitionExpression(subExpression) {
@@ -172,7 +187,6 @@ export default class WorldMap extends Component {
 
   componentWillUnmount() {
     if (this.view) {
-      // destroy the map view
       this.view.container = null;
     }
   }
