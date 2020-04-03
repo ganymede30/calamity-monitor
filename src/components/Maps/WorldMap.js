@@ -7,16 +7,15 @@ import { worldFields, usFields } from "../../services/worldMapServices/fields";
 import { expressionsCovid19 } from "../../services/worldMapServices/expressions";
 import { actionSectionsCovid19 } from "../../services/worldMapServices/actionSections";
 
-
 export default class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
     this.state = {
       countries: [],
-      counties: [] 
+      counties: []
     };
-  } 
+  }
 
   async componentDidMount() {
     await fetchWorldData().then(countries => this.setState({ countries }));
@@ -51,7 +50,6 @@ export default class WorldMap extends Component {
               province: point.province,
               last_updated: point.last_updated,
               confirmed_cases: point.confirmed,
-              //recovered: point.recovered,
               deaths: point.deaths
             },
             geometry: {
@@ -72,7 +70,6 @@ export default class WorldMap extends Component {
               county: point.county,
               last_updated: point.last_updated,
               confirmed_cases: point.confirmed,
-              //recovered: point.recovered,
               deaths: point.deaths
             },
             geometry: {
@@ -107,8 +104,6 @@ export default class WorldMap extends Component {
         map.add(usFeatureLayer);
         map.add(worldFeatureLayer);
 
-         
-
         this.view = new MapView({
           container: this.mapRef.current,
           map: map,
@@ -134,12 +129,9 @@ export default class WorldMap extends Component {
         layerList.on("trigger-action", function(event) {
           const actionId = event.action.id;
           const layer = event.item.layer;
-          //This expression below is what lets us filter the virus by case load
           const subExpression = expressions.find(function(item) {
-            //console.log("The item.id:", item.id);
             return item.id === actionId;
           }).expression;
-
           const definitionExpression = createDefinitionExpression(subExpression);
           layer.definitionExpression = definitionExpression;
         });
@@ -161,11 +153,6 @@ export default class WorldMap extends Component {
           nextBasemap: "gray"
         });
         this.view.ui.add(toggle, "bottom-right");
-
-       
-       
-
-
       }
     );
   }
@@ -178,15 +165,6 @@ export default class WorldMap extends Component {
   }
 
   render() {
-  return (
-    <div className="webmap" ref={this.mapRef} theme={"light"}>
-      
-  </div>
-  
-    
-    
-     
-  );
-
+    return <div className="webmap" ref={this.mapRef} theme={"light"}></div>;
   }
 }

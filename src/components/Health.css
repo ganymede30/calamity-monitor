@@ -4,12 +4,12 @@
 
 .reveals-main {
   width: 100%;
-  height: 80%;
+  height: auto;
   /* overflow: hidden; */
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   cursor: pointer;
 }
 
@@ -48,4 +48,12 @@
 
 #sim {
   text-align: center;
+}
+
+.MuiGrid-item > div {
+  position: unset;
+}
+
+.offset-0 {
+  height: auto !important;
 }

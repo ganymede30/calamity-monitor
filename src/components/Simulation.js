@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import * as d3 from 'd3';
-import hexoid from 'hexoid';
-
+import React, { useState, useEffect } from "react";
+import * as d3 from "d3";
+import hexoid from "hexoid";
+import { Button, Typography } from "@material-ui/core";
 const RADIUS = 5;
 
-const Human = ({x, y, infected, dead, recovered}) => {
-  let borderColour = 'rgb(146, 120, 226)';
-  let fillColour = 'white';
+const Human = ({ x, y, infected, dead, recovered }) => {
+  let borderColour = "rgb(146, 120, 226)";
+  let fillColour = "white";
 
   if (dead) {
     return null;
   }
   if (infected !== null) {
-    borderColour = 'rgb(246, 102, 64)';
-    fillColour = 'rgb(246, 102, 64)';
+    borderColour = "rgb(246, 102, 64)";
+    fillColour = "rgb(246, 102, 64)";
   } else if (recovered) {
-    borderColour = 'rgba(146, 119, 227, 0.5)';
-    fillColour = 'rgba(146, 119, 227, 0.5)';
+    borderColour = "rgba(146, 119, 227, 0.5)";
+    fillColour = "rgba(146, 119, 227, 0.5)";
   }
 
   return (
@@ -24,15 +24,14 @@ const Human = ({x, y, infected, dead, recovered}) => {
       cx={x}
       cy={y}
       r={RADIUS}
-      style={{fill: fillColour, stroke: borderColour, strokeWidth: 2}}
-    ></circle>
+      style={{ fill: fillColour, stroke: borderColour, strokeWidth: 2 }}></circle>
   );
 };
 
-const Slider = ({label, value, setter, unit = '%', editable}) => {
+const Slider = ({ label, value, setter, unit = "%", editable }) => {
   return (
     <p>
-      {label}:{' '}
+      {label}:{" "}
       {editable ? (
         <input
           type="range"
@@ -49,7 +48,7 @@ const Slider = ({label, value, setter, unit = '%', editable}) => {
   );
 };
 
-const createRow = ({cx, cy, width}) => {
+const createRow = ({ cx, cy, width }) => {
   // maximum number of circles that can possibly fit
   const N = Math.floor(width / 15);
 
@@ -63,13 +62,13 @@ const createRow = ({cx, cy, width}) => {
     x: xScale(i),
     y: cy,
     key: hexoid(25)(),
-    infected: null,
+    infected: null
   }));
 
   return row;
 };
 
-const createPopulation = ({cx, cy, width, height}) => {
+const createPopulation = ({ cx, cy, width, height }) => {
   const Nrows = Math.ceil(height / 15);
 
   //controls how high and low the SVG displays
@@ -84,9 +83,7 @@ const createPopulation = ({cx, cy, width, height}) => {
     .domain([0, Nrows / 2, Nrows])
     .range([15, width, 15]);
 
-  const rows = d3
-    .range(0, Nrows)
-    .map(i => createRow({cx, cy: yScale(i), width: widthScale(i)}));
+  const rows = d3.range(0, Nrows).map(i => createRow({ cx, cy: yScale(i), width: widthScale(i) }));
 
   return rows.reduce((population, row) => [...population, ...row]);
 };
@@ -99,7 +96,7 @@ const collision = pop => {
       .quadtree()
       .extent([
         [-1, -1],
-        [RADIUS * 2, RADIUS * 2],
+        [RADIUS * 2, RADIUS * 2]
       ])
       .x(d => d.x)
       .y(d => d.y)
@@ -116,13 +113,7 @@ const collision = pop => {
   return collisions.filter(p => p !== null);
 };
 
-const infectPeople = (
-  population,
-  touched,
-  iterationCount,
-  virality,
-  reinfectability
-) => {
+const infectPeople = (population, touched, iterationCount, virality, reinfectability) => {
   const touchedKeys = touched.map(p => p.key);
 
   return population.map(p => {
@@ -133,39 +124,34 @@ const infectPeople = (
           return {
             ...p,
             infected: iterationCount,
-            recovered: false,
+            recovered: false
           };
         } else return p;
       } else if (d3.randomUniform(0, 100)() < virality) {
         return {
           ...p,
           infected: iterationCount,
-          recovered: false,
+          recovered: false
         };
       } else return p;
     } else return p;
   });
 };
 
-const peopleRecoverOrDie = (
-  population,
-  iterationCount,
-  mortality,
-  lengthOfInfection
-) => {
+const peopleRecoverOrDie = (population, iterationCount, mortality, lengthOfInfection) => {
   return population.map(p => {
     if (p.infected) {
       if (d3.randomUniform(0, 1)() < mortality / lengthOfInfection) {
         return {
           ...p,
           dead: true,
-          infected: null, // dead people cannot infect others
+          infected: null // dead people cannot infect others
         };
       } else if (iterationCount - p.infected > lengthOfInfection) {
         return {
           ...p,
           infected: null,
-          recovered: true,
+          recovered: true
         };
       } else return p;
     } else return p;
@@ -183,7 +169,7 @@ const pplMove = (pop, socialDistancing) => {
       : {
           ...p,
           x: p.x + random(),
-          y: p.y + random(),
+          y: p.y + random()
         }
   );
 };
@@ -195,14 +181,14 @@ const usePopulation = ({
   virality,
   lengthOfInfection,
   socialDistancing,
-  reinfectability,
+  reinfectability
 }) => {
   const [population, setPopulation] = useState(
     createPopulation({
       cx: width / 2,
       cy: height / 2,
       width: width - 15,
-      height: height - 15,
+      height: height - 15
     })
   );
 
@@ -230,19 +216,8 @@ const usePopulation = ({
       let newPop = [...population];
 
       newPop = pplMove(newPop, socialDistancing);
-      newPop = infectPeople(
-        newPop,
-        collision(newPop),
-        iterationCount,
-        virality,
-        reinfectability
-      );
-      newPop = peopleRecoverOrDie(
-        newPop,
-        iterationCount,
-        mortality / 100,
-        lengthOfInfection
-      );
+      newPop = infectPeople(newPop, collision(newPop), iterationCount, virality, reinfectability);
+      newPop = peopleRecoverOrDie(newPop, iterationCount, mortality / 100, lengthOfInfection);
 
       return newPop;
     });
@@ -261,7 +236,7 @@ const usePopulation = ({
     startSimulation,
     stopSimulation,
     simulating,
-    iterationCount,
+    iterationCount
   };
 };
 
@@ -272,63 +247,52 @@ export const Simulation = ({
   defaultVirality = 50,
   defaultLengthOfInfection = 40,
   defaultSocialDistancing = 0,
-  defaultReinfectability = 30,
+  defaultReinfectability = 30
 }) => {
   const [mortality, setMortality] = useState(defaultMortality);
   const [virality, setVirality] = useState(defaultVirality);
-  const [lengthOfInfection, setLengthOfInfection] = useState(
-    defaultLengthOfInfection
-  );
-  const [socialDistancing, setSocialDistancing] = useState(
-    defaultSocialDistancing
-  );
-  const [reinfectability, setReinfectability] = useState(
-    defaultReinfectability
-  );
+  const [lengthOfInfection, setLengthOfInfection] = useState(defaultLengthOfInfection);
+  const [socialDistancing, setSocialDistancing] = useState(defaultSocialDistancing);
+  const [reinfectability, setReinfectability] = useState(defaultReinfectability);
 
-  const {
-    population,
-    startSimulation,
-    stopSimulation,
-    simulating,
-    iterationCount,
-  } = usePopulation({
-    width,
-    height,
-    mortality,
-    virality,
-    socialDistancing,
-    lengthOfInfection,
-    reinfectability,
-  });
+  const { population, startSimulation, stopSimulation, simulating, iterationCount } = usePopulation(
+    {
+      width,
+      height,
+      mortality,
+      virality,
+      socialDistancing,
+      lengthOfInfection,
+      reinfectability
+    }
+  );
 
   return (
     <>
       <svg
         style={{
           width,
-          height,
-        }}
-      >
+          height
+        }}>
         {population.map(p => (
           <Human {...p} />
         ))}
       </svg>
       <div>
         {simulating ? (
-          <button style={{alignItems: 'center'}} onClick={stopSimulation}>
-            Stop
-          </button>
+          <Button onClick={stopSimulation} size="small" variant="contained" color="default">
+            <Typography>Stop</Typography>
+          </Button>
         ) : (
-          <button style={{alignItems: 'center'}} onClick={startSimulation}>
-            Start simulation
-          </button>
+          <Button onClick={startSimulation} size="small" variant="contained" color="default">
+            <Typography>Start Simulation</Typography>
+          </Button>
         )}
       </div>
       <p>
-        Population: {population.filter(p => !p.dead).length}, Infected:{' '}
-        {population.filter(p => p.infected !== null).length}, Dead:{' '}
-        {population.filter(p => p.dead).length}, Recovered:{' '}
+        Population: {population.filter(p => !p.dead).length}, Infected:{" "}
+        {population.filter(p => p.infected !== null).length}, Dead:{" "}
+        {population.filter(p => p.dead).length}, Recovered:{" "}
         {population.filter(p => p.recovered).length}
       </p>
       {simulating ? <p>Iterations: {iterationCount}</p> : null}
@@ -339,18 +303,8 @@ export const Simulation = ({
         setter={setSocialDistancing}
         editable={!simulating}
       />
-      <Slider
-        label="Mortality"
-        value={mortality}
-        setter={setMortality}
-        editable={!simulating}
-      />
-      <Slider
-        label="Virality"
-        value={virality}
-        setter={setVirality}
-        editable={!simulating}
-      />
+      <Slider label="Mortality" value={mortality} setter={setMortality} editable={!simulating} />
+      <Slider label="Virality" value={virality} setter={setVirality} editable={!simulating} />
       <Slider
         label="Reinfectability"
         value={reinfectability}
