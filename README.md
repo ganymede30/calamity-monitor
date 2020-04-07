@@ -1,6 +1,7 @@
 # Calamity Monitor
 Calamity Monitor is a progressive web application that maps the most up to date information on COVID-19. It is made up of three components: a map displaying worldwide infections and deaths, a newsfeed displaying relevant information concerning the virus, and a health information page that displays how an infection can spread in a community. Deployed via Heroku: https://calamity-monitor.herokuapp.com/
 
+Conceptualized and built by Carlos de la Cruz, Michael Kenny, Gabriel Postelnicu and Trevor Seet
 
 ### Tech Stack Used
 * React
